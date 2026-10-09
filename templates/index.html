@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-[#05070B] text-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ASTRA // High Expression Digital</title>
+
+    <!-- Typography: Cormorant Garamond (Editorial) + Plus Jakarta Sans (Clean Tech) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP & Lenis Smooth Scroll -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #05070B;
+            overflow-x: hidden;
+        }
+
+        .font-serif-luxury {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .font-mono-tech {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Vignette mask for depth */
+        .cinematic-vignette {
+            background: radial-gradient(circle at center, transparent 35%, rgba(5, 7, 11, 0.85) 100%);
+        }
+
+        .text-mask {
+            overflow: hidden;
+        }
+
+        /* Sound scrubber wave animation */
+        @keyframes soundWave {
+            0%, 100% { height: 4px; }
+            50% { height: 18px; }
+        }
+
+        .sound-bar {
+            animation: soundWave 1.4s ease-in-out infinite;
+        }
+        .sound-bar:nth-child(2) { animation-delay: 0.2s; }
+        .sound-bar:nth-child(3) { animation-delay: 0.4s; }
+        .sound-bar:nth-child(4) { animation-delay: 0.1s; }
+        .sound-bar:nth-child(5) { animation-delay: 0.3s; }
+    </style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-v27.css', v='27') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v37.css', v='37') }}">
+</head>
+<body class="selection:bg-white selection:text-black">
+
+    <!-- PERSISTENT EDITORIAL HUD -->
+    <div class="fixed top-0 left-0 w-full z-50 p-6 sm:p-10 flex items-center justify-between pointer-events-none mix-blend-difference">
+        <div class="flex items-center gap-3">
+            <span class="font-mono-tech text-xs tracking-widest uppercase">ASTRA</span>
+            <span class="text-white/40 text-xs">/</span>
+            <span class="font-mono-tech text-[10px] text-white/60 tracking-wider">EXP. 2026</span>
+        </div>
+
+        <div class="font-mono-tech text-[10px] tracking-widest text-white/70 uppercase">
+            [ ARCHIVE EDITION ]
+        </div>
+    </div>
+
+    <!-- PERSISTENT SCROLL TRACKER (RIGHT SIDE) -->
+    <div class="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col items-end gap-5 font-mono-tech text-[10px] tracking-widest text-white/40 pointer-events-none">
+        <div id="tracker-01" class="transition-colors duration-300">01 // RESIDENCES</div>
+        <div id="tracker-02" class="transition-colors duration-300">02 // HOROLOGY</div>
+        <div id="tracker-03" class="transition-colors duration-300">03 // YACHTS</div>
+        <div id="tracker-04" class="transition-colors duration-300">04 // AVIATION</div>
+        <div id="tracker-05" class="transition-colors duration-300">05 // STUDIO</div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- HERO / PROLOGUE                                                  -->
+    <!-- ================================================================= -->
+    <section class="h-screen w-full relative flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1509114397022-ed747cca3f65?auto=format&fit=crop&w=2000&q=85" 
+                 alt="Atmosphere" 
+                 class="w-full h-full object-cover brightness-75 scale-105" id="hero-bg">
+            <div class="absolute inset-0 cinematic-vignette"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl">
+            <div class="font-mono-tech text-xs tracking-[0.3em] uppercase text-white/60 mb-4">
+                A New Agency For Luxury
+            </div>
+            <h1 class="font-serif-luxury text-6xl sm:text-8xl md:text-9xl font-light tracking-tight leading-none text-white/95">
+                VELA ARMON
+            </h1>
+            <div class="mt-8 flex justify-center">
+                <div class="w-7 h-7 rounded-full border border-white/20 flex items-center justify-center animate-pulse">
+                    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 font-mono-tech text-[10px] tracking-widest text-white/40">
+            SCROLL TO EXPLORE
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SCROLL-PINNED SHOWCASES                                          -->
+    <!-- ================================================================= -->
+    <div id="showcase-pin-wrapper" class="relative">
+
+        <!-- CHAPTER 01: RESIDENCES -->
+        <section class="showcase-panel h-screen w-full relative flex items-end p-8 sm:p-20 overflow-hidden" data-index="01">
+            <div class="absolute inset-0 z-0 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85" 
+                     alt="Residences" 
+                     class="panel-bg w-full h-full object-cover brightness-75 will-change-transform">
+                <div class="absolute inset-0 cinematic-vignette"></div>
+            </div>
+
+            <div class="relative z-10 max-w-xl panel-content">
+                <div class="font-mono-tech text-xs tracking-widest text-amber-300 mb-2 uppercase">
+                    [ 01 // ARCHITECTURE ]
+                </div>
+                <h2 class="text-4xl sm:text-7xl font-bold tracking-tight uppercase leading-none mb-4">
+                    Residences
+                </h2>
+                <p class="text-sm sm:text-base text-white/70 font-light leading-relaxed">
+                    Digital homes for the developments and estates that redefine a skyline. Ultra-high fidelity visual tours and interactive spatial architecture.
+                </p>
+            </div>
+        </section>
+
+        <!-- CHAPTER 02: HOROLOGY -->
+        <section class="showcase-panel h-screen w-full relative flex items-end p-8 sm:p-20 overflow-hidden" data-index="02">
+            <div class="absolute inset-0 z-0 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=2000&q=85" 
+                     alt="Horology" 
+                     class="panel-bg w-full h-full object-cover brightness-75 will-change-transform">
+                <div class="absolute inset-0 cinematic-vignette"></div>
+            </div>
+
+            <div class="relative z-10 max-w-xl panel-content">
+                <div class="font-mono-tech text-xs tracking-widest text-amber-300 mb-2 uppercase">
+                    [ 02 // PRECISION ]
+                </div>
+                <h2 class="text-4xl sm:text-7xl font-bold tracking-tight uppercase leading-none mb-4">
+                    Horology
+                </h2>
+                <p class="text-sm sm:text-base text-white/70 font-light leading-relaxed">
+                    Online showcases worthy of the maisons that keep the world’s finest time. Micro-mechanics captured in macro interactive dimensions.
+                </p>
+            </div>
+        </section>
+
+        <!-- CHAPTER 03: YACHTS -->
+        <section class="showcase-panel h-screen w-full relative flex items-end p-8 sm:p-20 overflow-hidden" data-index="03">
+            <div class="absolute inset-0 z-0 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=2000&q=85" 
+                     alt="Yachts" 
+                     class="panel-bg w-full h-full object-cover brightness-75 will-change-transform">
+                <div class="absolute inset-0 cinematic-vignette"></div>
+            </div>
+
+            <div class="relative z-10 max-w-xl panel-content">
+                <div class="font-mono-tech text-xs tracking-widest text-amber-300 mb-2 uppercase">
+                    [ 03 // MARITIME ]
+                </div>
+                <h2 class="text-4xl sm:text-7xl font-bold tracking-tight uppercase leading-none mb-4">
+                    Yachts
+                </h2>
+                <p class="text-sm sm:text-base text-white/70 font-light leading-relaxed">
+                    Flagships driven for the yards and brokerages behind the water’s greatest vessels. Fluid navigation engineered for global clients.
+                </p>
+            </div>
+        </section>
+
+        <!-- CHAPTER 04: AVIATION -->
+        <section class="showcase-panel h-screen w-full relative flex items-end p-8 sm:p-20 overflow-hidden" data-index="04">
+            <div class="absolute inset-0 z-0 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=2000&q=85" 
+                     alt="Aviation" 
+                     class="panel-bg w-full h-full object-cover brightness-75 will-change-transform">
+                <div class="absolute inset-0 cinematic-vignette"></div>
+            </div>
+
+            <div class="relative z-10 max-w-xl panel-content">
+                <div class="font-mono-tech text-xs tracking-widest text-amber-300 mb-2 uppercase">
+                    [ 04 // AEROSPACE ]
+                </div>
+                <h2 class="text-4xl sm:text-7xl font-bold tracking-tight uppercase leading-none mb-4">
+                    Aviation
+                </h2>
+                <p class="text-sm sm:text-base text-white/70 font-light leading-relaxed">
+                    Online flagships for the charters and brokers who move the world by private jet. Streamlined interface, speed, and discretion.
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- EDITORIAL AUDIO / WHO WE ARE OUTRO                               -->
+    <!-- ================================================================= -->
+    <section class="min-h-screen w-full relative bg-[#05070B] flex flex-col justify-center px-8 sm:px-20 py-24 border-t border-white/10">
+        <div class="max-w-6xl mx-auto w-full">
+            
+            <div class="flex items-center justify-between pb-8 mb-16 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <span class="font-mono-tech text-xs tracking-widest text-white/40">// THE STUDIO //</span>
+                    <!-- Dynamic Sound Bar Animation -->
+                    <div class="flex items-center gap-1 h-5 px-3 py-1 bg-white/5 rounded-full border border-white/10">
+                        <div class="sound-bar w-0.5 bg-white/80 rounded-full"></div>
+                        <div class="sound-bar w-0.5 bg-white/80 rounded-full"></div>
+                        <div class="sound-bar w-0.5 bg-white/80 rounded-full"></div>
+                        <div class="sound-bar w-0.5 bg-white/80 rounded-full"></div>
+                        <div class="sound-bar w-0.5 bg-white/80 rounded-full"></div>
+                    </div>
+                </div>
+
+                <span class="font-mono-tech text-xs text-white/40">GEN-06</span>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-baseline">
+                <div class="lg:col-span-6">
+                    <h3 class="text-5xl sm:text-7xl font-light tracking-tight uppercase leading-[0.95]">
+                        Who We Are
+                    </h3>
+                </div>
+                <div class="lg:col-span-6">
+                    <p class="font-serif-luxury text-2xl sm:text-4xl font-light leading-snug text-white/90">
+                        We are a website agency built for luxury businesses, where handcrafted visual depth meets razor-sharp engineering.
+                    </p>
+                    <div class="mt-12">
+                        <a href="#" class="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white text-black font-semibold text-xs tracking-widest uppercase hover:bg-white/90 transition-transform active:scale-95">
+                            <span>Request Access</span>
+                            <span>&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LENIS & GSAP TIMELINE ENGINE -->
+    <script>
+        // 1. Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.3,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            smoothWheel: true
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Sync Lenis with GSAP ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        // 2. Orchestrated Scrollytelling Panels (Stacking & Pinning)
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const panels = gsap.utils.toArray('.showcase-panel');
+
+            panels.forEach((panel, i) => {
+                const bg = panel.querySelector('.panel-bg');
+                const content = panel.querySelector('.panel-content');
+                const index = panel.getAttribute('data-index');
+
+                // Subtle entry zoom on background
+                gsap.fromTo(bg, 
+                    { scale: 1.0 },
+                    { 
+                        scale: 1.15,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: panel,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: true
+                        }
+                    }
+                );
+
+                // Content parallax reveal
+                gsap.fromTo(content,
+                    { y: 80, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: panel,
+                            start: 'top 65%',
+                            toggleActions: 'play none none reverse'
+                        }
+                    }
+                );
+
+                // Update right-side telemetry tracker
+                ScrollTrigger.create({
+                    trigger: panel,
+                    start: 'top center',
+                    end: 'bottom center',
+                    onEnter: () => activateTracker(index),
+                    onEnterBack: () => activateTracker(index)
+                });
+            });
+
+            function activateTracker(index) {
+                const trackers = ['01', '02', '03', '04'];
+                trackers.forEach(id => {
+                    const el = document.getElementById(`tracker-${id}`);
+                    if (el) {
+                        if (id === index) {
+                            el.classList.add('text-white', 'font-semibold');
+                            el.classList.remove('text-white/40');
+                        } else {
+                            el.classList.remove('text-white', 'font-semibold');
+                            el.classList.add('text-white/40');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+<script defer src="{{ url_for('static', filename='js/responsive-v27.js', v='27') }}"></script></body>
+</html>

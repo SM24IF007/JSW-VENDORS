@@ -1,0 +1,41 @@
+/* V20 — local vendor logo + robust dark form states */
+.v14-jsw-logo,.v16-jsw-logo{
+  width:92px!important;height:72px!important;flex:0 0 92px!important;
+  padding:0!important;background:#fff!important;border-radius:12px!important;
+  overflow:hidden!important;border:1px solid rgba(255,255,255,.25)!important;
+  box-shadow:0 12px 34px rgba(0,0,0,.32)!important;
+}
+.v14-jsw-logo img,.v16-jsw-logo img{
+  display:block!important;width:100%!important;height:100%!important;max-width:100%!important;
+  object-fit:contain!important;object-position:center!important;padding:0!important;margin:0!important;
+  filter:none!important;opacity:1!important;mix-blend-mode:normal!important;
+}
+.v14-jsw-fallback,.v16-jsw-fallback{display:none!important}
+.landing-v10 .v14-brand{min-width:340px!important;gap:14px!important}
+.admin-v11 .admin-brand .v16-jsw-logo,.v16-process-brand .v16-jsw-logo{width:88px!important;height:68px!important;flex-basis:88px!important}
+.login-v11 .v16-jsw-logo{width:106px!important;height:82px!important;flex-basis:106px!important}
+.form-v11 .v16-jsw-logo{width:84px!important;height:66px!important;flex-basis:84px!important}
+
+/* Chrome autofill / completed processing fields remain part of the dark steel theme. */
+.process-v11 input,.process-v11 select,.process-v11 textarea,
+.form-v11 input,.form-v11 select,.form-v11 textarea{
+  background:#071522!important;color:#eef7ff!important;border-color:rgba(88,166,226,.24)!important;
+  caret-color:#8dcbff!important;
+}
+.process-v11 input:focus,.process-v11 select:focus,.process-v11 textarea:focus,
+.form-v11 input:focus,.form-v11 select:focus,.form-v11 textarea:focus{
+  background:#0a2033!important;border-color:#57b1f2!important;box-shadow:0 0 0 3px rgba(87,177,242,.10)!important;
+}
+.process-v11 input:-webkit-autofill,.process-v11 input:-webkit-autofill:hover,.process-v11 input:-webkit-autofill:focus,
+.form-v11 input:-webkit-autofill,.form-v11 input:-webkit-autofill:hover,.form-v11 input:-webkit-autofill:focus{
+  -webkit-text-fill-color:#eef7ff!important;-webkit-box-shadow:0 0 0 1000px #0a2033 inset!important;
+  box-shadow:0 0 0 1000px #0a2033 inset!important;border-color:#347fb1!important;
+}
+.process-v11 input:not(:placeholder-shown),.process-v11 textarea:not(:placeholder-shown),
+.form-v11 input:not(:placeholder-shown),.form-v11 textarea:not(:placeholder-shown){
+  background:linear-gradient(135deg,#0a2033,#0b1a2a)!important;border-color:rgba(80,169,230,.38)!important;
+}
+@media(max-width:700px){
+  .v14-jsw-logo,.v16-jsw-logo{width:74px!important;height:58px!important;flex-basis:74px!important}
+  .landing-v10 .v14-brand{min-width:auto!important}
+}

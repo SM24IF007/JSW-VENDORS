@@ -1,0 +1,47 @@
+/* Keep the complete admin workspace reachable on narrow screens. */
+.admin-v11 .admin-shell{grid-template-columns:290px minmax(0,1fr)!important}
+.admin-v11 .admin-main,.admin-v11 .admin-panel,.admin-v11 .tab-pane,.admin-v11 .role-admin-grid{min-width:0}
+@media(max-width:1000px){
+ .admin-v11 .admin-shell{display:block!important;width:100%;min-width:0!important}
+ .admin-v11 .admin-side{position:relative!important;top:auto!important;height:auto!important;width:100%!important;display:block!important;padding:16px!important;z-index:1}
+ .admin-v11 .admin-brand{display:block!important;margin:0 0 14px!important}
+ .admin-v11 .admin-brand .brand{max-width:100%!important;width:100%;min-width:0}
+ .admin-v11 .side-nav{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible!important;gap:8px!important}
+ .admin-v11 .side-nav button,.admin-v11 .side-nav a{width:100%!important;min-width:0!important;height:auto!important;min-height:48px!important;margin:0!important;padding:10px!important;white-space:normal!important;font-size:13px!important;text-align:left!important;display:flex!important;align-items:center!important}
+ .admin-v11 .side-foot{display:flex!important;gap:8px;margin:14px 0 0!important}
+ .admin-v11 .side-foot a{margin:0!important;flex:1;min-width:0}
+ .admin-v11 .admin-main{width:100%!important;padding:20px 14px 48px!important;overflow:visible!important}
+ .admin-v11 .admin-main:before{display:none!important}
+ .admin-v11 .admin-top{display:block!important}
+ .admin-v11 .admin-top h1{font-size:clamp(24px,6vw,34px)!important;line-height:1.2;overflow-wrap:anywhere}
+ .admin-v11 .v19-admin-top-actions{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:16px;width:100%}
+ .admin-v11 .v19-admin-top-actions>*{min-width:0!important;white-space:normal!important;min-height:50px!important;height:auto!important;padding:12px 8px!important;font-size:12px!important;line-height:1.4!important;text-align:center;justify-content:center}
+ .admin-v11 .panel-head{display:block!important}
+ .admin-v11 .admin-filters{display:grid!important;grid-template-columns:1fr;gap:10px;width:100%;margin-top:16px}
+ .admin-v11 .admin-filters>*{width:100%!important;min-width:0!important;max-width:100%}
+ .admin-v11 .role-admin-grid,.admin-v11 .message-grid{grid-template-columns:1fr!important}
+ .admin-v11 .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px}
+ .admin-v11 .kpi{min-width:0;padding:16px!important}
+ .admin-v11 input,.admin-v11 select,.admin-v11 textarea{max-width:100%;font-size:16px!important}
+ .admin-v11 .modal-backdrop{padding:12px!important;overflow-y:auto!important}
+ .admin-v11 .modal{width:100%!important;max-width:680px!important;max-height:calc(100dvh - 24px)!important;overflow-y:auto!important;margin:auto!important;padding:18px!important}
+ .admin-v11 .v18-salary-form>div,.admin-v11 .v18-role-row{min-width:0;flex-wrap:wrap}
+}
+@media(max-width:650px){
+ .admin-v11 .admin-table-wrap{overflow:visible!important}
+ .admin-v11 .admin-table,.admin-v11 .admin-table tbody{display:block!important;width:100%!important;min-width:0!important}
+ .admin-v11 .admin-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+ .admin-v11 .admin-table tr{display:block!important;border-bottom:1px solid #40536b;margin:0!important;padding:14px!important;opacity:1!important;transform:none!important}
+ .admin-v11 .admin-table td{display:block!important;width:100%!important;min-width:0!important;max-width:none!important;border:0!important;padding:6px 0!important;text-align:left!important;white-space:normal!important;overflow-wrap:anywhere}
+ .admin-v11 .admin-table td:before{display:block;color:#90a9c3;font-size:11px;font-weight:700;margin-bottom:5px}
+ .admin-v11 .admin-table td:nth-child(1):before{content:'Record ID'}
+ .admin-v11 .admin-table td:nth-child(2):before{content:'Candidate'}
+ .admin-v11 .admin-table td:nth-child(3):before{content:'Role & enterprise'}
+ .admin-v11 .admin-table td:nth-child(4):before{content:'Status'}
+ .admin-v11 .admin-table td:nth-child(5):before{content:'Actions'}
+ .admin-v11 .admin-table td[colspan]:before{content:none}
+ .admin-v11 .admin-table .actions{display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;gap:8px!important}
+ .admin-v11 .admin-table .actions>*{flex:1 1 110px;min-width:0}
+ .admin-v11 .admin-table .actions form button{width:100%}
+ .admin-v11 .admin-table .sm-btn{white-space:normal!important;justify-content:center;min-height:44px}
+}

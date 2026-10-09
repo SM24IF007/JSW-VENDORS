@@ -1,0 +1,16 @@
+/* V33 global public depth layer — subtle on utility pages, stronger on showcase pages. */
+body.v33-global-depth{position:relative;background:#06111f;perspective:1400px;perspective-origin:50% 28%}
+.v33-global-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:-10;pointer-events:none;opacity:.26}
+body.v33-global-depth::before{content:"";position:fixed;inset:0;z-index:-11;pointer-events:none;background:radial-gradient(circle at 15% 15%,rgba(59,147,214,.08),transparent 24%),radial-gradient(circle at 84% 70%,rgba(80,173,235,.06),transparent 25%)}
+body.v33-global-depth .story-main-nav{transform:translateZ(40px)}
+.v33-global-reveal{opacity:0;transform:translate3d(0,28px,-34px) rotateX(3deg);transition:opacity .65s ease,transform .75s cubic-bezier(.2,.78,.2,1)}
+.v33-global-reveal.v33-in{opacity:1;transform:translate3d(0,0,0) rotateX(0)}
+@media(hover:hover) and (pointer:fine){
+  .v33-global-tilt{transform-style:preserve-3d;will-change:transform;transition:transform .18s ease,box-shadow .25s ease}
+  .v33-global-tilt:hover{box-shadow:0 26px 65px rgba(0,0,0,.2)}
+  .v33-global-tilt>*{transform:translateZ(8px)}
+}
+body.v33-global-depth input:focus,body.v33-global-depth select:focus,body.v33-global-depth textarea:focus{transform:translateZ(4px);box-shadow:0 0 0 1px rgba(102,190,249,.22),0 12px 34px rgba(0,0,0,.12)}
+@media(max-width:800px){.v33-global-canvas{opacity:.14}.v33-global-reveal{transform:translateY(18px)}}
+@media(prefers-reduced-motion:reduce){.v33-global-canvas{display:none}.v33-global-reveal{opacity:1;transform:none;transition:none}.v33-global-tilt{transform:none!important}}
+@media print{.v33-global-canvas{display:none!important}}

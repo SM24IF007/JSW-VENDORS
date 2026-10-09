@@ -1,0 +1,101 @@
+/* V35 — viewport pinning repair.
+   The important change here is that desktop story visuals are promoted to a
+   viewport-fixed stage while their steps are active. This does not depend on
+   CSS sticky, transformed ancestors, overflow, or browser zoom. */
+:root{--v35-nav-h:78px;--v35-edge:2vw;--v35-stage-left:50vw;--v35-stage-right:2vw;--v35-ease:cubic-bezier(.2,.78,.2,1)}
+
+/* ===== Header stays readable above fixed story stages ===== */
+.story-main-nav{z-index:30000!important}
+
+/* ===== Vendor highlight ===== */
+.v35-vendor-highlight{display:inline-grid;gap:5px;margin-top:24px;padding:14px 17px;border:1px solid rgba(105,190,246,.2);border-radius:14px;background:linear-gradient(145deg,rgba(11,39,61,.88),rgba(6,22,37,.8));box-shadow:0 16px 44px rgba(0,0,0,.16)}
+.v35-vendor-highlight small{font:800 8px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;color:#6db9ec}
+.v35-vendor-highlight strong{font:700 clamp(20px,2vw,30px)/1 Sora,sans-serif;color:#eef9ff;letter-spacing:-.03em}
+.v35-vendor-highlight strong i{font-style:normal;color:#73c7fa;margin:0 5px}
+.v35-vendor-highlight span{font-size:10px;color:#7794aa}
+
+/* ===== Desktop: browser-zoom-proof sizing ===== */
+@media(min-width:1101px){
+  /* Pure viewport units avoid the old clamp(max-px) problem when browser zoom is reduced. */
+  .v29-story-intro .v29-kinetic-heading{font-size:9.4vw!important;line-height:.82!important;max-width:94vw!important;letter-spacing:-.072em!important}
+  .v33-pages-intro h2{font-size:8.9vw!important;line-height:.82!important;max-width:94vw!important;letter-spacing:-.07em!important}
+  .v33-journey-head h2{font-size:8.5vw!important;line-height:.84!important;max-width:92vw!important;letter-spacing:-.066em!important}
+
+  .v29-story-shell,.v33-pages-body,.v33-journey-body{position:relative!important;overflow:visible!important;grid-template-columns:44vw 1fr!important;gap:4vw!important}
+  .v29-story-steps,.v33-page-steps,.v33-journey-steps{width:42vw!important;max-width:42vw!important}
+
+  /* Give every step a whole viewport. The animation stays fixed on the right. */
+  .v29-story-step,.v33-page-step,.v33-journey-step{min-height:118vh!important;padding:12vh 0!important;justify-content:center!important}
+  .v29-story-step h3,.v33-page-step h3,.v33-journey-step h3{font-size:4.25vw!important;line-height:.96!important;max-width:40vw!important}
+  .v29-story-step p,.v33-page-step p,.v33-journey-step p{font-size:1.06vw!important;line-height:1.7!important;max-width:38vw!important}
+
+  /* Base size before pinning. */
+  .v29-story-visual,.v33-page-stage,.v33-journey-stage{width:48vw!important;height:calc(100vh - var(--v35-nav-h) - 24px)!important;min-height:0!important;max-height:none!important;margin:0!important;transform:none!important;border-radius:30px!important}
+
+  /* Fixed stage is independent of section overflow / transforms. */
+  .v29-story-visual.v35-pin-active,
+  .v33-page-stage.v35-pin-active,
+  .v33-journey-stage.v35-pin-active{
+    position:fixed!important;
+    top:calc(var(--v35-nav-h) + 10px)!important;
+    left:var(--v35-stage-left)!important;
+    right:var(--v35-stage-right)!important;
+    bottom:auto!important;
+    width:auto!important;
+    height:calc(100vh - var(--v35-nav-h) - 22px)!important;
+    min-height:0!important;
+    max-height:none!important;
+    margin:0!important;
+    z-index:14000!important;
+    transform:none!important;
+    box-shadow:0 38px 120px rgba(0,0,0,.44),0 0 0 1px rgba(100,190,249,.07)!important;
+  }
+
+  /* After the last step, park the stage at the end of the long story. */
+  .v29-story-visual.v35-pin-docked,
+  .v33-page-stage.v35-pin-docked,
+  .v33-journey-stage.v35-pin-docked{
+    position:absolute!important;
+    top:auto!important;
+    left:auto!important;
+    right:0!important;
+    bottom:0!important;
+    width:48vw!important;
+    height:calc(100vh - var(--v35-nav-h) - 22px)!important;
+    min-height:0!important;
+    margin:0!important;
+    transform:none!important;
+    z-index:20!important;
+  }
+
+  /* Make the joining-page document physically large inside its stage. */
+  .v33-doc-stack{left:50%!important;top:52%!important;width:38vw!important;height:78vh!important;transform:translate(-50%,-50%)!important}
+  .v33-doc{width:30vw!important;height:68vh!important;margin:-34vh 0 0 -15vw!important;padding:2.1vw!important;border-radius:.8vw 1.5vw 1.5vw .8vw!important}
+  .v33-doc-top b{font-size:2.1vw!important}.v33-doc-top span{font-size:.68vw!important}
+  .v33-stage-meta{left:1.4vw!important;top:1.4vw!important;padding:.75vw .9vw!important}.v33-stage-meta strong{font-size:1vw!important}.v33-stage-meta span,.v33-stage-meta small{font-size:.55vw!important}
+  .v33-stage-progress{right:1.15vw!important;top:1.15vw!important;bottom:1.15vw!important;width:4px!important}
+
+  /* One-candidate stage: use almost the whole stage for the line / nodes. */
+  .v29-flow-svg{inset:2% 1% 9%!important;width:98%!important;height:89%!important}
+  .v29-orbit-label{left:2vw!important;bottom:2vw!important}.v29-orbit-label strong{font-size:3vw!important}.v29-orbit-label small,.v29-orbit-label span{font-size:.7vw!important}
+  .v29-story-meter{top:1.3vw!important;bottom:1.3vw!important;right:1.3vw!important}
+
+  /* Jobs journey stage uses the same full-height viewport treatment. */
+  .v33-journey-core{width:15vw!important;height:15vw!important;margin:-7.5vw!important}.v33-journey-core strong{font-size:2.7vw!important}.v33-journey-core span{font-size:1.8vw!important}
+  .v33-journey-ring.ring-1{width:27vw!important;height:27vw!important;margin:-13.5vw!important}.v33-journey-ring.ring-2{width:37vw!important;height:37vw!important;margin:-18.5vw!important}.v33-journey-ring.ring-3{width:21vw!important;height:21vw!important;margin:-10.5vw!important}
+}
+
+/* Tablet / mobile: keep native sticky rather than fixed so touch scrolling remains stable. */
+@media(max-width:1100px){
+  .v29-story-visual,.v33-page-stage,.v33-journey-stage{position:sticky!important;left:auto!important;right:auto!important;bottom:auto!important;z-index:100!important;transform:none!important}
+  .v35-pin-active,.v35-pin-docked{position:sticky!important}
+}
+
+@media(max-width:700px){
+  .v35-vendor-highlight{width:100%;box-sizing:border-box}.v35-vendor-highlight strong{font-size:22px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .v35-pin-active,.v35-pin-docked{transform:none!important}
+}
+@media print{.v35-vendor-highlight{display:none!important}}

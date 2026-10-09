@@ -1,0 +1,55 @@
+/* Performance + accessibility layer. Loaded after the visual theme. */
+:root{--ui-fast:160ms;--ui-medium:280ms;--focus:#ffd0ae}
+
+.skip-link{position:fixed;left:14px;top:12px;z-index:9999;transform:translateY(-160%);padding:10px 14px;border-radius:10px;background:#fff;color:#111;font:800 12px/1.2 Manrope,sans-serif;transition:transform var(--ui-fast) ease}
+.skip-link:focus{transform:translateY(0)}
+
+.story-loader{position:fixed;top:0;left:0;right:0;height:3px;z-index:9998;display:flex;overflow:hidden;pointer-events:none;background:rgba(255,255,255,.04);transition:opacity var(--ui-fast) ease}
+.story-loader span{flex:1;background:linear-gradient(90deg,transparent,#c87338,#e6a06d,transparent);transform:translateX(-110%);animation:story-load 760ms ease-in-out infinite}
+.story-loader span:nth-child(2){animation-delay:90ms}.story-loader span:nth-child(3){animation-delay:180ms}
+.story-loader.loaded{opacity:0}
+@keyframes story-load{to{transform:translateX(110%)}}
+
+.story-body :where(a,button,input,select,textarea):focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.story-body :where(button,a){-webkit-tap-highlight-color:transparent}
+
+/* Fast, interruptible UI feedback. */
+.story-buy-btn,.story-subnav-cta,.story-primary-btn,.story-secondary-link,.story-role-apply,.filter-chip,.role-modal-close,.story-main-links a,.story-subnav nav a,.roles-product-card,.story-role-card{transition-duration:var(--ui-medium)!important;transition-timing-function:cubic-bezier(.2,.75,.25,1)!important}
+.story-buy-btn:active,.story-subnav-cta:active,.story-primary-btn:active,.story-role-apply:active{transform:translateY(1px) scale(.985)}
+
+/* GPU-friendly containment on below-fold, non-sticky sections. */
+.story-status-section,.story-footer{content-visibility:auto;contain-intrinsic-size:1px 700px}
+.story-gallery-card,.story-role-card,.roles-product-card{contain:layout paint style}
+
+/* Images should never cause layout shifts while decoding. */
+.story-media-frame img,.story-gallery-card img{background:#11171b}
+
+/* Low-power mode is applied by performance.js. */
+.low-power .cursor-glow,.low-power .story-orbit,.low-power .story-final-orbit,.low-power .noise{display:none!important}
+.low-power .story-gallery-card img{transform:none!important}
+.low-power .story-hero-grid{opacity:.2}
+.low-power .story-hud{backdrop-filter:none}
+
+@media(max-width:760px){
+  .story-loader{height:2px}
+  .story-hud{backdrop-filter:none!important}
+  .story-main-nav,.story-subnav{backdrop-filter:blur(10px)!important}
+  .story-media-frame{height:min(620px,78vh)}
+  .story-gallery-card:hover img{transform:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  .story-loader{display:none!important}
+  .cursor-glow,.story-orbit,.story-final-orbit,.story-scroll-cue{display:none!important}
+  .story-body *, .story-body *::before, .story-body *::after{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .story-gallery-card img,.story-three-wrap,.story-hud,.roles-product-card,.story-role-card{transform:none!important}
+}
+
+/* Lightweight visual fallback when WebGL is skipped or unavailable. */
+.low-power #threeHero::before,.no-webgl-story #threeHero::before{
+  content:"";position:absolute;left:50%;top:50%;width:min(54vw,320px);aspect-ratio:1;transform:translate(-50%,-50%) rotate(-12deg);border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,#080b0d 0 18%,#48545b 19% 23%,#20282d 24% 35%,#8d969b 36% 41%,#30393e 42% 48%,#b26a3a 49% 52%,#5d676d 53% 61%,#22292d 62% 70%,#9aa3a8 71% 76%,#1b2125 77% 100%);
+  box-shadow:inset 18px 18px 34px rgba(255,255,255,.08),inset -22px -22px 40px rgba(0,0,0,.58),0 34px 80px rgba(0,0,0,.42)
+}
+.low-power #threeHero::after,.no-webgl-story #threeHero::after{content:"STEEL COIL · PERFORMANCE MODE";position:absolute;left:50%;bottom:10%;transform:translateX(-50%);font:700 7px/1 JetBrains Mono,monospace;letter-spacing:1.3px;color:var(--story-faint);white-space:nowrap}

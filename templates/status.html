@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06111f">
+  <meta name="description" content="Check the current stage of a workforce application using the registered mobile number.">
+  <title>Application Status · Vasind Workforce Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/motion-v11.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v19.css', v='19') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-v27.css', v='27') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global-3d-v33.css', v='33') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/layout-fix-v34.css', v='34') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v37.css', v='37') }}">
+</head>
+<body class="utility-v11 status-page-v11">
+  <main class="utility-shell">
+    <a href="/" style="color:#8ecbff;text-decoration:none">← Back to portal</a>
+    <div style="margin-top:56px">
+      <span class="utility-kicker">APPLICATION STATUS</span>
+      <h1>Track the latest recorded stage.</h1>
+      <p class="utility-lede">Use the same 10-digit mobile number entered during registration. This page shows only the current application stage; it does not expose Aadhaar, UAN, ESIC or other sensitive data.</p>
+    </div>
+
+    <section class="status-v11-card" aria-label="Application status lookup">
+      <form class="status-v11-form" id="statusPageForm" method="post" action="/status">
+        <input id="statusPageInput" name="mobile" value="{{ submitted_mobile or '' }}" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel" placeholder="10-digit mobile number" aria-label="Registered mobile number" required>
+        <button type="submit"><span>Check status</span><i class="status-v11-spinner" aria-hidden="true"></i></button>
+      </form>
+
+      <div class="status-v11-result{% if status_result is not none %} show server-result{% endif %}" id="statusPageResult" role="status" aria-live="polite" data-initial-stage="{% if status_result and status_result.found %}{{ status_result.stage_index }}{% else %}-1{% endif %}">
+        <div class="status-v11-person" data-status-person>
+          {% if status_result is not none %}
+            {% if status_result.found %}<strong>{{ status_result.name }}</strong><span>{{ status_result.role or 'Role pending' }} · {{ status_result.status }}</span>
+            {% else %}<strong>No record found</strong><span>{{ status_result.message }}</span>{% endif %}
+          {% endif %}
+        </div>
+        <div class="status-v11-stepper" id="statusStepper" aria-label="Application progress">
+          {% set current_stage = status_result.stage_index if status_result and status_result.found else -1 %}
+          <div class="status-step{% if current_stage > 0 %} done{% elif current_stage == 0 %} current{% endif %}"><i>01</i><span>Received</span></div>
+          <div class="status-step{% if current_stage > 1 %} done{% elif current_stage == 1 %} current{% endif %}"><i>02</i><span>Form Ready</span></div>
+          <div class="status-step{% if current_stage > 2 %} done{% elif current_stage == 2 %} current{% endif %}"><i>03</i><span>Processed</span></div>
+          <div class="status-step{% if current_stage > 3 %} done{% elif current_stage == 3 %} current{% endif %}"><i>04</i><span>Approved</span></div>
+          <div class="status-step{% if current_stage > 4 %} done{% elif current_stage == 4 %} current{% endif %}"><i>05</i><span>Joined</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='js/motion-v11.js', v='19') }}"></script>
+<script defer src="{{ url_for('static', filename='js/responsive-v27.js', v='27') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/global-3d-v33.js', v='33') }}"></script>
+
+<script defer src="{{ url_for('static', filename='js/layout-fix-v34.js', v='34') }}"></script>
+</body>
+</html>

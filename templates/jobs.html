@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06111f">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="Explore contractor workforce roles and continue into the digital three-page joining workflow.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Open Roles · Workforce Portal">
+  <meta property="og:description" content="Open contractor roles with a streamlined digital joining process.">
+  <title>Open Roles · Workforce Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://jsw-steel-s3.s3.ap-south-1.amazonaws.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/neo.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/story.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/performance.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/vasind-v7.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/motion-v11.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/roles-v17.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animations-v26.css', v='26') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animations-v28.css', v='28') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-v27.css', v='27') }}">  <link rel="stylesheet" href="{{ url_for('static', filename='css/animations-v30.css', v='30') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/jobs-v33.css', v='33') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global-3d-v33.css', v='33') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/layout-fix-v34.css', v='34') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/pinning-v35.css', v='35') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cleanup-v36.css', v='36') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v37.css', v='37') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v38.css', v='40') }}">\n</head>
+<body class="story-body roles-product-page vasind-v7 roles-v11 v33-jobs-page">
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+  <div class="story-loader" id="storyLoader" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="noise"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <header class="story-main-nav" id="siteNav">
+    <div class="story-nav-inner">
+      <a href="/" class="story-brand v34-jobs-brand" aria-label="Vendor Workforce Portal · Vasind Works home">
+        <span class="v34-nav-logo" aria-hidden="true"><img src="{{ url_for('static', filename='vendor-logo.jpg') }}" alt="" loading="eager" decoding="async"></span>
+        <span class="story-brand-copy"><strong>VENDOR WORKFORCE PORTAL</strong><small>VASIND WORKS · CONTRACTOR NETWORK</small></span>
+      </a>
+      <nav class="story-main-links"><a href="/" data-i18n="navOverview">Overview</a><a href="/contractors" data-i18n="navContractors">Contractors</a><a href="/#how-it-works" data-i18n="navHow">How It Works</a><a class="active" href="/jobs" data-i18n="navRoles">Roles</a><a href="/status" data-i18n="navStatus">Status</a></nav>
+      <div class="story-main-actions"><div class="v38-lang-switch" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="hi">हिं</button><button type="button" data-lang="mr">मर</button></div><a href="/login" class="story-admin-link" data-i18n="navAdmin">Admin</a><a href="/apply_form" class="story-buy-btn">Start joining <span>↗</span></a></div><a href="/login" class="mobile-admin-link" data-i18n="navAdmin" aria-label="Admin login">Admin</a>
+    </div>
+  </header>
+
+  <main id="mainContent">
+    <section class="roles-product-hero v33-jobs-hero" id="jobsHero">
+      <canvas class="v33-jobs-canvas" id="v33JobsCanvas" aria-hidden="true"></canvas>
+      <div class="roles-product-orb roles-product-orb-a"></div>
+      <div class="roles-product-orb roles-product-orb-b"></div>
+      <div class="v33-jobs-hero-grid">
+        <div class="roles-product-hero-inner">
+          <span class="story-section-label" data-story-reveal>CONTRACTOR OPPORTUNITIES · VASIND</span>
+          <h1 data-story-reveal><span data-i18n="jobsTitle">Open Roles</span><span>.</span></h1>
+          <p data-story-reveal data-i18n="jobsIntro">Choose a role, review the requirement, then move through interview, medical induction, safety induction and final joining.</p>
+          <div class="v33-hero-actions">
+            <a href="#rolesList" class="v33-hero-primary">Explore roles <span>↘</span></a>
+            <a href="/#how-it-works" class="v33-hero-secondary">How joining works</a>
+          </div>
+          <div class="roles-product-count" data-story-reveal><strong>{{ all_roles|length }}</strong><span>roles currently listed</span></div>
+        </div>
+        <div class="v33-jobs-hero-stage" id="v33JobsHeroStage" aria-hidden="true">
+          <div class="v33-role-orbit orbit-a"></div><div class="v33-role-orbit orbit-b"></div><div class="v33-role-orbit orbit-c"></div>
+          <div class="v33-steel-core"><i></i><b></b><span></span></div>
+          <div class="v33-float-card fc-a"><small>STEP 03</small><strong>MEDICAL</strong><span>Clearance before safety</span></div>
+          <div class="v33-float-card fc-b"><small>STEP 04</small><strong>SAFETY</strong><span>Induction before job</span></div>
+          <div class="v33-float-card fc-c"><small>STEP 05</small><strong>JOIN</strong><span>Assigned role / work area</span></div>
+          <div class="v33-stage-axis axis-x"></div><div class="v33-stage-axis axis-y"></div>
+        </div>
+      </div>
+      <div class="v33-hero-scroll">SCROLL TO ENTER THE WORKFLOW <span>↓</span></div>
+    </section>
+
+    <section class="roles-product-list" id="rolesList">
+      <div class="v39-role-search"><label for="roleQuickSearch">Find a role</label><input id="roleQuickSearch" type="search" list="roleQuickSuggestions" placeholder="Type a role, e.g. Packer" autocomplete="off"><datalist id="roleQuickSuggestions">{% for role in all_roles %}<option value="{{ role.title }}">{{ role.contractor }}</option>{% endfor %}</datalist><p id="roleSearchEmpty" hidden>No listed role matches your search.</p></div>
+      <div class="roles-product-toolbar">
+        <div class="roles-filter-label">FILTER BY SKILL LEVEL</div>
+        <div class="roles-filter-row" role="toolbar" aria-label="Filter roles by skill level">
+          <button type="button" class="filter-chip active" data-v11-skill-filter="all">All</button>
+          <button type="button" class="filter-chip" data-v11-skill-filter="skilled">Skilled</button>
+          <button type="button" class="filter-chip" data-v11-skill-filter="semi-skilled">Semi-Skilled</button>
+          <button type="button" class="filter-chip" data-v11-skill-filter="unskilled">Unskilled</button>
+        </div>
+      </div>
+
+      <div class="roles-product-grid">
+        {% for role in all_roles %}
+        <article class="roles-product-card" data-contractor="{{ role.contractor }}" data-skill="{{ role.skill_level|lower }}" data-role-title="{{ role.title }}" data-home-role data-story-card>
+          
+          <div class="roles-product-card-main">
+            <span class="roles-product-skill" data-role-skill>{{ role.skill_level }}</span>
+            <h2 data-role-name>{{ role.title }}</h2>
+            <span class="roles-product-contractor" data-role-contractor>{{ role.contractor }}</span>
+            <p data-role-description>{{ role.description }}</p>
+            <div class="v17-role-salary v17-role-salary-jobs" data-role-salary>
+              <small>EXPECTED SALARY</small>
+              <strong>{{ role.salary }}</strong>
+            </div>
+          </div>
+          <div class="roles-product-process">
+            <span>PROCESS</span>
+            <b>Apply → Interview → Medical Induction → Safety Induction → Join</b>
+          </div>
+          <button class="story-role-apply story-role-apply-wide" type="button" data-role-apply data-role-id="{{ role.id }}">Apply now <span>↗</span></button>
+        </article>
+        {% else %}
+        <div class="empty-role">No active openings are currently listed.</div>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+
+  <div class="role-modal" id="roleApplyModal" aria-hidden="true">
+    <div class="role-modal-backdrop" data-modal-close></div>
+    <div class="role-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="roleModalTitle">
+      <button class="role-modal-close" type="button" data-modal-close aria-label="Close">×</button>
+      <div class="role-modal-kicker">ROLE REGISTRATION</div>
+      <div class="role-modal-head">
+        <div><h2 id="roleModalTitle">Role</h2><p id="roleModalContractor">Contractor</p></div>
+        <span class="pill copper" id="roleModalSkill">Skill level</span>
+      </div>
+      <p class="role-modal-description" id="roleModalDescription"></p>
+      <div class="v17-modal-salary">
+        <small>EXPECTED SALARY</small>
+        <strong id="roleModalSalary">Salary varies by role</strong>
+        <span>Indicative monthly range; final pay depends on experience, shift, contractor terms and applicable rules.</span>
+      </div>
+      <div class="role-required-box">
+        <span class="role-required-label">DETAILS REQUIRED TO START</span>
+        <div class="required-grid">
+          <div><b>01</b><span>Full name</span></div>
+          <div><b>02</b><span>10-digit mobile number</span></div>
+          <div><b>03</b><span>Qualification</span></div>
+          <div><b>04</b><span>Selected designation</span></div>
+        </div>
+      </div>
+      <div class="role-next-note"><span>WHAT HAPPENS NEXT</span><p>After registration, the joining flow continues through review/interview, medical induction, safety induction and final joining. Medical comes before safety, and safety is completed before the job starts.</p></div>
+      <div class="role-modal-actions">
+        <button class="btn btn-ghost" type="button" data-modal-close>Not now</button>
+        <a class="btn btn-primary" id="roleModalContinue" href="/apply_form">Continue to application <span>↗</span></a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="story-footer">
+    <div class="story-footer-inner"><div><strong>Workforce Portal</strong><span>Digital contractor onboarding · Vasind</span></div><div><a href="/">Overview</a><a href="/faq">FAQ</a><a href="/status">Status</a><a href="/privacy">Privacy</a><a href="/login">Admin</a></div></div>
+    <div class="story-footer-bottom">© 2026 Contractor Workforce Portal · Independent project; not the official JSW Steel website.</div>
+  </footer>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  <script defer src="{{ url_for('static', filename='js/performance.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/neo.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/story.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/vasind-v7.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/motion-v11.js', v='19') }}"></script>
+<script defer src="{{ url_for('static', filename='js/responsive-v27.js', v='27') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/jobs-v33.js', v='40') }}"></script>
+<script defer src="{{ url_for('static', filename='js/i18n-v38.js', v='38') }}"></script>
+<script defer src="{{ url_for('static', filename='js/roles-v38.js', v='38') }}"></script>
+</body>
+</html>

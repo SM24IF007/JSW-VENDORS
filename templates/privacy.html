@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="index,follow">
+  <title>Privacy & Compliance · Vasind Workforce Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/motion-v11.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-v27.css', v='27') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global-3d-v33.css', v='33') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/layout-fix-v34.css', v='34') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v37.css', v='37') }}">
+</head>
+<body class="legal-v11">
+  <main class="legal-shell">
+    <a class="legal-back" href="/">← Back to portal</a>
+    <h1>Privacy & compliance.</h1>
+    <div class="legal-meta">PUBLIC PORTAL NOTICE · V11</div>
+    <div class="legal-notice"><strong>Independent portal notice.</strong> This contractor/onboarding portal is not the official JSW Steel website.</div>
+
+    <h2>Public application data</h2>
+    <p>The public application is intentionally limited to basic candidate information: name, mobile number, qualification and selected role. Sensitive joining data is not requested through the public enquiry form.</p>
+
+    <h2>Sensitive joining information</h2>
+    <p>Fields such as Aadhaar, UAN/PF, ESIC and permanent-address details are handled later inside the authorized admin processing workflow when required for joining documentation.</p>
+
+    <h2>Status lookup</h2>
+    <p>The public status lookup uses the registered mobile number and returns only the candidate name, role and current workflow stage. It does not expose sensitive identity or statutory numbers.</p>
+
+    <h2>Applicant enquiries</h2>
+    <p>Applicants should not place Aadhaar, UAN, ESIC or other sensitive identifiers in the public grievance/contact message. Use the controlled joining process for those fields.</p>
+
+    <h2>Project scope</h2>
+    <p>This page describes the behavior of this portal implementation. Production deployment should additionally use organization-approved privacy terms, retention rules, encryption, access controls and infrastructure security policies.</p>
+  </main>
+<script defer src="{{ url_for('static', filename='js/responsive-v27.js', v='27') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/global-3d-v33.js', v='33') }}"></script>
+
+<script defer src="{{ url_for('static', filename='js/layout-fix-v34.js', v='34') }}"></script>
+</body>
+</html>

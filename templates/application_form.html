@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#06111f"><title>Candidate Registration · Workforce Portal</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='css/neo.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/vasind-v7.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/landing-v9.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/motion-v11.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v16.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v18.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v19.css', v='19') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v20.css', v='20') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-v27.css', v='27') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global-3d-v33.css', v='33') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/layout-fix-v34.css', v='34') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v37.css', v='37') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v38.css', v='39') }}">\n</head>
+<body class="vasind-form-v7 form-v11"><div class="noise"></div><div class="cursor-glow" id="cursorGlow"></div>
+<header class="site-nav scrolled" id="siteNav"><div class="nav-inner"><a class="brand" href="/"><span class="v16-jsw-logo"><img src="{{ url_for('static', filename='vendor-logo.jpg') }}" alt="PRB vendor logo" loading="eager" decoding="async"></span><span class="brand-copy"><strong>Vendor Workforce Portal</strong><span>Vasind · Candidate registration</span></span></a><div class="nav-actions" style="margin-left:auto;display:flex;gap:10px;align-items:center"><div class="lang-switch" aria-label="Language selector"><button type="button" data-lang="en" class="active">EN</button><button type="button" data-lang="hi">हिं</button><button type="button" data-lang="mr">मर</button></div><a class="nav-ghost" href="/jobs" data-i18n="formBack">← Open roles</a></div></div></header>
+<main class="inner-page"><div class="container"><div class="form-card">
+  <div class="form-head"><span class="section-kicker" data-i18n="formStep">Step 01 · Initial record</span><h1 data-i18n="formTitle">Candidate registration.</h1><p data-i18n="formIntro">This creates the first digital record. The admin team completes the detailed joining information later inside the secure processing screen.</p></div>
+  <form action="/apply" method="post" id="candidateForm">
+    <div class="form-grid">
+      <div class="field full"><label data-i18n="formName">Full legal name</label><input name="full_name" required autocomplete="name" placeholder="As shown on your identity proof" data-i18n-placeholder="phName"></div>
+      <div class="field"><label data-i18n="formMobile">Mobile number</label><input name="mobile" id="mobile" required inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}" data-validate-type="mobile" autocomplete="tel" placeholder="10-digit number" data-i18n-placeholder="phMobile"></div>
+      <div class="field"><label data-i18n="formQualification">Highest qualification</label>
+<select name="qualification_level" id="qualificationLevel" required>
+<option value="">Select qualification</option>
+<option>5TH PASS</option><option>8TH PASS</option><option>10TH / SSC</option><option>12TH / HSC</option>
+<option>ITI</option><option>APPRENTICESHIP</option><option>DIPLOMA</option><option>GRADUATE</option>
+<option>POST GRADUATE</option><option>OTHER</option></select></div>
+<div class="field"><label>Trade / Course / Specialization</label><input name="qualification_trade" placeholder="e.g. Fitter / Electrician / Mechanical / IT"></div>
+<div class="field"><label>School / Institute / Board</label><input name="qualification_institute" placeholder="Institute / board name"></div>
+<div class="field"><label>Marks Obtained</label><input name="qualification_marks" placeholder="e.g. 412 / 500"></div>
+<div class="field"><label>Percentage</label><input name="qualification_percentage" inputmode="decimal" placeholder="e.g. 82.40"></div>
+<div class="field"><label>Grade</label><input name="qualification_grade" placeholder="e.g. A / First Class"></div>
+<div class="field"><label>Year of Passing</label><input name="qualification_year" inputmode="numeric" maxlength="4" placeholder="YYYY"></div>
+      <div class="field full v18-role-field"><label data-i18n="formRole">Designation & contractor</label><select name="role_id" id="roleSelect" required class="v18-native-role-select">{% for contractor, roles in grouped_roles.items() %}<optgroup label="{{ contractor }}">{% for role in roles %}<option value="{{ role.id }}">{{ role.title }} · {{ contractor }}</option>{% endfor %}</optgroup>{% endfor %}</select><div class="v18-role-picker" id="rolePicker" data-role-picker><button type="button" class="v18-role-picker-btn" id="rolePickerButton" aria-haspopup="listbox" aria-expanded="false"><span><small>SELECTED ROLE</small><strong data-role-picker-label>Choose a role</strong></span><i>⌄</i></button><div class="v18-role-picker-menu" id="rolePickerMenu" role="listbox" aria-label="Designation and contractor"></div></div></div>
+    </div>
+    <div class="note-box" data-i18n="formNote">Enter qualification details as shown on the joining paperwork. Keep Aadhaar Card, PAN Card and bank account proof ready for later verification; technical proof depends on the selected role.</div>
+    <div class="form-actions"><a class="btn btn-dark" href="/jobs" data-i18n="formCancel">Cancel</a><button class="btn btn-primary" type="submit"><span data-i18n="formSubmit">Create application</span> <span>↗</span></button></div>
+  </form>
+  <section class="v11-form-success" id="applicationSuccess" aria-live="polite">
+    <div>
+      <div class="success-mark">✓</div>
+      <span class="section-kicker">APPLICATION RECORDED</span>
+      <h2 style="font-family:'Sora',sans-serif;font-size:32px;margin:10px 0">Registration submitted.</h2>
+      <p data-success-message style="color:var(--muted);max-width:540px;line-height:1.7">Your application has been created.</p><div class="v16-application-id">APPLICATION ID · <strong data-application-id>—</strong></div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px">
+        <a class="btn btn-primary" data-status-link href="/status">Check application status</a>
+        <a class="btn btn-dark" href="/jobs">Back to open roles</a>
+      </div>
+    </div>
+  </section>
+</div></div></main>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v25.css', v='25') }}"><script src="{{ url_for('static', filename='js/neo.js') }}"></script><script src="{{ url_for('static', filename='js/motion-v11.js', v='20') }}"></script><script src="{{ url_for('static', filename='js/i18n-v9.js') }}"></script><script src="{{ url_for('static', filename='js/portal-v18.js', v='20') }}"></script><script src="{{ url_for('static', filename='js/validation-v25.js', v='25') }}"></script><script>const roleId=new URLSearchParams(location.search).get('role_id');if(roleId){const s=document.getElementById('roleSelect');if([...s.options].some(o=>o.value===roleId)){s.value=roleId;s.dispatchEvent(new Event('change',{bubbles:true}))}}</script>
+<script defer src="{{ url_for('static', filename='js/responsive-v27.js', v='27') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/global-3d-v33.js', v='33') }}"></script>
+
+<script defer src="{{ url_for('static', filename='js/layout-fix-v34.js', v='34') }}"></script>
+</body></html>

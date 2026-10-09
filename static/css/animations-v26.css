@@ -1,0 +1,25 @@
+/* V26 Premium Motion Layer — restrained on utility/admin pages */
+:root{--v26-ease:cubic-bezier(.22,.8,.2,1)}
+html{scroll-behavior:smooth}
+.v26-scroll-progress{position:fixed;left:0;top:0;height:2px;width:100%;z-index:9999;pointer-events:none;background:linear-gradient(90deg,#4aa8ff,#9bd5ff);transform:scaleX(var(--v26-progress,0));transform-origin:left;opacity:.9}
+.v26-reveal{opacity:0;filter:blur(7px);translate:0 18px;transition:opacity .62s var(--v26-ease),filter .62s var(--v26-ease),translate .62s var(--v26-ease)}
+.v26-reveal.v26-visible{opacity:1;filter:blur(0);translate:0 0}
+.v26-stagger>*{opacity:0;translate:0 16px;transition:opacity .5s var(--v26-ease),translate .5s var(--v26-ease)}
+.v26-stagger.v26-visible>*{opacity:1;translate:0 0}
+.v26-stagger.v26-visible>*:nth-child(2){transition-delay:.05s}.v26-stagger.v26-visible>*:nth-child(3){transition-delay:.1s}.v26-stagger.v26-visible>*:nth-child(4){transition-delay:.15s}.v26-stagger.v26-visible>*:nth-child(5){transition-delay:.2s}.v26-stagger.v26-visible>*:nth-child(6){transition-delay:.25s}
+.v26-tilt{will-change:translate,rotate;transition:translate .24s ease,rotate .24s ease,box-shadow .24s ease}
+.v26-tilt:hover{box-shadow:0 22px 60px rgba(0,0,0,.22)}
+.v26-magnetic{will-change:translate;transition:translate .18s ease}
+.v26-hero-sheen{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.v26-hero-sheen::after{content:"";position:absolute;top:-20%;left:-35%;width:24%;height:140%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);transform:skewX(-18deg);animation:v26Sheen 7s ease-in-out infinite}
+@keyframes v26Sheen{0%,30%{left:-35%}55%,100%{left:125%}}
+.v26-float{animation:v26Float 5.8s ease-in-out infinite}
+@keyframes v26Float{50%{translate:0 -7px}}
+.v26-pulse-dot{position:relative}.v26-pulse-dot::after{content:"";position:absolute;inset:-4px;border:1px solid currentColor;border-radius:inherit;opacity:.35;animation:v26Pulse 1.9s ease-out infinite}@keyframes v26Pulse{to{scale:1.55;opacity:0}}
+.v26-nav-scrolled{backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 10px 32px rgba(0,0,0,.15)}
+/* Utility/admin: only micro motion, never cinematic */
+.admin-v11 .v26-reveal,.process-v11 .v26-reveal,.form-v11 .v26-reveal,.status-page-v11 .v26-reveal,.faq-page-v11 .v26-reveal{filter:none;translate:0 8px;transition-duration:.32s}
+.admin-v11 button,.process-v11 button,.form-v11 button,.login-v11 button{transition:translate .16s ease,box-shadow .16s ease,border-color .16s ease}
+.admin-v11 button:active,.process-v11 button:active,.form-v11 button:active,.login-v11 button:active{translate:0 1px}
+@media(max-width:760px){.v26-tilt{rotate:none!important;translate:0 0!important}.v26-hero-sheen::after{animation-duration:9s}.v26-reveal{filter:blur(3px);translate:0 10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.v26-scroll-progress{display:none}.v26-reveal,.v26-stagger>*{opacity:1!important;filter:none!important;translate:0 0!important;transition:none!important}.v26-float,.v26-hero-sheen::after,.v26-pulse-dot::after{animation:none!important}.v26-tilt,.v26-magnetic{translate:0 0!important;rotate:none!important;transition:none!important}}

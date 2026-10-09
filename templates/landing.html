@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06111f">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="Digital contractor workforce onboarding portal for Vasind operations: open roles, application status, three authorized partner firms and a controlled three-page joining workflow.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Digital Workforce · Vasind Works">
+  <meta property="og:description" content="{{ total_manpower }}+ manpower. Three contractor enterprises. One digital joining and workforce information portal for Vasind operations.">
+  <title>Digital Workforce · Vasind Works</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://jsw-steel-s3.s3.ap-south-1.amazonaws.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Devanagari:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/neo.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/story.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/performance.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/vasind-v7.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/contractors-v8.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing-v9.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing-v10.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/motion-v11.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing-v12.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/roles-v17.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v16.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v19.css', v='19') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v20.css', v='20') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animations-v26.css', v='26') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animations-v28.css', v='28') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-v27.css', v='27') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animations-v29.css', v='29') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animations-v30.css', v='30') }}">  <link rel="stylesheet" href="{{ url_for('static', filename='css/animations-v32.css', v='32') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animations-v33.css', v='33') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global-3d-v33.css', v='33') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/layout-fix-v34.css', v='34') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/pinning-v35.css', v='35') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cleanup-v36.css', v='36') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v37.css', v='37') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v38.css', v='40') }}">
+</head>
+<body class="story-body vasind-v7 landing-v10">
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+  <div class="story-loader" id="storyLoader" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="noise"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Main navigation -->
+  <header class="story-main-nav v10-nav" id="siteNav">
+    <div class="story-nav-inner v10-nav-inner">
+      <a href="#overview" class="story-brand v10-brand v14-brand" aria-label="JSW Vendor Workforce Portal · Vasind Works home">
+        <span class="v14-jsw-logo v29-logo-shell" aria-hidden="true">
+          <svg class="v29-logo-trace" viewBox="0 0 100 76" focusable="false"><rect x="3" y="3" width="94" height="70" rx="11" pathLength="1"></rect></svg>
+          <img class="v29-animated-logo" src="{{ url_for('static', filename='vendor-logo.jpg') }}" alt="PRB vendor logo" loading="eager" decoding="async">
+          <i class="v29-logo-shine"></i>
+        </span>
+        <span class="story-brand-copy">
+          <strong>VENDOR WORKFORCE PORTAL</strong>
+          <small>VASIND WORKS · CONTRACTOR NETWORK</small>
+        </span>
+      </a>
+
+      <nav class="story-main-links v10-main-links" aria-label="Primary navigation">
+        <a href="#overview" data-i18n="navOverview">Overview</a>
+        <a href="#how-it-works" data-i18n="navHow">How it Works</a>
+        <a href="#departments" data-i18n="navDepartments">Departments</a>
+        <a href="/jobs" data-i18n="navRoles">Roles</a>
+        <a href="#faq" data-i18n="navFaq">FAQ</a>
+      </nav>
+
+      <div class="story-main-actions v10-nav-actions">
+        <div class="lang-switch v10-lang-switch" aria-label="Language selector">
+          <button type="button" data-lang="en" class="active">EN</button>
+          <button type="button" data-lang="hi">हिं</button>
+          <button type="button" data-lang="mr">मरा</button>
+        </div>
+        <a href="/status" class="v10-status-btn"><span data-i18n="checkApplicationStatus">Check Application Status</span></a>
+        <a href="/login" class="story-admin-link v10-admin-link" data-i18n="adminLogin">Admin Login</a>
+      </div>
+      <a href="/login" class="mobile-admin-link" data-i18n="adminLogin" aria-label="Admin login">Admin</a>
+    </div>
+  </header>
+
+  <main id="mainContent">
+    <!-- V10 product-style hero -->
+    <section class="story-hero v10-hero v12-hero" id="overview">
+      <canvas class="v29-ambient-canvas" id="v29AmbientCanvas" aria-hidden="true"></canvas>
+      <div class="v29-ambient-orb v29-ambient-orb-a" aria-hidden="true"></div>
+      <div class="v29-ambient-orb v29-ambient-orb-b" aria-hidden="true"></div>
+      <img class="vasind-hero-bg" src="https://jsw-steel-s3.s3.ap-south-1.amazonaws.com/jsw-steel-images/uploads/2026/01/vasind-m1.webp" alt="JSW Steel Vasind Works at night" decoding="async" fetchpriority="high">
+      <div class="vasind-hero-scrim" aria-hidden="true"></div>
+      <div class="story-hero-grid"></div>
+      <div class="story-hero-vignette"></div>
+
+      <div class="story-hero-copy v10-hero-copy v12-hero-copy">
+        <div class="v12-hiring-line">
+          <span class="v12-live-dot" aria-hidden="true"></span>
+          <span data-i18n="hiringOpen">CONTRACTOR HIRING OPEN</span>
+        </div>
+        <span class="story-eyebrow v10-hero-label" data-i18n="heroLabel">JSW STEEL · VASIND WORKS · MAHARASHTRA</span>
+        <h1 class="v10-hero-title v12-hero-title" aria-label="Contractor hiring for Vasind Works.">
+          <span class="v10-title-word" data-i18n="heroWord1">Contractor</span>
+          <span class="v10-title-word" data-i18n="heroWord2">hiring for</span>
+          <span class="v10-title-word" data-i18n="heroWord3">Vasind</span>
+          <span class="v10-title-word metal-gradient" data-i18n="heroWord4">Works.</span>
+        </h1>
+        <p class="v10-hero-sub" data-i18n="heroSub">
+          Open workforce roles across three contractor firms supporting JSW Steel Vasind operations. Apply online or get offline contractor assistance for the joining process.
+        </p>
+        <div class="story-hero-actions v10-hero-actions">
+          <a class="story-primary-btn v10-primary" href="/jobs" data-magnetic><span data-i18n="viewOpenRoles">View Open Roles</span> <span>↗</span></a>
+          <a class="story-secondary-link v10-secondary" href="#how-it-works"><span data-i18n="navHow">How It Works</span> <span>↓</span></a>
+          
+        </div>
+        <div class="v12-location-row v13-location-row">
+          <div class="v13-location-card">
+            <small>LOCATION</small>
+            <strong>JSW Steel Vasind Works</strong>
+            <span>Shahapur Taluka · Thane District · Maharashtra 421604</span>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=JSW+Steel+Vasind+Works+Maharashtra+421604" target="_blank" rel="noopener noreferrer" class="v12-map-link v13-map-link">View location ↗</a>
+        </div>
+        <small class="v12-direct-note">Hiring support portal for three long-standing JSW vendors · not direct JSW Steel recruitment.</small>
+      </div>
+
+      <div class="story-hero-stage v10-hero-stage" id="storyHeroStage">
+        <div class="story-hero-halo"></div>
+        <div class="story-orbit story-orbit-a"></div>
+        <div class="story-orbit story-orbit-b"></div>
+
+        <div class="story-hud story-hud-a v10-hud">
+          <small>WORKFORCE SCALE</small>
+          <b>{{ total_manpower }}+ manpower</b>
+          <span><i></i> Across 3 contractor firms</span>
+        </div>
+        <div class="story-hud story-hud-b v10-hud">
+          <small>STATUTORY SUPPORT</small>
+          <b>PF + ESIC</b>
+          <span><i></i> Subject to eligibility & rules</span>
+        </div>
+        <div class="story-hud story-hud-c v10-hud">
+          <small>DIGITAL JOINING</small>
+          <b>One entry → 3 pages</b>
+          <span><i></i> Review · verify · print</span>
+        </div>
+      </div>
+
+      <div class="story-scroll-cue v10-scroll-cue">SCROLL TO EXPLORE <span>↓</span></div>
+    </section>
+
+    <!-- Applicant-focused trust bar -->
+    <section class="v10-trust-bar v12-trust-bar" aria-label="Workforce and processing indicators">
+      <div class="v10-trust-inner">
+        <article class="v10-trust-stat" data-trust-stat>
+          <strong data-stat-value="3" data-stat-format="int">3</strong>
+          <span data-i18n="trustAuthorized">Contracting Firms</span>
+          <i class="v10-stat-line"></i>
+        </article>
+        <article class="v10-trust-stat" data-trust-stat>
+          <strong data-stat-value="{{ total_manpower }}" data-stat-format="plus">{{ total_manpower }}+</strong>
+          <span data-i18n="trustManpower">Current Combined Manpower</span>
+          <i class="v10-stat-line"></i>
+        </article>
+        <article class="v10-trust-stat" data-trust-stat>
+          <strong>3–8 DAYS</strong>
+          <span data-i18n="trustProcess">Typical Joining Process</span>
+          <i class="v10-stat-line"></i>
+        </article>
+        <article class="v10-trust-stat" data-trust-stat>
+          <strong>10–15 DAYS</strong>
+          <span data-i18n="trustPunch">Punch / Gate Card</span>
+          <i class="v10-stat-line"></i>
+        </article>
+      </div>
+    </section>
+
+    <!-- Vendor information -->
+    <section class="v12-network v37-vendor-section" id="network">
+      <div class="v12-network-bg" aria-hidden="true"></div>
+      <div class="v12-network-head">
+        <div>
+          <span class="story-section-label">VENDOR NETWORK</span>
+          <h2>Contractor teams supporting <span>JSW Vasind</span>.</h2>
+        </div>
+        <p>Vendor information is kept separate from workforce benefits so candidates can clearly understand which contractor they are applying through.</p>
+      </div>
+
+      <div class="v37-vendor-grid">
+        {% for name, code, summary in [
+          ('Prabhuram & Bichare', 'PRB', 'Workforce roles and joining records for this contractor in the Vasind portal.'),
+          ('Deva Enterprises', 'DEVA', 'Candidate applications and assigned work roles managed through this contractor profile.'),
+          ('Shubham Services', 'SHUBHAM', 'Workforce allocation and joining records for this contractor in the shared portal.')
+        ] %}
+        <article class="v37-vendor-card{% if loop.first %} v37-vendor-featured{% endif %}">
+          <div class="v37-vendor-card-top"><span class="v37-vendor-index">0{{ loop.index }} / 03</span><span class="v37-vendor-monogram" aria-hidden="true">{{ code }}</span></div>
+          <small>CONTRACTOR NETWORK · VASIND</small>
+          <h3>{{ name }}</h3>
+          <p>{{ summary }}</p>
+          {% set listed = contractor_roles.get(name, []) %}
+          <div class="v37-vendor-card-roles"><strong>Current roles</strong>{% if listed %}<ul>{% for role in listed[:3] %}<li>{{ role['title'] }}</li>{% endfor %}</ul>{% else %}<span>No roles listed currently.</span>{% endif %}</div>
+          <a href="/contractors">Explore contractor details <span aria-hidden="true">↗</span></a>
+        </article>
+        {% endfor %}
+      </div>
+      <p class="v37-vendor-note">Contractor and role descriptions reflect this portal's project records. Final assignment is confirmed during processing.</p>
+
+      <div class="v37-network-people">
+        <article><small>CONTRACTOR OWNER / NETWORK LEAD</small><strong>{{ contractor_network_lead }}</strong></article>
+        {% if site_supervisor %}<article><small>COMMON PERSONAL SUPERVISOR</small><strong>{{ site_supervisor }}</strong></article>{% endif %}
+        <article><small>COMBINED MANPOWER</small><strong>{{ total_manpower }}+</strong></article>
+      </div>
+    </section>
+
+    <!-- Workforce benefits -->
+    <section class="v37-benefits" id="benefits">
+      <div class="v37-benefits-head">
+        <div><span class="story-section-label">WORKFORCE BENEFITS</span><h2>Support and benefits, shown separately.</h2></div>
+        <p>Benefits are handled through the applicable contractor process and remain subject to eligibility, records and applicable rules.</p>
+      </div>
+      <div class="v37-benefit-grid">
+        <article><span class="v37-benefit-icon">PF</span><small>STATUTORY SUPPORT</small><h3>PF / UAN Assistance</h3><p>PF/UAN onboarding and claim-related assistance where applicable.</p></article>
+        <article><span class="v37-benefit-icon">ESI</span><small>HEALTH COVERAGE</small><h3>ESIC Support</h3><p>ESIC registration and related workforce support subject to eligibility.</p></article>
+        <article class="v37-diwali"><span class="v37-benefit-icon">✦</span><small>FESTIVAL BENEFIT</small><h3>Diwali Bonus + Sweets</h3><p>Festival bonus support and sweets as provided through the contractor network.</p></article>
+      </div>
+    </section>
+
+    <section class="v37-industrial-visuals" aria-label="Vasind workforce environment">
+      <div class="v12-visual-grid">
+        <figure class="v12-visual-card v12-visual-wide" data-v12-image>
+          <img src="{{ url_for('static', filename='ccl.jpg') }}" alt="Steel coil processing line" loading="lazy" decoding="async">
+          <figcaption><b>Production environment</b><span>Coil handling and processing operations</span></figcaption>
+        </figure>
+        <figure class="v12-visual-card" data-v12-image>
+          <img src="{{ url_for('static', filename='safety.jpg') }}" alt="JSW safety workwear and PPE" loading="lazy" decoding="async">
+          <figcaption><b>Safety first</b><span>PPE and safe-work discipline</span></figcaption>
+        </figure>
+        <figure class="v12-visual-card" data-v12-image>
+          <img src="{{ url_for('static', filename='machinery.jpg') }}" alt="Industrial crane and coil handling equipment" loading="lazy" decoding="async">
+          <figcaption><b>Industrial operations</b><span>Heavy material-handling environment</span></figcaption>
+        </figure>
+      </div>
+
+    </section>
+
+    <!-- Plant departments / deployment areas -->
+    <section class="v14-departments" id="departments">
+      <div class="v14-departments-head">
+        <div>
+          <span class="story-section-label">PLANT WORK AREAS</span>
+          <h2>Departments where contractor manpower supports operations.</h2>
+        </div>
+        <p>These are the work areas currently represented in the project. Final department allocation is decided through role requirement, contractor review and plant workflow — applicants do not self-select a department from this section.</p>
+      </div>
+
+      <div class="v14-department-grid">
+        {% for department in departments %}
+        <article class="v14-department-card" data-v14-department>
+          <span class="v14-dept-index">{{ '%02d'|format(loop.index) }}</span>
+          <strong>{{ department }}</strong>
+          <small>VASIND WORK AREA</small>
+          <i aria-hidden="true"></i>
+        </article>
+        {% endfor %}
+      </div>
+
+      <div class="v14-department-note">
+        <span>4 main work areas</span>
+        <p>CCL · CGL · ZINC POT · JSW RAILSIDE</p>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="v10-how v12-how" id="how-it-works">
+      <div class="v10-section-head">
+        <div>
+          <span class="story-section-label" data-i18n="processLabel">PROCESS</span>
+          <h2 data-i18n="howHeading">How to apply, what you need, and how long it usually takes.</h2>
+        </div>
+        <p data-i18n="howIntroV10">Applications can start online or with offline contractor assistance. Before the job starts, medical induction / clearance is completed first, followed by safety induction. A typical joining process takes about 3–8 days; punch/gate-card processing can take around 10–15 days depending on approvals.</p>
+      </div>
+
+      <div class="v10-process" aria-label="Application process">
+        <div class="v10-process-rail" aria-hidden="true"><i id="v10ProcessFill"></i></div>
+
+        <article class="v10-process-step" data-process-step>
+          <span class="v10-step-no">01</span>
+          <div class="v10-step-icon" aria-hidden="true">↗</div>
+          <h3 data-i18n="stepApply">Apply</h3>
+          <p data-i18n="stepApplyV10">Start online from this portal or complete the first step offline with contractor assistance.</p>
+        </article>
+
+        <article class="v10-process-step" data-process-step>
+          <span class="v10-step-no">02</span>
+          <div class="v10-step-icon v10-verify-icon" aria-hidden="true">
+            <svg viewBox="0 0 52 52" focusable="false"><circle cx="26" cy="26" r="19"></circle><path d="M17 27l6 6 13-15"></path></svg>
+          </div>
+          <h3 data-i18n="stepVerify">Verify</h3>
+          <p data-i18n="stepVerifyV10">Keep Aadhaar, PAN and bank account proof ready. Educational documents depend on the role and skill category.</p>
+          <small class="v10-planned-badge">AADHAAR · PAN · BANK PROOF</small>
+        </article>
+
+        <article class="v10-process-step" data-process-step>
+          <span class="v10-step-no">03</span>
+          <div class="v10-step-icon" aria-hidden="true">◎</div>
+          <h3 data-i18n="stepInterview">Interview</h3>
+          <p data-i18n="stepInterviewV10">The assigned contractor reviews documents, qualification and role suitability. Interview/assessment is completed where required.</p>
+        </article>
+
+        <article class="v10-process-step" data-process-step>
+          <span class="v10-step-no">04</span>
+          <div class="v10-step-icon" aria-hidden="true">✚</div>
+          <h3>Medical Induction</h3>
+          <p>Before safety induction, the candidate completes the required pre-employment medical / medical induction process and clearance.</p>
+          <small class="v10-planned-badge">BEFORE SAFETY INDUCTION</small>
+        </article>
+
+        <article class="v10-process-step" data-process-step>
+          <span class="v10-step-no">05</span>
+          <div class="v10-step-icon" aria-hidden="true">◈</div>
+          <h3>Safety Induction</h3>
+          <p>After medical clearance, the candidate completes safety induction before reporting for the assigned job / work area.</p>
+          <small class="v10-planned-badge">BEFORE JOB JOINING</small>
+        </article>
+
+        <article class="v10-process-step" data-process-step>
+          <span class="v10-step-no">06</span>
+          <div class="v10-step-icon" aria-hidden="true">▤</div>
+          <h3 data-i18n="stepJoin">Join</h3>
+          <p data-i18n="stepJoinV10">After required review, medical and safety induction, the joining record is completed. Punch/gate-card processing can continue according to the applicable workflow.</p>
+        </article>
+      </div>
+
+      <div class="v12-process-meta">
+        <article><small>PROCESS MODE</small><strong>Online + Offline</strong><span>Portal application or contractor-assisted processing</span></article>
+        <article><small>TYPICAL JOINING</small><strong>3–8 days</strong><span>Subject to documents, interview and approvals</span></article>
+        <article><small>PUNCH / GATE CARD</small><strong>10–15 days</strong><span>Approximate processing window; may vary</span></article>
+      </div>
+
+      <div class="v12-docs">
+        <div class="v12-docs-copy">
+          <span class="story-section-label">COMPULSORY BASE DOCUMENTS</span>
+          <h3>Bring the three essentials first.</h3>
+          <p>Every role starts with core identity and bank details. Educational or technical proof is then checked according to the selected role.</p>
+        </div>
+        <div class="v12-doc-grid">
+          <article><b>01</b><span>Aadhaar Card</span><small>Identity / address verification</small></article>
+          <article><b>02</b><span>PAN Card</span><small>Mandatory identity / tax record</small></article>
+          <article><b>03</b><span>Bank Account Proof</span><small>Passbook or required account document</small></article>
+          <article><b>04</b><span>Education / Skill Proof</span><small>As required for the selected role</small></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- V30 integrated motion experience: effects 11–31 -->
+    <section class="v30-motion-suite" id="motion-suite" aria-labelledby="v30MotionTitle">
+      <div class="v30-suite-bg" aria-hidden="true"><span class="v30-bg-ring v30-bg-ring-a"></span><span class="v30-bg-ring v30-bg-ring-b"></span><span class="v30-bg-grid"></span></div>
+      <div class="v30-suite-head">
+        <div><span class="story-section-label">INTERACTIVE WORKFORCE EXPERIENCE</span><h2 id="v30MotionTitle">Movement that explains the process — not motion for motion's sake.</h2></div>
+        <p>Responsive motion is layered across the joining journey: icons confirm actions, cards gain depth, forms respond instantly, and document pages flip like a real dossier.</p>
+      </div>
+
+      <div class="v30-icon-row" aria-label="Interactive process controls">
+        <button class="v30-icon-action" type="button" data-v30-icon-action="apply"><span class="v30-icon-shell" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M12 10h17l7 7v21H12z"/><path d="M29 10v8h7M18 25h12M18 31h9"/></svg></span><span><b>Apply</b><small>Tap for feedback</small></span><i class="v30-action-state" aria-hidden="true">✓</i></button>
+        <button class="v30-icon-action" type="button" data-v30-icon-action="verify"><span class="v30-icon-shell" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 6l14 6v10c0 9-5.5 16-14 20-8.5-4-14-11-14-20V12z"/><path d="M17 24l5 5 10-11"/></svg></span><span><b>Verify</b><small>Identity checks</small></span><i class="v30-action-state" aria-hidden="true">✓</i></button>
+        <button class="v30-icon-action" type="button" data-v30-icon-action="print"><span class="v30-icon-shell" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M15 18V8h18v10M14 35H9V21h30v14h-5"/><path d="M15 29h18v11H15z"/><circle cx="34" cy="25" r="1.4"/></svg></span><span><b>Generate</b><small>RAMCO + 3 pages</small></span><i class="v30-action-state" aria-hidden="true">✓</i></button>
+      </div>
+
+      <div class="v30-feature-grid">
+        <article class="v30-feature v30-character-card">
+          <div class="v30-feature-copy"><small>GUIDED ASSISTANCE</small><h3>Animated workforce guide</h3><p>A lightweight SVG character reacts to hover, tap and scroll without loading a video asset.</p></div>
+          <div class="v30-worker" id="v30Worker" aria-label="Animated safety worker illustration">
+            <svg viewBox="0 0 220 250" role="img" aria-hidden="true"><g class="v30-worker-shadow"><ellipse cx="110" cy="225" rx="56" ry="12"/></g><g class="v30-worker-body"><path class="v30-vest" d="M72 118c8-17 24-27 38-27s31 10 39 27l10 83H61z"/><path class="v30-vest-line" d="M86 107l24 31 25-31M110 138v64"/><path class="v30-leg" d="M87 197l-11 35M132 197l13 35"/><path class="v30-arm v30-arm-left" d="M72 122L43 166"/><path class="v30-arm v30-arm-right" d="M149 121l28 30"/><circle class="v30-head" cx="110" cy="68" r="33"/><path class="v30-helmet" d="M76 63c1-27 16-42 34-42s34 15 35 42z"/><path class="v30-helmet-rim" d="M69 64h82"/><g class="v30-face"><circle class="v30-eye" cx="98" cy="70" r="2.7"/><circle class="v30-eye" cx="122" cy="70" r="2.7"/><path d="M101 83q9 7 18 0"/></g><g class="v30-hand-wave"><circle cx="181" cy="149" r="8"/><path d="M184 142l7-13M180 141l1-15M176 143l-5-12"/></g></g></svg>
+            <button type="button" class="v30-worker-hello" id="v30WorkerHello">Hello</button><span class="v30-worker-bubble" id="v30WorkerBubble" role="status">Safety first. Documents ready?</span>
+          </div>
+        </article>
+
+        <article class="v30-feature v30-faux-card" data-v30-tilt><div class="v30-feature-copy"><small>DEPTH WITHOUT HEAVY 3D</small><h3>Faux-3D joining stack</h3><p>Layering, perspective, scaling and shadow create depth while staying fast on mobile.</p></div><div class="v30-faux-stack" aria-hidden="true"><span class="v30-faux-sheet sheet-c"><b>03</b><i></i><i></i><i></i></span><span class="v30-faux-sheet sheet-b"><b>02</b><i></i><i></i><i></i></span><span class="v30-faux-sheet sheet-a"><b>01</b><i></i><i></i><i></i></span></div></article>
+
+        
+
+        
+      </div>
+
+      <div class="v30-mixed-media"><figure class="v30-collage-photo"><img src="{{ url_for('static', filename='ccl.jpg') }}" alt="Steel coil processing environment" loading="lazy" decoding="async"><span class="v30-paper-label">VASIND / OPERATIONS</span><svg class="v30-doodle v30-doodle-arrow" viewBox="0 0 180 100" aria-hidden="true"><path pathLength="1" d="M8 77 C45 15 106 17 157 58"/><path pathLength="1" d="M143 48l18 11-15 11"/></svg></figure><div class="v30-collage-copy"><span class="story-section-label">MIXED MEDIA + DOODLE MOTION</span><h3>Industrial photography meets vector annotations.</h3><p>Local facility photography, grain, technical labels and hand-drawn SVG strokes combine into one animated visual layer.</p><div class="v30-tape">DOCUMENT → VERIFY → JOIN</div></div></div>
+
+      <div class="v30-material-row"><article class="v30-material v30-neumorph" tabindex="0"><span class="v30-material-icon">✓</span><small>NEUMORPHIC FEEDBACK</small><strong>Record Ready</strong><i aria-hidden="true"></i></article><article class="v30-material v30-glass" tabindex="0"><span class="v30-material-icon">◈</span><small>GLASSMORPHIC PANEL</small><strong>Live Workflow</strong><i aria-hidden="true"></i></article><article class="v30-material v30-clay" tabindex="0"><span class="v30-material-icon">✦</span><small>CLAYMORPHIC BENEFIT</small><strong>Diwali Bonus + Sweets</strong><i aria-hidden="true"></i></article></div>
+
+      <div class="v30-final-grid">
+        <article class="v30-flipbook-card"><div class="v30-feature-copy"><small>ANIMATED FLIPBOOK</small><h3>Preview all three joining pages.</h3><p>Use the controls to flip through a lightweight representation of the final printable dossier.</p></div><div class="v30-book" id="v30Book" data-page="1" aria-label="Three-page animated joining form preview"><div class="v30-book-page page-3"><b>03</b><span>Registration & Declaration</span><i></i><i></i><i></i></div><div class="v30-book-page page-2"><b>02</b><span>Personal & Employment</span><i></i><i></i><i></i></div><div class="v30-book-page page-1"><b>01</b><span>Interview Assessment</span><i></i><i></i><i></i></div></div><div class="v30-book-controls"><button type="button" id="v30BookPrev">← Previous</button><span id="v30BookStatus" aria-live="polite">Page 1 of 3</span><button type="button" id="v30BookNext">Next →</button></div></article>
+      </div>
+    </section>
+
+    <!-- Large statement section -->
+    <section class="story-statement">
+      <div class="story-statement-inner">
+        <span class="story-section-label" data-story-reveal>DIGITAL PROCESS</span>
+        <h2 data-story-reveal>
+          People first.<br>
+          <span>Paperwork simplified.</span>
+        </h2>
+        <p data-story-reveal>
+          The portal introduces the people and contractor network first, then moves into the practical core:
+          a faster, clearer three-page joining workflow with less repeated data entry.
+        </p>
+      </div>
+      <div class="story-statement-line"></div>
+    </section>
+
+    <!-- Vasind Works story, based on public JSW Steel information -->
+    <section class="story-media-section vasind-facility" id="facility">
+      <div class="story-media-frame" data-story-media>
+        <img class="vasind-facility-bg" loading="lazy" decoding="async" fetchpriority="low" src="https://jsw-steel-s3.s3.ap-south-1.amazonaws.com/jsw-steel-images/uploads/2026/01/vasind-m1.webp" alt="Aerial view of JSW Steel Vasind Works">
+        <div class="story-media-overlay"></div>
+        <div class="story-media-copy vasind-media-copy">
+          <span class="story-section-label">JSW STEEL · VASIND WORKS</span>
+          <h2>Steel finishing at scale.<br><span>Built for consistency.</span></h2>
+          <p>Vasind Works is a downstream steel-processing facility in Maharashtra focused on cold rolled, galvanised and other value-added products for automotive, appliance and industrial applications.</p>
+          <a class="vasind-source-link" href="https://www.jswsteel.in/facility/vasind-works" target="_blank" rel="noopener noreferrer">Official facility information <span>↗</span></a>
+        </div>
+      </div>
+
+      <div class="story-facts-grid vasind-facts-grid">
+        <article data-story-card><small>LOCATION</small><strong>Vasind, Maharashtra</strong><span>Shahapur Taluka · Thane District · 421604</span><a class="v12-fact-link" href="https://www.google.com/maps/search/?api=1&query=JSW+Steel+Vasind+Works+Maharashtra+421604" target="_blank" rel="noopener noreferrer">Open map ↗</a></article>
+        <article data-story-card><small>COMMISSIONED</small><strong>1992</strong><span>Public facility profile</span></article>
+        <article data-story-card><small>LISTED CAPACITY</small><strong>0.9 MTPA</strong><span>On JSW Steel's facility page</span></article>
+        <article data-story-card><small>KEY PRODUCTS</small><strong>GI / GL · CRCA · CCP</strong><span>Cold rolled & coated portfolio</span></article>
+      </div>
+
+      <div class="vasind-intel" aria-label="About Vasind Works">
+        <div class="vasind-intel-head">
+          <span class="story-section-label">ABOUT VASIND WORKS</span>
+          <h2>Downstream steel.<br><span>Digitally controlled.</span></h2>
+          <p>Public JSW Steel material describes Vasind as a value-addition hub that converts hot rolled steel into cold rolled and coated products. Automation, real-time process monitoring and digital quality checks support consistent surface finish, coating thickness and dimensional accuracy.</p>
+        </div>
+
+        <div class="vasind-intel-grid">
+          <article class="vasind-intel-card" data-vasind-card>
+            <span class="vasind-card-no">01</span>
+            <h3>Cold rolling & coating</h3>
+            <p>Advanced processing lines convert incoming steel into finished cold rolled and coated products for demanding end uses.</p>
+          </article>
+          <article class="vasind-intel-card" data-vasind-card>
+            <span class="vasind-card-no">02</span>
+            <h3>Real-time quality control</h3>
+            <p>Digital monitoring tracks surface quality, coating thickness and dimensional accuracy across production batches.</p>
+          </article>
+          <article class="vasind-intel-card" data-vasind-card>
+            <span class="vasind-card-no">03</span>
+            <h3>Resource efficiency</h3>
+            <p>JSW highlights closed-loop water reuse, energy-efficient equipment, waste recovery and emissions-control systems at the facility.</p>
+          </article>
+          <article class="vasind-intel-card" data-vasind-card>
+            <span class="vasind-card-no">04</span>
+            <h3>Value-added product mix</h3>
+            <p>JSW's annual reporting lists Vasind among its downstream operations for GI/GL, colour-coated products and CRCA.</p>
+          </article>
+        </div>
+
+        <div class="vasind-tech-band">
+          <div class="vasind-tech-media" data-vasind-media>
+            <img loading="lazy" decoding="async" src="{{ url_for('static', filename='machinery.jpg') }}" alt="Industrial processing equipment and coil-handling machinery">
+            <div class="vasind-tech-badge"><span>PROCESS</span><b>Automation + monitoring</b></div>
+          </div>
+          <div class="vasind-tech-copy">
+            <span class="story-section-label">TECHNOLOGY & OPERATIONS</span>
+            <h3>Precision in the line.<br>Clarity in the workflow.</h3>
+            <p>The plant's production systems are designed around repeatability and control. This portal follows the same idea for contractor onboarding: one reliable data entry, controlled verification and three print-ready pages.</p>
+            <div class="vasind-product-chips" aria-label="Product categories">
+              <span>Galvanised</span><span>Galvalume</span><span>CRCA</span><span>Colour coated</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vasind-milestones">
+          <div class="vasind-milestones-head">
+            <span class="story-section-label">PUBLIC MILESTONES</span>
+            <h3>Public milestones that show Vasind's evolution.</h3>
+          </div>
+          <p class="vasind-milestone-intro">The public facility profile highlights two important 2013 updates — cleaner-fuel transition and CCL-1 commissioning — before the story continues into today's downstream value-added steel processing.</p>
+          <div class="vasind-milestone-track">
+            <article class="vasind-milestone" data-vasind-milestone><b>2013</b><span>Fuel transition</span><p>JSW's facility page records a switch from LPG to RLNG, indicating an operational move toward cleaner and more reliable fuel use.</p></article>
+            <article class="vasind-milestone" data-vasind-milestone><b>2013</b><span>CCL-1 commissioned</span><p>The same public profile lists commissioning of CCL-1, marking a visible strengthening of coated-steel processing capability at the site.</p></article>
+            <article class="vasind-milestone" data-vasind-milestone><b>Today</b><span>Downstream value addition</span><p>Today, Vasind continues to support cold rolled and coated steel applications across multiple industrial segments through its downstream value-addition role.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="v10-faq" id="faq">
+      <div class="v10-section-head v10-faq-head">
+        <div>
+          <span class="story-section-label" data-i18n="questionsLabel">QUESTIONS</span>
+          <h2 data-i18n="faqHeading">Before you apply.</h2>
+        </div>
+        <p data-i18n="faqSub">Practical answers about documents, shifts, verification, contractor assignment, application status and gate-pass processing.</p>
+      </div>
+
+      <div class="v10-faq-list">
+        <article class="v10-faq-item">
+          <button type="button" aria-expanded="false"><span data-i18n="faqDocsQ">What documents do I need to apply?</span><b aria-hidden="true">⌄</b></button>
+          <div class="v10-faq-answer"><div><p data-i18n="faqDocsA">Aadhaar Card, PAN Card and bank account proof are the compulsory base documents. Educational or technical documents are required according to the selected role and skill category.</p></div></div>
+        </article>
+        <article class="v10-faq-item">
+          <button type="button" aria-expanded="false"><span data-i18n="faqShiftQ">What's the difference between 8-hour and 12-hour shift roles?</span><b aria-hidden="true">⌄</b></button>
+          <div class="v10-faq-answer"><div><p data-i18n="faqShiftA">Shift duration depends on the assigned role, department and contractor requirement. The confirmed schedule is communicated during processing or joining rather than being assumed on the website.</p></div></div>
+        </article>
+        <article class="v10-faq-item">
+          <button type="button" aria-expanded="false"><span data-i18n="faqVerifyQ">How long does verification take?</span><b aria-hidden="true">⌄</b></button>
+          <div class="v10-faq-answer"><div><p data-i18n="faqVerifyA">A typical joining process takes about 3–8 days when documents are ready. Punch/gate-card processing can take around 10–15 days and may vary with plant or contractor approvals.</p></div></div>
+        </article>
+        <article class="v10-faq-item">
+          <button type="button" aria-expanded="false"><span data-i18n="faqFirmQ">Which contracting firm will I be placed with?</span><b aria-hidden="true">⌄</b></button>
+          <div class="v10-faq-answer"><div><p data-i18n="faqFirmA">Applicants do not self-select a firm from the partner section. Contractor mapping follows the role, review and admin joining process.</p></div></div>
+        </article>
+        <article class="v10-faq-item">
+          <button type="button" aria-expanded="false"><span data-i18n="faqStatusQ">How do I check my application status?</span><b aria-hidden="true">⌄</b></button>
+          <div class="v10-faq-answer"><div><p data-i18n="faqStatusA">Use the Check Application Status section and enter the 10-digit mobile number used during registration.</p></div></div>
+        </article>
+        <article class="v10-faq-item">
+          <button type="button" aria-expanded="false"><span data-i18n="faqGateQ">What is the gate-pass process on my joining day?</span><b aria-hidden="true">⌄</b></button>
+          <div class="v10-faq-answer"><div><p data-i18n="faqGateA">After documents, review and interview/assessment are completed, the three-page joining record is prepared. Contractor and plant approvals then continue, and punch/gate-card processing may take around 10–15 days.</p></div></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Status tracker -->
+    <section class="story-status-section" id="status">
+      <div class="story-status-card">
+        <div>
+          <span class="story-section-label" data-i18n="statusKicker">APPLICATION STATUS</span>
+          <h2 data-i18n="statusTitle">Already registered?</h2>
+          <p data-i18n="statusText">Enter the mobile number used during registration to check the current application status.</p>
+        </div>
+        <form class="story-status-form" id="trackForm" action="/status" method="post">
+          <input type="tel" id="trackInput" placeholder="10-digit mobile number" data-i18n-placeholder="trackMobilePlaceholder" maxlength="10" autocomplete="tel">
+          <button type="submit"><span data-i18n="checkStatus">Check status</span> <span>↗</span></button>
+          <div class="story-status-result" id="trackResult" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="story-final-cta v10-final-cta" id="contact">
+      <div class="story-final-orbit"></div>
+      <span class="story-section-label">START THE WORKFLOW</span>
+      <h2 data-i18n="finalHeading">Ready to join the line?</h2>
+      <p data-i18n="finalSub">Applications are reviewed by our contracting partners after submission. Review timing depends on role requirements and document readiness.</p>
+      <div class="story-final-actions">
+        <a class="story-primary-btn v10-primary" href="/apply_form" data-magnetic><span data-i18n="startApplication">Start Your Application</span> <span>↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Immersive XR controls: real WebXR when supported, interactive 3D fallback otherwise -->
+  <div class="v29-xr-modal" id="v29XRModal" aria-hidden="true">
+    <button class="v29-xr-backdrop" type="button" data-v29-xr-close aria-label="Close immersive XR panel"></button>
+    <div class="v29-xr-dialog" role="dialog" aria-modal="true" aria-labelledby="v29XRTitle">
+      <button class="v29-xr-close" type="button" data-v29-xr-close aria-label="Close">×</button>
+      <span class="story-section-label">IMMERSIVE MOTION</span>
+      <h2 id="v29XRTitle">Explore the steel-coil scene.</h2>
+      <p>Compatible HTTPS/WebXR devices can enter VR or AR. Other devices keep the same GPU-rendered interactive 3D preview.</p>
+      <div class="v29-xr-status" id="v29XRStatus"><i></i><span>Checking device support…</span></div>
+      <div class="v29-xr-actions">
+        <button type="button" data-v29-xr-mode="immersive-vr">Enter VR</button>
+        <button type="button" data-v29-xr-mode="immersive-ar">Enter AR</button>
+        <button type="button" data-v29-xr-mode="fallback">Interactive 3D</button>
+      </div>
+      <small>WebXR availability depends on browser, device, secure context and hardware support.</small>
+    </div>
+  </div>
+
+  <!-- Role details modal -->
+  <div class="role-modal" id="roleApplyModal" aria-hidden="true">
+    <div class="role-modal-backdrop" data-modal-close></div>
+    <div class="role-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="roleModalTitle">
+      <button class="role-modal-close" type="button" data-modal-close aria-label="Close">×</button>
+      <div class="role-modal-kicker">ROLE REGISTRATION</div>
+      <div class="role-modal-head">
+        <div><h2 id="roleModalTitle">Role</h2><p id="roleModalContractor">Contractor</p></div>
+        <span class="pill copper" id="roleModalSkill">Skill level</span>
+      </div>
+      <p class="role-modal-description" id="roleModalDescription"></p>
+      <div class="v17-modal-salary">
+        <small>EXPECTED SALARY</small>
+        <strong id="roleModalSalary">Salary varies by role</strong>
+        <span>Indicative monthly range; final pay depends on experience, shift, contractor terms and applicable rules.</span>
+      </div>
+
+      <div class="role-required-box">
+        <span class="role-required-label">DETAILS REQUIRED TO START</span>
+        <div class="required-grid">
+          <div><b>01</b><span>Full name</span></div>
+          <div><b>02</b><span>10-digit mobile number</span></div>
+          <div><b>03</b><span>Qualification</span></div>
+          <div><b>04</b><span>Selected designation</span></div>
+        </div>
+      </div>
+
+      <div class="role-next-note">
+        <span>WHAT HAPPENS NEXT</span>
+        <p>After registration, the admin continues the detailed joining process used for the existing three-page form.</p>
+      </div>
+
+      <div class="role-modal-actions">
+        <button class="btn btn-ghost" type="button" data-modal-close>Not now</button>
+        <a class="btn btn-primary" id="roleModalContinue" href="/apply_form">Continue to application <span>↗</span></a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="story-footer v10-footer">
+    <div class="v10-footer-grid">
+      <section class="v10-footer-about">
+        <strong>JSW Vendor Workforce Portal · Vasind Works</strong>
+        <p data-i18n="footerDisclaimer">Independent contractor/onboarding portal project. This is not the official JSW Steel website.</p>
+      </section>
+
+      <section class="v10-footer-links">
+        <strong data-i18n="footerLinks">Links</strong>
+        <a href="/faq" data-i18n="navFaq">FAQ</a>
+        <a href="/status" data-i18n="checkApplicationStatus">Check Application Status</a>
+        <a href="/privacy" data-i18n="privacyPolicy">Privacy Policy</a>
+      </section>
+
+      <section class="v10-footer-contact">
+        <strong data-i18n="grievanceTitle">Applicant support / grievance</strong>
+        <form class="v10-grievance" id="grievance" action="/contact" method="post">
+          <div><input name="name" required placeholder="Name" data-i18n-placeholder="namePlaceholder"><input name="phone" inputmode="numeric" maxlength="10" placeholder="Mobile" data-i18n-placeholder="mobilePlaceholder"></div>
+          <textarea name="message" required rows="3" placeholder="Describe your portal-related enquiry. Do not include Aadhaar/UAN/ESIC." data-i18n-placeholder="messagePlaceholder"></textarea>
+          <button type="submit"><span data-i18n="sendMessage">Send message</span> <span>↗</span></button>
+        </form>
+      </section>
+
+      <section class="v10-footer-language" id="privacy">
+        <strong data-i18n="languageLabel">Language</strong>
+        <div class="lang-switch v10-lang-switch v10-footer-lang" aria-label="Language selector">
+          <button type="button" data-lang="en" class="active">EN</button>
+          <button type="button" data-lang="hi">हिं</button>
+          <button type="button" data-lang="mr">मरा</button>
+        </div>
+        <p data-i18n="footerPrivacyText">Do not send Aadhaar, UAN, ESIC or other sensitive identifiers through the public enquiry form. Sensitive joining fields are handled later in the authorized admin workflow.</p>
+      </section>
+    </div>
+    <div class="story-footer-bottom">© 2026 Contractor Workforce Portal · Facility facts and imagery reference publicly available JSW Steel materials. Contractor/manpower information is project-provided.</div>
+  </footer>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  <script defer src="{{ url_for('static', filename='js/performance.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/neo.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/i18n-v10.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/landing-v10.js', v='19') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/landing-v12.js') }}"></script>
+<script defer src="{{ url_for('static', filename='js/animations-v26.js', v='26') }}"></script>
+<script defer src="{{ url_for('static', filename='js/animations-v28.js', v='28') }}"></script>
+<script defer src="{{ url_for('static', filename='js/animations-v29.js', v='29') }}"></script>
+<script defer src="{{ url_for('static', filename='js/animations-v30.js', v='30') }}"></script>
+<script defer src="{{ url_for('static', filename='js/responsive-v27.js', v='27') }}"></script>
+<script defer src="{{ url_for('static', filename='js/animations-v32.js', v='32') }}"></script>
+<script defer src="{{ url_for('static', filename='js/animations-v33.js', v='33') }}"></script>  <script defer src="{{ url_for('static', filename='js/global-3d-v33.js', v='33') }}"></script>
+
+<script defer src="{{ url_for('static', filename='js/layout-fix-v34.js', v='34') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/pinning-v35.js', v='35') }}"></script>
+<script defer src="{{ url_for('static', filename='js/i18n-v38.js', v='38') }}"></script>\n</body>
+</html>

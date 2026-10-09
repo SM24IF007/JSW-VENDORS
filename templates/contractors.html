@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06111f">
+  <meta name="description" content="Contractor workforce information for the Vasind Workforce Portal: {{ total_manpower }}+ combined manpower, three contractor enterprises, PF/ESIC support and a digital joining workflow.">
+  <meta name="robots" content="index,follow">
+  <title>Contractor Network · Vasind Workforce Portal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/neo.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/story.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/performance.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/vasind-v7.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/contractors-v8.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/motion-v11.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-v27.css', v='27') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global-3d-v33.css', v='33') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/layout-fix-v34.css', v='34') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cleanup-v36.css', v='36') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v37.css', v='37') }}">
+</head>
+<body class="story-body vasind-v7 contractors-page-v8">
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+  <div class="noise"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <header class="story-main-nav" id="siteNav">
+    <div class="story-nav-inner">
+      <a href="/" class="story-brand" aria-label="Workforce Portal home">
+        <span class="story-brand-mark">W</span>
+        <span class="story-brand-copy">
+          <strong>Workforce Portal</strong>
+          <small>Contractor operations · Vasind</small>
+        </span>
+      </a>
+
+      <nav class="story-main-links" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/contractors" class="active">Contractors</a>
+        <a href="/jobs">Roles</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/#facility">Facility</a>
+      </nav>
+
+      <div class="story-main-actions">
+        <a href="/login" class="story-admin-link">Admin</a>
+        <a href="/apply_form" class="story-buy-btn" data-magnetic>Start joining <span>↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent">
+    <section class="contractor-hero-v8">
+      <div class="contractor-hero-bg" aria-hidden="true"></div>
+      <div class="contractor-hero-grid" aria-hidden="true"></div>
+      <div class="contractor-hero-inner">
+        <div class="contractor-hero-copy">
+          <span class="story-section-label">CONTRACTOR NETWORK · VASIND</span>
+          <h1>{{ total_manpower }}+ manpower.<br><span>Three contractor enterprises.</span></h1>
+          <p>
+            This page introduces the contractor network represented in the portal, the workforce benefits highlighted for employees,
+            and how candidates move from an open role into the existing three-page joining workflow.
+          </p>
+          <div class="contractor-hero-actions">
+            <a href="/jobs" class="story-primary-btn" data-magnetic>View open roles <span>↗</span></a>
+            <a href="/apply_form" class="story-secondary-link">Start joining <span>↗</span></a>
+          </div>
+        </div>
+
+        <div class="contractor-number-panel" aria-label="Contractor workforce snapshot">
+          <div class="contractor-number-main">
+            <span>COMBINED MANPOWER</span>
+            <strong data-count-to="{{ total_manpower }}">{{ total_manpower }}+</strong>
+            <p>Across the contractor network represented in this portal.</p>
+          </div>
+          <div class="contractor-number-grid">
+            <div><strong>3</strong><span>Contractors</span></div>
+            <div><strong>PF</strong><span>Provident Fund</span></div>
+            <div><strong>ESIC</strong><span>Social security</span></div>
+            <div><strong>3 Pages</strong><span>Joining workflow</span></div>
+          </div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);color:#aab9c9;line-height:1.6"><b style="color:#fff">Contractor owner / network lead:</b> {{ contractor_network_lead }}{% if site_supervisor %}<br><b style="color:#fff">Common personal supervisor:</b> {{ site_supervisor }}{% endif %}</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contractor-enterprises-v8">
+      <div class="contractor-section-head">
+        <span class="story-section-label">THE ENTERPRISES</span>
+        <h2>One network.<br><span>Different contractor identities.</span></h2>
+        <p>Role availability can change. The cards below pull the current role list directly from the portal database so the public page stays aligned with the admin role registry.</p>
+      </div>
+
+      <div class="contractor-enterprise-grid">
+        {% for contractor in contractor_stats %}
+        <article class="contractor-enterprise-card" data-contractor-page-card>
+          <div class="contractor-enterprise-top">
+            <span>{{ '%02d'|format(loop.index) }}</span>
+            <b>{{ contractor.roles|length }} current role{{ '' if contractor.roles|length == 1 else 's' }}</b>
+          </div>
+          <h3>{{ contractor.name }}</h3>
+          <p>Contractor enterprise represented in the Vasind workforce portal. Current openings and joining requirements are managed through the shared digital workflow.</p>
+
+          <div class="contractor-role-list" aria-label="Current roles for {{ contractor.name }}">
+            {% for role in contractor.roles %}
+              <span>{{ role.title }}</span>
+            {% else %}
+              <span>No active role currently listed</span>
+            {% endfor %}
+          </div>
+
+          <a href="/jobs" class="contractor-card-link">Explore available roles <span>↗</span></a>
+        </article>
+        {% endfor %}
+      </div>
+
+      <p class="contractor-network-note">The stated {{ total_manpower }}+ figure is the combined current manpower shared for the contractor network. Individual contractor manpower distribution is not shown because no separate verified breakdown has been provided.</p>
+    </section>
+
+    <section class="contractor-benefits-v8" id="benefits">
+      <div class="contractor-benefits-shell">
+        <div class="contractor-benefits-copy">
+          <span class="story-section-label">WORKFORCE BENEFITS & SUPPORT</span>
+          <h2>Benefits that matter.<br><span>Information that stays clear.</span></h2>
+          <p>
+            The portal highlights the core workforce benefits you specified. PF/UAN and ESIC support are highlighted for eligible employees, including claim assistance where applicable. Final benefits and claims remain subject to statutory eligibility and EPFO/ESIC rules.
+          </p>
+          <a href="/apply_form" class="story-primary-btn" data-magnetic>Begin registration <span>↗</span></a>
+        </div>
+
+        <div class="contractor-benefit-grid">
+          <article data-benefit-card>
+            <span>01</span>
+            <div class="benefit-icon">PF</div>
+            <h3>PF / UAN</h3>
+            <p>Provident Fund information can be recorded through the joining workflow, including UAN details where applicable.</p>
+          </article>
+          <article data-benefit-card>
+            <span>02</span>
+            <div class="benefit-icon">ESIC</div>
+            <h3>ESIC</h3>
+            <p>ESIC information can be captured during onboarding for eligible employees under applicable requirements.</p>
+          </article>
+          <article data-benefit-card>
+            <span>03</span>
+            <div class="benefit-icon">DOC</div>
+            <h3>Documented joining</h3>
+            <p>Candidate information moves through a controlled digital process instead of repeatedly rewriting the same core details.</p>
+          </article>
+          <article data-benefit-card>
+            <span>04</span>
+            <div class="benefit-icon">3P</div>
+            <h3>Three-page workflow</h3>
+            <p>Admin can continue from the public application into the detailed three-page joining process and print-ready output.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contractor-process-v8">
+      <div class="contractor-section-head compact">
+        <span class="story-section-label">HOW THE PORTAL CONNECTS IT</span>
+        <h2>From interest to joining.</h2>
+      </div>
+      <div class="contractor-process-track">
+        <article><span>01</span><h3>Choose a role</h3><p>Review current openings by contractor and role category.</p></article>
+        <article><span>02</span><h3>Submit basics</h3><p>Enter candidate name, mobile number, qualification and selected role.</p></article>
+        <article><span>03</span><h3>Admin completes details</h3><p>The admin continues the detailed joining record and verifies required information.</p></article>
+        <article><span>04</span><h3>Prepare 3 pages</h3><p>The existing printable joining pages are reviewed and prepared for final use.</p></article>
+      </div>
+    </section>
+
+    <section class="contractor-final-v8">
+      <span class="story-section-label">READY TO CONTINUE?</span>
+      <h2>Explore the workforce.<br><span>Then start the joining flow.</span></h2>
+      <div>
+        <a href="/jobs" class="story-primary-btn" data-magnetic>See roles <span>↗</span></a>
+        <a href="/" class="story-secondary-link">Back to public site</a>
+      </div>
+    </section>
+  
+  <section style="max-width:1180px;margin:40px auto 80px;padding:0 22px">
+    <span style="font:700 11px/1 IBM Plex Mono,monospace;letter-spacing:.12em;color:#75b5ff">PLANT WORK AREAS</span>
+    <h2 style="margin:12px 0 18px;color:#fff;font:700 clamp(30px,4vw,52px)/1.02 Sora,sans-serif">Current Vasind deployment areas.</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      {% for department in departments %}<span style="padding:11px 14px;border:1px solid rgba(119,181,255,.17);border-radius:12px;background:rgba(8,22,36,.78);color:#dbe8f4;font-weight:700">{{ department }}</span>{% endfor %}
+    </div>
+  </section>
+</main>
+
+  <footer class="story-footer">
+    <div class="story-footer-inner">
+      <div>
+        <strong>Workforce Portal</strong>
+        <span>Digital contractor onboarding · Vasind</span>
+      </div>
+      <div>
+        <a href="/">Home</a>
+        <a href="/jobs">Roles</a>
+        <a href="/#how-it-works">How It Works</a>
+        <a href="/faq">FAQ</a>
+        <a href="/status">Status</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/login">Admin</a>
+      </div>
+    </div>
+    <div class="story-footer-bottom">© 2026 Contractor Workforce Portal · Independent academic/contractor portal project. Contractor manpower and benefit information on this page is based on project-provided data; this is not the official JSW Steel website.</div>
+  </footer>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="{{ url_for('static', filename='js/performance.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/neo.js') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/contractors-v8.js') }}"></script>
+<script defer src="{{ url_for('static', filename='js/responsive-v27.js', v='27') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/global-3d-v33.js', v='33') }}"></script>
+
+<script defer src="{{ url_for('static', filename='js/layout-fix-v34.js', v='34') }}"></script>
+</body>
+</html>

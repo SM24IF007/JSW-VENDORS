@@ -1,0 +1,56 @@
+/* V32 — reliable long-form scrollytelling and 3-page controller */
+
+/* One candidate. One moving story: deliberately huge and long from step 1 through 4. */
+.v29-story{padding-top:clamp(110px,14vw,210px)!important;padding-bottom:clamp(150px,18vw,250px)!important}
+.v29-story-intro{max-width:1380px!important;min-height:78vh;display:flex;flex-direction:column;justify-content:center;margin-bottom:clamp(70px,10vw,130px)!important}
+.v29-story-intro .v29-kinetic-heading{max-width:1320px!important;font-size:clamp(72px,10.5vw,176px)!important;line-height:.84!important;letter-spacing:-.07em!important;margin:18px 0 30px!important}
+.v29-story-intro>p{max-width:860px!important;font-size:clamp(16px,1.55vw,22px)!important;line-height:1.65!important}
+.v29-story-shell{grid-template-columns:minmax(0,.72fr) minmax(500px,1.28fr)!important;gap:clamp(44px,7vw,108px)!important}
+.v29-story-step{min-height:92vh!important;padding:clamp(70px,8vw,110px) 0!important;display:flex;flex-direction:column;justify-content:center}
+.v29-story-step small{font-size:11px!important}.v29-story-step h3{font-size:clamp(38px,4.8vw,66px)!important;max-width:630px}.v29-story-step p{font-size:clamp(14px,1.3vw,18px)!important;max-width:610px}
+.v29-story-visual{top:110px!important;height:calc(100vh - 145px)!important;max-height:820px!important;min-height:610px!important}
+.v29-story-step.active h3{color:#fff;text-shadow:0 0 35px rgba(99,185,244,.12)}
+
+/* Stop-motion card removed; flipbook now gets the full row. */
+.v30-final-grid{grid-template-columns:1fr!important}.v30-flipbook-card{min-height:600px!important}.v30-book{width:min(390px,78%)!important;height:340px!important}
+
+/* Fixed Three-page flow: left narrative scrolls, right document stack stays pinned. */
+.v32-pages-story{padding:clamp(100px,11vw,160px) max(20px,calc((100vw - 1240px)/2)) clamp(120px,14vw,190px)!important;overflow:visible!important;background:linear-gradient(180deg,#07131f,#0a1b2b 48%,#07111d)!important}
+.v32-pages-shell{display:grid;grid-template-columns:minmax(0,.76fr) minmax(460px,1.24fr);gap:clamp(44px,7vw,105px);align-items:start;max-width:1240px;margin:0 auto}
+.v32-pages-left{min-width:0}.v32-pages-left .pages-story-copy{position:relative!important;top:auto!important;padding-bottom:0!important;margin-bottom:clamp(60px,8vw,100px)}
+.v32-pages-left .pages-story-copy h2{font-size:clamp(58px,7.2vw,108px)!important;line-height:.88!important;letter-spacing:-.055em!important}
+.v32-pages-left .pages-story-copy>p{font-size:clamp(13px,1.15vw,17px)!important;max-width:600px!important}
+.v32-pages-left .page-story-nav{margin-top:40px;position:sticky;top:92px;z-index:5;padding:12px 0 18px;background:linear-gradient(180deg,rgba(7,19,31,.97) 0 76%,rgba(7,19,31,0));backdrop-filter:blur(8px)}
+.v32-pages-left .page-story-nav button{min-height:52px;font-size:11px!important;cursor:pointer}.v32-pages-left .page-story-nav button.active{color:#fff!important;border-bottom-color:rgba(105,188,244,.55)!important}.v32-pages-left .page-story-nav button.active span{color:#7dccff!important}
+.v32-pages-left .page-story-steps{padding:0!important;margin:0!important;display:grid!important;gap:20vh!important;max-width:none!important}
+.v32-pages-left .page-story-step{min-height:78vh!important;max-width:640px!important;display:flex;flex-direction:column;justify-content:center;opacity:.22!important;transform:translateX(-22px) scale(.97);transition:opacity .4s ease,transform .55s cubic-bezier(.2,.75,.22,1)!important}
+.v32-pages-left .page-story-step.active{opacity:1!important;transform:none!important}.v32-pages-left .page-story-step h3{font-size:clamp(38px,4.5vw,62px)!important;line-height:.98!important}.v32-pages-left .page-story-step p{font-size:clamp(13px,1.2vw,17px)!important}.v32-scroll-hint{margin-top:28px!important;font:700 9px/1 "IBM Plex Mono",monospace!important;letter-spacing:.14em;color:#67bdf5!important;animation:v32Hint 1.8s ease-in-out infinite}@keyframes v32Hint{50%{transform:translateY(6px);opacity:.55}}
+.v32-pages-story .pages-stage-wrap{position:sticky!important;top:105px!important;height:calc(100vh - 130px)!important;min-height:620px!important;display:grid!important;place-items:center!important}
+.v32-pages-story .pages-stage{width:min(680px,48vw)!important;height:min(760px,76vh)!important;min-height:610px;perspective:1800px!important;transform-style:preserve-3d}
+.v32-page-status{position:absolute;left:22px;top:18px;z-index:20;display:grid;gap:5px;padding:10px 12px;border:1px solid rgba(113,194,248,.18);border-radius:12px;background:rgba(4,17,29,.72);backdrop-filter:blur(10px)}.v32-page-status small{font:700 8px/1 "IBM Plex Mono",monospace;letter-spacing:.13em;color:#718da1}.v32-page-status strong{font:800 13px/1 Sora,sans-serif;color:#dff3ff}
+.v32-pages-story .pages-aura{inset:8%!important;background:radial-gradient(circle,rgba(77,170,232,.18),rgba(80,152,211,.06) 42%,transparent 70%)!important;filter:blur(34px)!important;animation:v32Aura 4s ease-in-out infinite}@keyframes v32Aura{50%{transform:scale(1.12);opacity:.72}}
+.v32-pages-story .page-sheet{width:390px!important;height:540px!important;margin-left:-195px!important;margin-top:-270px!important;padding:32px!important;transition:transform .78s cubic-bezier(.2,.78,.2,1),opacity .55s ease,filter .55s ease,box-shadow .55s ease!important;backface-visibility:hidden!important}
+
+/* Force explicit page states so old GSAP inline transforms cannot cancel the effect. */
+.v32-pages-story.v32-page-0 [data-sheet="0"]{z-index:8!important;transform:translate3d(-8px,0,150px) rotateY(-2deg) rotateZ(-1deg) scale(1.08)!important;opacity:1!important;filter:none!important;box-shadow:0 44px 110px rgba(0,0,0,.48)!important}
+.v32-pages-story.v32-page-0 [data-sheet="1"]{z-index:6!important;transform:translate3d(76px,42px,0) rotateY(10deg) rotateZ(5deg) scale(.91)!important;opacity:.54!important;filter:saturate(.72)!important}
+.v32-pages-story.v32-page-0 [data-sheet="2"]{z-index:4!important;transform:translate3d(138px,82px,-110px) rotateY(18deg) rotateZ(9deg) scale(.8)!important;opacity:.22!important;filter:saturate(.55)!important}
+.v32-pages-story.v32-page-1 [data-sheet="0"]{z-index:3!important;transform:translate3d(-285px,-22px,-120px) rotateY(-52deg) rotateZ(-14deg) scale(.68)!important;opacity:.10!important;filter:blur(1px)!important}
+.v32-pages-story.v32-page-1 [data-sheet="1"]{z-index:8!important;transform:translate3d(0,0,155px) rotateY(0) rotateZ(0) scale(1.09)!important;opacity:1!important;filter:none!important;box-shadow:0 44px 110px rgba(0,0,0,.48)!important}
+.v32-pages-story.v32-page-1 [data-sheet="2"]{z-index:5!important;transform:translate3d(112px,68px,-80px) rotateY(17deg) rotateZ(8deg) scale(.82)!important;opacity:.28!important;filter:saturate(.62)!important}
+.v32-pages-story.v32-page-2 [data-sheet="0"]{z-index:2!important;transform:translate3d(-330px,-55px,-160px) rotateY(-58deg) rotateZ(-17deg) scale(.6)!important;opacity:.05!important;filter:blur(2px)!important}
+.v32-pages-story.v32-page-2 [data-sheet="1"]{z-index:4!important;transform:translate3d(-245px,28px,-90px) rotateY(-42deg) rotateZ(-11deg) scale(.7)!important;opacity:.12!important;filter:blur(1px)!important}
+.v32-pages-story.v32-page-2 [data-sheet="2"]{z-index:8!important;transform:translate3d(0,0,160px) rotateY(0) rotateZ(0) scale(1.1)!important;opacity:1!important;filter:none!important;box-shadow:0 44px 110px rgba(0,0,0,.48)!important}
+.v32-pages-story .page-sheet::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(120deg,transparent 22%,rgba(255,255,255,.22) 42%,transparent 58%);transform:translateX(-120%);opacity:0}.v32-pages-story.v32-is-changing .page-sheet::after{animation:v32PageSweep .65s ease}@keyframes v32PageSweep{35%{opacity:.7}100%{opacity:0;transform:translateX(120%)}}
+
+@media(max-width:980px){
+  .v29-story-intro{min-height:auto!important}.v29-story-intro .v29-kinetic-heading{font-size:clamp(54px,11vw,92px)!important}.v29-story-shell{grid-template-columns:1fr!important}.v29-story-step{min-height:70vh!important}.v29-story-visual{height:min(72vw,560px)!important;min-height:380px!important;top:auto!important}
+  .v32-pages-shell{grid-template-columns:1fr}.v32-pages-story .pages-stage-wrap{position:sticky!important;top:82px!important;height:min(70vh,620px)!important;min-height:440px!important;order:0}.v32-pages-left{order:1}.v32-pages-left .pages-story-copy{margin-top:24px}.v32-pages-left .page-story-nav{position:relative;top:auto;background:none;backdrop-filter:none}.v32-pages-story .pages-stage{width:100%!important;height:520px!important;min-height:420px!important}.v32-pages-story .page-sheet{width:300px!important;height:420px!important;margin-left:-150px!important;margin-top:-210px!important;padding:24px!important}.v32-pages-left .page-story-step{min-height:62vh!important}.v32-pages-left .page-story-steps{gap:10vh!important}
+  .v32-pages-story.v32-page-1 [data-sheet="0"]{transform:translate3d(-170px,-10px,-90px) rotateY(-42deg) rotateZ(-12deg) scale(.68)!important}.v32-pages-story.v32-page-2 [data-sheet="0"]{transform:translate3d(-195px,-20px,-110px) rotateY(-48deg) rotateZ(-14deg) scale(.6)!important}.v32-pages-story.v32-page-2 [data-sheet="1"]{transform:translate3d(-150px,18px,-70px) rotateY(-34deg) rotateZ(-9deg) scale(.7)!important}
+}
+@media(max-width:560px){
+  .v29-story{padding-left:16px!important;padding-right:16px!important}.v29-story-intro .v29-kinetic-heading{font-size:clamp(48px,15vw,72px)!important;line-height:.9!important}.v29-story-step{min-height:62vh!important;padding:44px 0!important}.v29-story-step h3{font-size:clamp(34px,10vw,48px)!important}
+  .v32-pages-story{padding-left:16px!important;padding-right:16px!important}.v32-pages-left .pages-story-copy h2{font-size:clamp(48px,14vw,70px)!important}.v32-pages-story .pages-stage-wrap{height:490px!important;min-height:490px!important}.v32-pages-story .pages-stage{height:455px!important}.v32-pages-story .page-sheet{width:245px!important;height:350px!important;margin-left:-122.5px!important;margin-top:-175px!important;padding:18px!important}.v32-page-status{left:8px;top:8px}.v32-pages-left .page-story-step{min-height:58vh!important}
+}
+@media(prefers-reduced-motion:reduce){.v32-scroll-hint,.v32-pages-story .pages-aura{animation:none!important}.v32-pages-story .page-sheet{transition:none!important}}
+@media print{.v32-scroll-hint,.v32-page-status{display:none!important}}

@@ -1,0 +1,6 @@
+{% macro csrf() %}<input type="hidden" name="csrf" value="{{ session.billing_csrf }}">{% endmacro %}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{% block title %}Billing & Payroll{% endblock %}</title><link rel="stylesheet" href="{{ url_for('static',filename='css/billing.css') }}"></head><body>
+<nav class="nav"><a class="brand" href="{{ url_for('billing.home') }}">DW · Billing & Payroll</a><div><a href="/admin">Joining admin</a><a href="{{ url_for('appointment_workspace') }}">Appointment letters</a><a href="{{ url_for('billing.home') }}">Payroll & invoices</a></div></nav>
+<main>{% with messages=get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="notice {{ category }}" role="status">{{ message }}</div>{% endfor %}{% endwith %}{% block content %}{% endblock %}</main>
+
+{% block scripts %}{% endblock %}</body></html>

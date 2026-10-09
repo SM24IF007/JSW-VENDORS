@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Official Gate Pass & Assessment | JSW Vasind</title>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 0mm;
+        }
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #ffffff !important;
+            color: #000000 !important;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* STRICT PHYSICAL A4 CONTAINMENT */
+        .a4-page {
+            width: 210mm;
+            height: 296mm;
+            max-height: 296mm;
+            padding: 8mm 12mm 6mm 12mm;
+            margin: 0 auto;
+            background: #ffffff;
+            overflow: hidden;
+            page-break-after: always;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            position: relative;
+        }
+        .a4-page:last-child {
+            page-break-after: avoid;
+        }
+
+        .assess-title {
+            text-align: center;
+            text-decoration: underline;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 6px;
+        }
+
+        /* TABLES & GRIDS */
+        .master-table, .grid-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #000000;
+            margin-bottom: 8px;
+        }
+        .master-table td {
+            border: 1px solid #000000;
+            padding: 3px 5px;
+            font-size: 10.5px;
+            line-height: 1.2;
+        }
+        .master-label {
+            font-weight: bold;
+            background-color: #f5f5f5;
+        }
+        .grid-table th, .grid-table td {
+            border: 1px solid #000000;
+            padding: 2.5px 4px;
+            font-size: 10px;
+            line-height: 1.2;
+        }
+        .grid-table th {
+            text-align: center;
+            background-color: #eeeeee;
+            font-weight: bold;
+        }
+
+        .comments-box {
+            border: 1px solid #000000;
+            padding: 6px 10px;
+            margin-bottom: 8px;
+            font-size: 10.5px;
+        }
+
+        .p3-title {
+            font-weight: bold;
+            font-size: 11px;
+            margin-bottom: 3px;
+        }
+        .p3-checkbox {
+            width: 11px;
+            height: 11px;
+            border: 1px solid #000000;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+
+
+
+        .official-assessment-page { padding:0!important;height:296mm!important;max-height:296mm!important;overflow:hidden; }
+        .official-form-value { position:absolute;z-index:1;white-space:nowrap;overflow:hidden;font:700 13px/1.2 Arial,Helvetica,sans-serif;text-transform:uppercase;color:#111; }
+        .official-registration-page { padding:0!important; height:296mm!important; max-height:296mm!important; overflow:hidden; }
+        .official-registration-base { display:block; width:100%; height:100%; object-fit:fill; }
+        .official-registration-value { position:absolute;z-index:1;white-space:nowrap;overflow:hidden;text-overflow:clip;font:700 12px/1.15 Arial,Helvetica,sans-serif;text-transform:uppercase;color:#111; }
+        /* Page 1 follows the recovered interview assessment sheet. */
+        .assessment-page { padding: 8mm 9mm 7mm; font-family: Arial, Helvetica, sans-serif; font-size: 10pt; }
+        .assessment-page .official-sheet { width:100%; border:1.3px solid #111; }
+        .assessment-page .official-title { height:10mm; display:flex;align-items:center;justify-content:center;border-bottom:1.3px solid #111;font-size:14pt;font-weight:700; }
+        .assessment-page .candidate-panel { display:grid; grid-template-columns:48.5% 24% 27.5%; grid-template-rows:37mm 30mm 8mm 8mm; }
+        .assessment-page .candidate-left { grid-column:1 / 3; grid-row:1 / 3; border-right:1.3px solid #111; padding:6mm 1mm 0; }
+        .assessment-page .candidate-left p { display:flex;gap:4mm;margin:0 0 5mm;align-items:baseline;font-weight:700;min-height:6mm; }
+        .assessment-page .candidate-left p:first-child { margin-bottom:7mm; }
+        .assessment-page .candidate-left strong { white-space:nowrap; }
+        .assessment-page .candidate-left span { text-transform:uppercase;overflow-wrap:anywhere; }
+        .assessment-page .photo-slot { grid-column:3;grid-row:1 / 3;display:flex;align-items:center;justify-content:center;font-size:9pt;font-weight:700; }
+        .assessment-page .candidate-facts { grid-column:2 / 4;grid-row:2 / 4;align-self:end;border-left:1.3px solid #111;border-top:1.3px solid #111; }
+        .assessment-page .candidate-facts div {display:grid;grid-template-columns:46% 54%;min-height:7.3mm;border-bottom:1.3px solid #111;font-weight:700;}
+        .assessment-page .candidate-facts div:last-child { border-bottom:0; }
+        .assessment-page .candidate-facts b,.assessment-page .candidate-facts span {padding:1mm 1.5mm;overflow-wrap:anywhere;}
+        .assessment-page .candidate-facts b {border-right:1.3px solid #111;}
+        .assessment-page .candidate-ref { grid-column:1 / 2;grid-row:3 / 5;align-self:end; }
+        .assessment-page .candidate-ref div {min-height:8mm;border-top:1.3px solid #111;padding:1mm;}
+        .assessment-page .candidate-ref div:last-child {border-bottom:1.3px solid #111;}
+        .assessment-page .candidate-tail {grid-column:2 / 4;grid-row:4;border-left:1.3px solid #111;border-top:1.3px solid #111;border-bottom:1.3px solid #111;padding:1mm;display:flex;gap:3mm;}
+        .assessment-page table {width:100%;border-collapse:collapse;table-layout:fixed;}
+        .assessment-page .official-scores {border-top:1.3px solid #111;margin-top:1.5mm;}
+        .assessment-page .official-scores th,.assessment-page .official-scores td {border:1px solid #111;padding:1mm .8mm;height:7mm;vertical-align:middle;}
+        .assessment-page .official-scores th {height:12mm;text-align:center;}
+        .assessment-page .official-scores th:nth-child(2),.assessment-page .official-scores td:nth-child(2) {text-align:left;font-weight:700;}
+        .assessment-page .official-scores td:first-child {text-align:center;font-weight:700;}
+        .assessment-page .ratings-note {font-size:9.5pt;padding:1mm 2mm 4mm 15%;}
+        .assessment-page .assessment-comments {height:54mm;padding:2mm 4mm 0 15%;font-weight:700;}
+        .assessment-page .assessment-comments p {margin:0 0 3mm;}
+        .assessment-page .verify-wrap {display:grid;grid-template-columns:61% 39%;align-items:end;}
+        .assessment-page .verify-wrap u {display:block;margin-bottom:2mm;}
+        .assessment-page .verify-wrap ol {margin:0;padding-left:5mm;line-height:1.6;}
+        .assessment-page .verify-grid th,.assessment-page .verify-grid td {border:1px solid #111;height:6mm;}
+        .assessment-page .verify-grid th {border-top:0;text-align:center;}
+        .assessment-page .official-signatures th,.assessment-page .official-signatures td {border:1.3px solid #111;text-align:center;width:25%;font-weight:700;padding:1mm;}
+        .assessment-page .official-signatures th {height:12mm;}
+        .assessment-page .official-signatures td {height:21mm;vertical-align:bottom;}
+
+        /* PAGE 3 - matched to the supplied biometric registration form */
+        .p3-exact-page {
+            padding: 8mm 14mm 8mm 14mm !important;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .p3-form {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin: 0;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.13;
+            color: #000;
+        }
+        .p3-form th,
+        .p3-form td {
+            border: 1.75px solid #080808;
+            padding: 2.7px 3px;
+            vertical-align: middle;
+            background: #fff !important;
+        }
+        .p3-form th { font-weight: 700; text-align: center; }
+        .p3-form .left { text-align: left; }
+        .p3-form .center { text-align: center; }
+        .p3-form .right { text-align: right; }
+        .p3-form .bold { font-weight: 700; }
+        .p3-form .caps { text-transform: uppercase; }
+        .p3-form .section-title { font-weight: 700; text-align: left; }
+        .p3-form .section-center { font-weight: 700; text-align: center; }
+        .p3-form .h-lang { height: 23px; }
+        .p3-form .h-id { height: 27px; }
+        .p3-form .h-doc { height: 24px; }
+        .p3-form .h-address { height: 26px; }
+        .p3-form .h-emergency { height: 27px; }
+        .p3-form .h-undertaking { height: 27px; }
+        .p3-form .h-associate-sign { height: 55px; }
+        .p3-form .h-safety { height: 92px; }
+        .p3-form .h-user { height: 72px; }
+        .p3-form .h-reg { height: 41px; }
+        .p3-form .note-cell { font-size: 9.7px; line-height: 1.18; }
+        .p3-form .nowrap { white-space: nowrap; }
+        .p3-form .micro { font-size: 9.7px; }
+        .p3-form .signature-bottom { vertical-align: bottom; padding-bottom: 4px; }
+        .p3-form .signature-label { display: block; text-align: right; margin-top: 7px; }
+        .p3-form .address-label { width: 9%; font-weight: 700; }
+        .p3-form .yes-cell { width: 6%; text-align: center; font-weight: 700; }
+        .p3-form .doc-text { font-size: 9.7px; }
+        @media print {
+            body { background: #ffffff; }
+            .no-print { display: none !important; }
+            .a4-page { box-shadow: none; margin: 0; }
+        }
+
+        .print-btn {
+            display: block;
+            width: 220px;
+            margin: 10px auto;
+            padding: 10px;
+            background: #0f172a;
+            color: #ffffff;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <button onclick="window.print()" class="print-btn no-print">PRINT DOCUMENT</button>
+    
+    <!-- ================================================================= -->
+    <!-- PAGE 1: INTERVIEW ASSESSMENT FORM                                 -->
+    <!-- ================================================================= -->
+    <div class="a4-page official-assessment-page">
+      <img class="official-registration-base" src="{{ url_for('static',filename='official-assessment-page1.png',v='3') }}" alt="" aria-hidden="true">
+      <span class="official-form-value" style="left:29.849%;top:8.778%;max-width:36.955%">{{ app['full_name'] or '' }}</span>
+      <span class="official-form-value" style="left:33.327%;top:12.911%;max-width:35.275%">{{ app['assessment_company'] if app['assessment_company'] is not none else 'MVS ACMEI TECNOLOGY PVT LTD' }}</span>
+      <span class="official-form-value" style="left:29.849%;top:15.322%;max-width:36.115%">{{ app['assessment_location'] or '' }}</span>
+      <span class="official-form-value" style="left:71.138%;top:20.204%;max-width:23.517%">{{ app['interview_date'] or '' }}</span>
+      <span class="official-form-value" style="left:71.105%;top:22.983%;max-width:23.517%">{{ app['qualification'] or '' }}</span>
+      <span class="official-form-value" style="left:71.105%;top:25.644%;max-width:23.517%">{{ app['designation'] or app['requested_role'] or '' }}</span>
+      <span class="official-form-value" style="left:71.105%;top:28.316%;max-width:23.517%">{{ app['experience'] or '' }}</span>
+      <span class="official-form-value" style="left:14.110%;top:30.977%;max-width:32.755%">{{ app['reference'] or '' }}</span>
+      <span class="official-form-value" style="left:71.105%;top:30.977%;max-width:23.517%">{{ app['department'] or '' }}</span>
+      <span class="official-form-value" style="left:13.438%;top:33.459%;max-width:31.916%">{{ app['relation'] or '' }}</span>
+      <span class="official-form-value" style="left:71.105%;top:33.459%;max-width:23.517%">{{ app['replacement_for'] or '' }}</span>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- PAGE 2: EMPLOYEE REGISTRATION FORM                                -->
+    <!-- ================================================================= -->
+    <div class="a4-page official-registration-page">
+      <img class="official-registration-base" src="{{ url_for('static', filename='official-registration-page2.png', v='1') }}" alt="" aria-hidden="true">
+      <span class="official-registration-value" style="left:36.048%;top:11.189%;max-width:60.875%">{{ app['department'] or 'CCL-3 & CAL FINISHING' }}</span>
+      <span class="official-registration-value" style="left:36.048%;top:13.445%;max-width:60.875%">MVS ACMEI TECHNOLOGIES PVT LTD</span>
+      <span class="official-registration-value" style="left:36.048%;top:15.702%;max-width:60.875%">{{ app['full_name'] or '' }}</span>
+      <span class="official-registration-value" style="left:36.048%;top:17.947%;max-width:60.875%">{{ app['designation'] or app['requested_role'] or '' }}</span>
+      <span class="official-registration-value" style="left:36.048%;top:20.204%;max-width:60.875%">{{ app['blood_group'] or '' }}</span>
+      <span class="official-registration-value" style="left:36.048%;top:22.461%;max-width:60.875%">Indian / {{ app['religion'] or '' }}</span>
+      <span class="official-registration-value" style="left:36.048%;top:24.705%;max-width:60.875%">{{ app['caste'] or '' }}</span>
+      <span class="official-registration-value" style="left:36.048%;top:26.962%;max-width:10.986%">{{ app['doj'] or '' }}</span>
+      <span class="official-registration-value" style="left:75.405%;top:26.962%;max-width:21.518%">{{ app['dob'] or '' }}</span>
+      <span class="official-registration-value" style="left:36.048%;top:29.219%;max-width:10.986%">{{ app['gender'] or '' }}</span>
+      <span class="official-registration-value" style="left:75.405%;top:29.219%;max-width:21.518%">{{ app['marital_status'] or '' }}</span>
+      <span class="official-registration-value" style="left:75.405%;top:36.880%;max-width:21.518%">{{ app['uan'] or '' }}</span>
+      <span class="official-registration-value" style="left:75.405%;top:39.140%;max-width:21.518%">{{ app['esic'] or '' }}</span>
+      <span class="official-registration-value" style="left:36.048%;top:41.382%;max-width:60.875%">{{ app['mobile'] or '' }}</span>
+      <span class="official-registration-value" style="left:8.634%;top:53.794%;max-width:26.809%">{{ app['qualification_level'] or app['qualification'] or '' }}</span>
+      <span class="official-registration-value" style="left:36.048%;top:53.794%;max-width:10.986%">{{ app['qualification_trade'] or '' }}</span>
+      <span class="official-registration-value" style="left:47.537%;top:53.794%;max-width:19.149%">{{ app['qualification_institute'] or '' }}</span>
+      <span class="official-registration-value" style="left:67.191%;top:53.794%;max-width:7.559%">{{ app['qualification_marks'] or '' }}</span>
+      <span class="official-registration-value" style="left:75.405%;top:53.794%;max-width:5.896%">{{ app['qualification_percentage'] or '' }}</span>
+      <span class="official-registration-value" style="left:81.889%;top:53.794%;max-width:10.499%">{{ app['qualification_grade'] or '' }}</span>
+      <span class="official-registration-value" style="left:92.891%;top:53.794%;max-width:4.031%">{{ app['qualification_year'] or '' }}</span>
+      <span class="official-registration-value" style="left:8.634%;top:84.082%;max-width:26.809%">{{ app['father_name'] or '' }}</span>
+      <span class="official-registration-value" style="left:8.634%;top:86.326%;max-width:26.809%">{{ app['mother_name'] or '' }}</span>
+      <span class="official-registration-value" style="left:8.634%;top:88.583%;max-width:26.809%">{{ app['wife_name'] or '' }}</span>
+          <span class="official-registration-value" style="left:51.065%;top:84.082%;max-width:5.039%">{{ app['father_age'] or '' }}</span>
+      <span class="official-registration-value" style="left:56.709%;top:84.082%;max-width:12.833%">{{ app['father_education'] or '' }}</span>
+      <span class="official-registration-value" style="left:70.046%;top:84.082%;max-width:16.126%">{{ app['father_occupation'] or '' }}</span>
+      <span class="official-registration-value" style="left:86.777%;top:84.082%;max-width:10.146%">{{ app['father_income'] or '' }}</span>
+      <span class="official-registration-value" style="left:51.065%;top:86.326%;max-width:5.039%">{{ app['mother_age'] or '' }}</span>
+      <span class="official-registration-value" style="left:56.709%;top:86.326%;max-width:12.833%">{{ app['mother_education'] or '' }}</span>
+      <span class="official-registration-value" style="left:70.046%;top:86.326%;max-width:16.126%">{{ app['mother_occupation'] or '' }}</span>
+      <span class="official-registration-value" style="left:86.777%;top:86.326%;max-width:10.146%">{{ app['mother_income'] or '' }}</span>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- PAGE 3: BIOMETRIC REGISTRATION / UNDERTAKING - SUPPLIED LAYOUT     -->
+    <!-- ================================================================= -->
+    <div class="a4-page p3-exact-page">
+        <table class="p3-form" aria-label="Biometric Registration Form continuation">
+            <!-- LANGUAGES KNOWN -->
+            <tr><td colspan="5" class="section-title">Languages Known:</td></tr>
+            <tr class="h-lang">
+                <th style="width:9%;">S. No</th>
+                <th style="width:33%;">Language</th>
+                <th style="width:19%;">Read</th>
+                <th style="width:20%;">Write</th>
+                <th style="width:19%;">Speak</th>
+            </tr>
+            <tr class="h-lang center"><td>1</td><td>{{ app['lang1_name'] or 'HINDI' }}</td><td class="bold">{{ 'YES' if app['lang1_read'] is none or app['lang1_read'] != 'NO' else 'NO' }}</td><td class="bold">{{ 'YES' if app['lang1_write'] is none or app['lang1_write'] != 'NO' else 'NO' }}</td><td class="bold">{{ 'YES' if app['lang1_speak'] is none or app['lang1_speak'] != 'NO' else 'NO' }}</td></tr>
+            <tr class="h-lang center"><td>2</td><td>{{ app['lang2_name'] or '' }}</td><td>{{ 'YES' if app['lang2_name'] and app['lang2_read'] == 'YES' else '' }}</td><td>{{ 'YES' if app['lang2_name'] and app['lang2_write'] == 'YES' else '' }}</td><td>{{ 'YES' if app['lang2_name'] and app['lang2_speak'] == 'YES' else '' }}</td></tr>
+            <tr class="h-lang center"><td>3</td><td>{{ app['lang3_name'] or '' }}</td><td>{{ 'YES' if app['lang3_name'] and app['lang3_read'] == 'YES' else '' }}</td><td>{{ 'YES' if app['lang3_name'] and app['lang3_write'] == 'YES' else '' }}</td><td>{{ 'YES' if app['lang3_name'] and app['lang3_speak'] == 'YES' else '' }}</td></tr>
+
+            <!-- IDENTITY MARKS -->
+            <tr><td colspan="5" class="section-title">Identity Marks:</td></tr>
+            <tr class="h-id"><td colspan="5">1&nbsp;&nbsp;&nbsp;<span class="caps">{{ app['identification_mark'] or '' }}</span></td></tr>
+
+            <!-- DOCUMENTS -->
+            <tr class="h-doc">
+                <td colspan="3" class="left">Documents to be enclosed along with Biometric Registration Form:</td>
+                <td colspan="2" class="center">{{ app['aadhar'] or '' }}</td>
+            </tr>
+            <tr class="h-doc">
+                <td colspan="3" class="doc-text">( a) Identity Proof and Address Proof: Aadhar/Bank Pass Book/Driving Licence/Ration Card/Voter ID/Passport</td>
+                <td class="doc-text">(1) WC copy (if salary above &gt;21K)</td>
+                <td class="yes-cell"></td>
+            </tr>
+            <tr class="h-doc">
+                <td colspan="2" class="doc-text">(b) Pre-employment medical certificate</td>
+                <td class="yes-cell">YES</td>
+                <td class="doc-text">(g) SB Account pass book photo copy</td>
+                <td class="yes-cell"></td>
+            </tr>
+            <tr class="h-doc">
+                <td colspan="2" class="doc-text">(c) Valid Service/Work Order copy</td>
+                <td class="yes-cell">YES</td>
+                <td class="doc-text">(h) Interview Assessment form (MBC/UBC)</td>
+                <td class="yes-cell">MBC</td>
+            </tr>
+            <tr class="h-doc">
+                <td colspan="2" class="doc-text">(d) Individual PF UAN Number copy</td>
+                <td class="yes-cell">YES</td>
+                <td class="doc-text">(1) Salary Details Form (MBC/UBC)</td>
+                <td class="yes-cell"></td>
+            </tr>
+            <tr class="h-doc">
+                <td colspan="2" class="doc-text">(e) ESI e-Pechan (if salary below &lt;21K)</td>
+                <td class="yes-cell">YES</td>
+                <td class="doc-text"></td>
+                <td class="yes-cell"></td>
+            </tr>
+
+            <!-- ADDRESS -->
+            <tr>
+                <th class="left" style="width:9%;">Address</th>
+                <th colspan="2">Present</th>
+                <th colspan="2">Permanent</th>
+            </tr>
+            <tr class="h-address"><td class="address-label">Village</td><td colspan="2" class="bold caps">SREERAM NAGAR,AT-VASIND</td><td colspan="2" class="bold caps">{{ app['perm_village'] or app['permanent_address'] or '' }}</td></tr>
+            <tr class="h-address"><td class="address-label">Post</td><td colspan="2" class="bold caps">VASIND</td><td colspan="2" class="bold caps">{{ app['perm_post'] or '' }}</td></tr>
+            <tr class="h-address"><td class="address-label">Taluka</td><td colspan="2" class="bold caps">SAHAPUR</td><td colspan="2" class="bold caps">{{ app['perm_taluka'] or '' }}</td></tr>
+            <tr class="h-address"><td class="address-label">District</td><td colspan="2" class="bold caps">THANE</td><td colspan="2" class="bold caps">{{ app['perm_district'] or '' }}</td></tr>
+            <tr class="h-address"><td class="address-label">State</td><td colspan="2" class="bold caps">MAHARASTRA</td><td colspan="2" class="bold caps">{{ app['perm_state'] or '' }}</td></tr>
+            <tr class="h-address"><td class="address-label">Pin code</td><td colspan="2" class="bold">421601</td><td colspan="2" class="bold">{{ app['perm_pin'] or '' }}</td></tr>
+
+            <!-- EMERGENCY -->
+            <tr><td colspan="5">Name and Address of the person to be contacted in case of an Emergency? (Specify Relationship)</td></tr>
+            <tr class="h-emergency"><td colspan="5" class="center bold caps">Father - &nbsp;{{ app['father_name'] or '' }}{% if app['alt_mobile'] %}&nbsp; MOBILE NO {{ app['alt_mobile'] }}{% endif %}</td></tr>
+
+            <!-- UNDERTAKING -->
+            <tr><td colspan="5" class="section-center">UNDERTAKING</td></tr>
+            <tr><td colspan="5">I hereby confirm that the information/statements given by me in this application form are true.</td></tr>
+            <tr class="h-undertaking">
+                <td style="width:9%;">Date:</td>
+                <td style="width:28%;" class="center">{% if app['doj'] and app['doj']|length >= 10 %}{{ app['doj'][8:10] }}-{{ app['doj'][5:7] }}-{{ app['doj'][0:4] }}{% else %}{{ app['interview_date'] or '' }}{% endif %}</td>
+                <td colspan="3" rowspan="2" class="right signature-bottom">(Signature of the Candidate)</td>
+            </tr>
+            <tr class="h-undertaking"><td>Place:</td><td class="center caps">{{ app['place'] or '' }}</td></tr>
+
+            <!-- ASSOCIATE COMPANY / CONTRACTOR -->
+            <tr><td colspan="5" class="section-center">For Associate company/Contractor use only</td></tr>
+            <tr><td colspan="2">No. of Active cards</td><td colspan="3">No. of Returning cards</td></tr>
+            <tr><td colspan="2">Insurance coverage already taken for</td><td colspan="3">Employees &amp; validity is upto</td></tr>
+            <tr><td colspan="2">Labour Licence No.</td><td colspan="3">ESIC &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;..... (if total employees exceed 20)-</td></tr>
+            <tr class="h-associate-sign"><td colspan="5" class="right signature-bottom">(Signature of the Associate Company/Contractor)</td></tr>
+
+            <!-- SAFETY DEPARTMENT -->
+            <tr class="h-safety">
+                <td colspan="2" class="left">For Safety Department use only</td>
+                <td colspan="3" class="left" style="vertical-align:top;padding-top:5px;">
+                    Mr. <span class="bold caps">{{ app['full_name'] }}</span> <span style="float:right;">has undergone safety training</span><br>
+                    on..{{ app['interview_date'] or app['doj'] or '' }}
+                    <span class="signature-label">Signature of Authorised Person</span>
+                </td>
+            </tr>
+            <tr class="h-user">
+                <td colspan="2" class="left">Verified By User Department</td>
+                <td colspan="3" class="right signature-bottom">Signature of Authorised Person</td>
+            </tr>
+
+            <!-- REGISTRATION DESK -->
+            <tr><td colspan="5" class="section-center">For Registration Desk use only</td></tr>
+            <tr><td style="width:16%;">Card Number</td><td colspan="4"></td></tr>
+            <tr class="h-reg">
+                <td>Data Entered By</td>
+                <td colspan="2">Name:</td>
+                <td>Signature:</td>
+                <td>Date</td>
+            </tr>
+            <tr class="h-reg">
+                <td>Checked By</td>
+                <td colspan="2">Name:</td>
+                <td>Signature:</td>
+                <td>Date</td>
+            </tr>
+            <tr><td colspan="5" class="note-cell">Note: Please update the information in case of any changes in marital status, new births, deaths, change of address,<br>change of contact:number; up-gradation of qualification, Date of leaving, Contract change etc.</td></tr>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#05070b"><title>Admin Command Center · Workforce Portal</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='css/neo.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/motion-v11.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v16.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v18.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v19.css', v='19') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v20.css', v='20') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v24.css', v='24') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-v27.css', v='27') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v37.css', v='37') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v38.css', v='40') }}">
+</head>
+<body class="admin-body admin-v11"><div class="noise"></div><div class="admin-shell">
+<aside class="admin-side">
+  <div class="admin-brand"><a class="brand" href="/"><span class="v16-jsw-logo"><img src="{{ url_for('static', filename='vendor-logo.jpg') }}" alt="PRB vendor logo" loading="eager" decoding="async"></span><span class="brand-copy"><strong>Vendor Admin Portal</strong><span>Vasind workforce operations</span></span></a></div>
+  <nav class="side-nav">
+    <button class="active" data-tab="roster">◫ <span>Joining records</span></button>
+    <button data-tab="roles">◇ <span>Role registry</span></button>
+    <button data-tab="bulletins">⌁ <span>Bulletins</span></button>
+    <button data-tab="inbox">✉ <span>Inbox</span>{% if messages_count %}<span class="v11-notification-badge" data-message-count="{{ messages_count }}">{{ messages_count }}</span>{% endif %}</button>
+  </nav>
+  <div class="side-foot"><a href="/" class="sm-btn" style="width:100%;justify-content:center">Public portal ↗</a><a href="/logout" class="sm-btn red" style="width:100%;justify-content:center;margin-top:7px">Sign out</a></div>
+</aside>
+<main class="admin-main">
+  <header class="admin-top"><div><span class="section-kicker">Operations workspace</span><h1>Joining Command Center</h1><p>Search, process, print and authorize contractor joining records.</p></div><div class="v19-admin-top-actions"><button class="btn" type="button" data-modal-open="joiningReport" title="Create monthly joining print/PDF report">▤ Monthly Joining PDF</button><button class="btn v19-excel-btn v39-ramco-btn" type="button" data-modal-open="ramcoExport" title="Export RAMCO-formatted workforce Excel">⇩ RAMCO EXCEL EXPORT</button><button class="btn btn-primary" data-modal-open="newApplicant">+ New joining</button></div></header>
+  {% with flashes=get_flashed_messages(with_categories=true) %}{% if flashes %}<div class="v18-admin-flashes">{% for category,message in flashes %}<div class="v18-admin-flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+
+  <section class="tab-pane active" id="pane-roster">
+    <div class="kpi-grid">
+      <article class="kpi"><small>Total records</small><strong data-admin-count="{{ total }}">{{ total }}</strong></article>
+      <article class="kpi amber"><small>New requests</small><strong data-admin-count="{{ pending }}">{{ pending }}</strong></article>
+      <article class="kpi cyan"><small>Form ready</small><strong data-admin-count="{{ form_ready }}">{{ form_ready }}</strong></article>
+      <article class="kpi green"><small>Approved / joined</small><strong data-admin-count="{{ approved }}">{{ approved }}</strong></article>
+    </div>
+    <section class="admin-panel">
+      <div class="panel-head"><div><h2>Workforce joining stream</h2><p>Enterprise-wise filtering and candidate search. Excel export is admin-only and may contain sensitive workforce data.</p></div>
+        <form class="admin-filters" method="get" action="/admin"><input type="hidden" name="tab" value="roster"><input class="admin-input" name="q" value="{{ search_query }}" placeholder="Name, mobile, Aadhaar, designation"><select class="admin-input" name="contractor" onchange="this.form.submit()"><option value="All" {% if selected_contractor=='All' %}selected{% endif %}>All enterprises</option><option {% if selected_contractor=='Deva Enterprises' %}selected{% endif %}>Deva Enterprises</option><option {% if selected_contractor=='Shubham Services' %}selected{% endif %}>Shubham Services</option><option {% if selected_contractor=='Prabhuram & Bichare' %}selected{% endif %}>Prabhuram & Bichare</option></select><button class="sm-btn primary" type="submit">Search</button></form>
+      </div>
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>ID</th><th>Candidate</th><th>Role & enterprise</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead><tbody>
+        {% for app in applicants %}<tr><td style="font-family:var(--mono);color:var(--faint)">#{{ app['id'] }}</td><td class="name-cell"><b>{{ app['full_name'] }}</b><span>{{ app['mobile'] or '—' }} · {{ app['qualification'] or 'Qualification pending' }}</span></td><td><b class="v18-table-role">{{ app['designation'] or app['requested_role'] or 'Role pending' }}</b><div class="v18-table-contractor">{{ app['contractor'] or 'Enterprise pending' }}</div></td><td>{% if app['status']=='Joined' %}<span class="status-badge status-ok">Joined</span>{% elif app['status']=='Approved' %}<span class="status-badge status-ok">Approved</span>{% elif app['status']=='Processed' %}<span class="status-badge status-ready">Processed</span>{% elif app['status']=='Form Ready' %}<span class="status-badge status-ready">Form Ready</span>{% else %}<span class="status-badge status-new">New Request</span>{% endif %}</td><td><div class="actions">
+          {% if app['status'] in ('Form Ready','Processed','Approved') %}<a class="sm-btn" href="/admin/print/{{ app['id'] }}" target="_blank">Print 3 pages</a>{% endif %}
+          <a class="sm-btn primary" href="/admin/process/{{ app['id'] }}">Process</a>{% if app['status']=='Joined' %}<a class="sm-btn" href="/admin/appointment/{{ app['id'] }}" target="_blank">Appointment PDF</a>{% endif %}
+          {% if app['status']!='Approved' %}<form method="post" action="/admin/status/{{ app['id'] }}/Approved"><button class="sm-btn green" type="submit">Authorize</button></form>{% endif %}
+          <form method="post" action="/admin/delete/{{ app['id'] }}" onsubmit="return confirm('Delete this applicant record permanently?')"><button class="sm-btn red" type="submit">Delete</button></form>
+        </div></td></tr>{% else %}<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--faint)">No records match this filter.</td></tr>{% endfor %}
+      </tbody></table></div>
+    </section>
+  </section>
+
+  <section class="tab-pane" id="pane-roles">
+    <div class="role-admin-grid">
+      <div class="admin-form-card">
+        <h3>Publish a role</h3>
+        <form action="/admin/role/add" method="post" class="stack">
+          <div class="field"><label>Role title</label><input name="title" required placeholder="e.g. Crane Operator"></div>
+          <div class="field"><label>Enterprise</label><select name="contractor" required><option>Deva Enterprises</option><option>Shubham Services</option><option>Prabhuram & Bichare</option></select></div>
+          <div class="field"><label>Skill level</label><select name="skill_level" required><option>Unskilled</option><option>Semi-Skilled</option><option>Skilled</option><option>Highly Skilled</option></select></div>
+          <div class="field"><label>Expected salary</label><input name="salary" required placeholder="e.g. ₹18,000 – ₹25,000 / mo"></div>
+          <div class="field"><label>Role description</label><textarea name="description" required placeholder="Short responsibility summary"></textarea></div>
+          <button class="btn btn-primary" type="submit">Add role</button>
+        </form>
+      </div>
+      <div class="admin-form-card">
+        <div class="v18-role-registry-head"><div><h3>Current role registry</h3><p>Expected salary shown on the public Roles cards can be updated here.</p></div></div>
+        <div class="role-list v18-role-list">
+          {% for role in roles %}
+          <article class="role-row v18-role-row">
+            <div class="v18-role-meta"><b>{{ role['title'] }}</b><span>{{ role['contractor'] }} · {{ role['skill_level'] }}</span></div>
+            <form class="v18-salary-form" action="/admin/role/update-salary/{{ role['id'] }}" method="post">
+              <label for="salary-{{ role['id'] }}">Expected salary</label>
+              <div><input id="salary-{{ role['id'] }}" name="salary" value="{{ role['salary'] or '' }}" required aria-label="Expected salary for {{ role['title'] }}"><button class="sm-btn primary" type="submit">Save salary</button></div>
+            </form>
+            <div class="actions v18-role-actions"><form action="/admin/role/toggle/{{ role['id'] }}" method="post"><button class="sm-btn {% if role['is_highlighted'] %}green{% endif %}" type="submit">{% if role['is_highlighted'] %}Priority on{% else %}Set priority{% endif %}</button></form><form action="/admin/role/delete/{{ role['id'] }}" method="post" onsubmit="return confirm('Delete this role?')"><button class="sm-btn red" type="submit">Delete</button></form></div>
+          </article>
+          {% else %}<p class="v18-empty">No roles configured.</p>{% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tab-pane" id="pane-bulletins">
+    <div class="role-admin-grid"><div class="admin-form-card"><h3>Publish bulletin</h3><form action="/admin/news/add" method="post" class="stack"><div class="field"><label>Title</label><input name="title" required></div><div class="field"><label>Message</label><textarea name="content" required></textarea></div><button class="btn btn-primary" type="submit">Publish update</button></form></div><div class="admin-form-card"><h3>Published updates</h3><div class="bulletin-grid">{% for item in news %}<article class="bulletin-card"><b>{{ item['title'] }}</b><p>{{ item['content'] }}</p><form style="margin-top:10px" action="/admin/news/delete/{{ item['id'] }}" method="post"><button class="sm-btn red">Delete</button></form></article>{% else %}<p style="color:var(--muted);font-size:10px">No bulletins yet.</p>{% endfor %}</div></div></div>
+  </section>
+
+  <section class="tab-pane" id="pane-inbox">
+    <div class="admin-panel" style="padding:18px"><div class="panel-head" style="padding:0 0 16px;margin-bottom:16px"><div><h2>Contact inbox</h2><p>Messages submitted from the public portal.</p></div></div><div class="message-grid">{% for msg in messages %}<article class="message-card"><b>{{ msg['name'] }} · {{ msg['phone'] }}</b><p>{{ msg['message'] }}</p><form style="margin-top:10px" action="/admin/message/delete/{{ msg['id'] }}" method="post"><button class="sm-btn red">Delete</button></form></article>{% else %}<p style="color:var(--muted);font-size:10px">No messages received.</p>{% endfor %}</div></div>
+  </section>
+</main></div>
+
+
+
+<div class="modal-backdrop v37-report-backdrop" id="joiningReport">
+  <div class="modal v37-report-modal">
+    <div class="modal-head"><div><span class="section-kicker">JOINING REPORT</span><h3>Monthly Joining PDF</h3><p class="v37-modal-sub">Choose month and enterprise. A print-ready report opens in a new tab; use Print → Save as PDF.</p></div><button class="close-btn" type="button" data-modal-close>×</button></div>
+    <form action="/admin/joining-report" method="get" target="_blank" class="v37-report-form" id="joiningReportForm">
+      <div class="field"><label>Joining month</label><input type="month" name="month" id="joiningReportMonth" required></div>
+      <div class="field"><label>Enterprise</label><select name="contractor"><option value="All">All enterprises</option><option>Deva Enterprises</option><option>Shubham Services</option><option>Prabhuram &amp; Bichare</option></select></div>
+      <div class="v37-report-note">Report columns: Sr. No. · Name · Designation · DOJ · Contractor. It also shows selected-month counts and all-time totals separately for Deva, Shubham and PRB.</div>
+      <div class="v24-export-actions"><button type="button" class="sm-btn" data-modal-close>Cancel</button><button type="submit" class="btn btn-primary">Open Print / PDF Report</button></div>
+    </form>
+  </div>
+</div>
+<div class="modal-backdrop v24-export-backdrop" id="ramcoExport">
+  <div class="modal v24-export-modal">
+    <div class="modal-head"><div><span class="section-kicker">RAMCO EXPORT</span><h3>Which records do you want?</h3></div><button class="close-btn" type="button" data-modal-close>×</button></div>
+    <form action="/admin/export.xlsx" method="get" id="ramcoExportForm" class="v24-export-form">
+      <div class="v24-export-scope">
+        <label class="v24-export-choice"><input type="radio" name="scope" value="all" checked><span><b>Export all records</b><small>Download every candidate currently saved in the portal.</small></span></label>
+        <label class="v24-export-choice"><input type="radio" name="scope" value="selected"><span><b>Choose candidates</b><small>Select only the people you want in this RAMCO Excel file.</small></span></label>
+      </div>
+      <div class="v24-selected-wrap" id="v24SelectedWrap" hidden>
+        <div class="v24-select-head"><strong>Select candidates</strong><label><input type="checkbox" id="v24SelectAll"> Select all visible</label></div>
+        <div class="v24-candidate-list">
+          {% for app in applicants %}
+          <label class="v24-candidate-option">
+            <input type="checkbox" name="ids" value="{{ app['id'] }}">
+            <span><b>{{ app['full_name'] }}</b><small>#{{ app['id'] }} · {{ app['designation'] or app['requested_role'] or 'Role pending' }} · {{ app['contractor'] or 'Enterprise pending' }}</small></span>
+          </label>
+          {% else %}
+          <p class="v18-empty">No candidate records available.</p>
+          {% endfor %}
+        </div>
+        <p class="v24-export-error" id="v24ExportError" role="alert"></p>
+      </div>
+      <div class="v24-export-actions"><button type="button" class="sm-btn" data-modal-close>Cancel</button><button type="submit" class="btn btn-primary">Download Excel</button></div>
+    </form>
+  </div>
+</div>
+<div class="modal-backdrop" id="newApplicant"><div class="modal"><div class="modal-head"><h3>New joining record</h3><button class="close-btn" type="button" data-modal-close>×</button></div><form action="/admin/applicant/create" method="post" class="stack"><div class="field"><label>Full name</label><input name="full_name" required></div><div class="field"><label>Mobile</label><input name="mobile" required maxlength="10" inputmode="numeric" pattern="[6-9][0-9]{9}" data-validate-type="mobile"></div><div class="field"><label>Qualification</label><select name="qualification" required><option value="">Select qualification</option><option>5TH PASS</option><option>8TH PASS</option><option>10TH / SSC</option><option>12TH / HSC</option><option>ITI</option><option>APPRENTICESHIP</option><option>DIPLOMA</option><option>GRADUATE</option><option>POST GRADUATE</option><option>OTHER</option></select></div><div class="field"><label>Enterprise</label><select name="contractor" required><option>Deva Enterprises</option><option>Shubham Services</option><option>Prabhuram & Bichare</option></select></div><div class="field"><label>Requested role</label><input name="requested_role" list="adminRoleSuggestions" autocomplete="off" required><datalist id="adminRoleSuggestions">{% for role in roles %}<option value="{{ role['title'] }}">{{ role['contractor'] }}</option>{% endfor %}<option value="PACKER"><option value="PACKING OPERATOR"><option value="HELPER"><option value="LOADER"><option value="HOUSEKEEPING"><option value="FITTER"><option value="ELECTRICIAN"></datalist></div><button class="btn btn-primary" type="submit">Create & process later</button></form></div></div>
+<script src="{{ url_for('static', filename='js/neo.js') }}"></script><script src="{{ url_for('static', filename='js/motion-v11.js', v='20') }}"></script><script src="{{ url_for('static', filename='js/portal-v18.js', v='20') }}"></script><script>
+(() => {
+  const form = document.getElementById('ramcoExportForm');
+  if (!form) return;
+  const wrap = document.getElementById('v24SelectedWrap');
+  const selectAll = document.getElementById('v24SelectAll');
+  const error = document.getElementById('v24ExportError');
+  const scopeRadios = [...form.querySelectorAll('input[name="scope"]')];
+  const candidateChecks = () => [...form.querySelectorAll('input[name="ids"]')];
+  const sync = () => {
+    const selected = form.querySelector('input[name="scope"]:checked')?.value === 'selected';
+    wrap.hidden = !selected;
+    if (!selected) { error.textContent = ''; if (selectAll) selectAll.checked = false; }
+  };
+  scopeRadios.forEach(r => r.addEventListener('change', sync));
+  selectAll?.addEventListener('change', () => candidateChecks().forEach(c => c.checked = selectAll.checked));
+  form.addEventListener('submit', (e) => {
+    const selected = form.querySelector('input[name="scope"]:checked')?.value === 'selected';
+    if (selected && !candidateChecks().some(c => c.checked)) {
+      e.preventDefault();
+      error.textContent = 'Choose at least one candidate before downloading.';
+      wrap.hidden = false;
+      return;
+    }
+    error.textContent = '';
+  });
+  sync();
+})();
+</script><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v25.css', v='25') }}"><script src="{{ url_for('static', filename='js/validation-v25.js', v='25') }}"></script>
+<script defer src="{{ url_for('static', filename='js/responsive-v27.js', v='27') }}"></script>
+<script>
+(() => {
+  const monthInput = document.getElementById('joiningReportMonth');
+  if (monthInput && !monthInput.value) {
+    const now = new Date();
+    monthInput.value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  }
+})();
+</script></body></html>

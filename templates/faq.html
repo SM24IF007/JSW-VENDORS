@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06111f">
+  <meta name="description" content="Frequently asked questions about workforce applications, verification, contractor assignment, benefits and joining at Vasind.">
+  <title>FAQ · Vasind Workforce Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/motion-v11.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-v27.css', v='27') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/global-3d-v33.css', v='33') }}">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/layout-fix-v34.css', v='34') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v37.css', v='37') }}">
+</head>
+<body class="utility-v11 faq-page-v11">
+  <main class="utility-shell">
+    <a href="/" style="color:#8ecbff;text-decoration:none">← Back to portal</a>
+    <div style="margin-top:56px">
+      <span class="utility-kicker">QUESTIONS</span>
+      <h1>Before you apply.</h1>
+      <p class="utility-lede">Straight answers about the public application, joining process, contractor assignment and statutory information.</p>
+    </div>
+
+    <div class="faq-v11-tabs" role="tablist" aria-label="FAQ categories">
+      <button class="active" type="button" data-faq-tab="all">All</button>
+      <button type="button" data-faq-tab="application">Application</button>
+      <button type="button" data-faq-tab="joining">Joining</button>
+      <button type="button" data-faq-tab="benefits">Benefits</button>
+    </div>
+
+    <section aria-label="Frequently asked questions">
+      <article class="faq-v11-item" data-category="application"><button type="button" aria-expanded="false"><span>What documents do I need to apply?</span><b>⌄</b></button><div class="faq-v11-answer"><div>The public application begins with essential details such as name, mobile number, qualification and selected role. Detailed identity, address and statutory information is handled later in the authorized admin workflow.</div></div></article>
+      <article class="faq-v11-item" data-category="joining"><button type="button" aria-expanded="false"><span>What's the difference between 8-hour and 12-hour shift roles?</span><b>⌄</b></button><div class="faq-v11-answer"><div>The portal does not publish a fixed shift duration because it depends on the assigned role, department and contractor requirement. The confirmed schedule is communicated during processing or joining.</div></div></article>
+      <article class="faq-v11-item" data-category="application"><button type="button" aria-expanded="false"><span>How long does verification take?</span><b>⌄</b></button><div class="faq-v11-answer"><div>No fixed public verification time is promised. Timing depends on document readiness, role review and contractor processing. Use the application-status page for the latest recorded stage.</div></div></article>
+      <article class="faq-v11-item" data-category="joining"><button type="button" aria-expanded="false"><span>Which contracting firm will I be placed with?</span><b>⌄</b></button><div class="faq-v11-answer"><div>Applicants do not self-select a contractor from the partner section. Contractor mapping follows the selected role, review and admin joining process.</div></div></article>
+      <article class="faq-v11-item" data-category="application"><button type="button" aria-expanded="false"><span>How do I check my application status?</span><b>⌄</b></button><div class="faq-v11-answer"><div>Open the Check Application Status page and enter the same 10-digit mobile number used during registration.</div></div></article>
+      <article class="faq-v11-item" data-category="joining"><button type="button" aria-expanded="false"><span>What is the gate-pass process on joining day?</span><b>⌄</b></button><div class="faq-v11-answer"><div>After application, verification and interview details are completed, the three-page joining record is prepared for review. Final plant access remains subject to the applicable contractor and plant approvals.</div></div></article>
+      <article class="faq-v11-item" data-category="benefits"><button type="button" aria-expanded="false"><span>Are PF and ESIC available?</span><b>⌄</b></button><div class="faq-v11-answer"><div>The portal supports recording PF/UAN and ESIC information in the joining workflow. Actual statutory coverage depends on eligibility, applicable rules and the employment record.</div></div></article>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='js/motion-v11.js', v='19') }}"></script>
+<script defer src="{{ url_for('static', filename='js/responsive-v27.js', v='27') }}"></script>
+  <script defer src="{{ url_for('static', filename='js/global-3d-v33.js', v='33') }}"></script>
+
+<script defer src="{{ url_for('static', filename='js/layout-fix-v34.js', v='34') }}"></script>
+</body>
+</html>

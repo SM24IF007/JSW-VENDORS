@@ -1,0 +1,77 @@
+/* V19 — clearer JSW branding, stronger status result, Excel export controls */
+
+/* ----- JSW logo: substantially larger and clearer ----- */
+.v14-jsw-logo,
+.v16-jsw-logo{
+  width:102px!important;
+  height:58px!important;
+  flex:0 0 102px!important;
+  border-radius:10px!important;
+  padding:3px!important;
+  background:#fff!important;
+  border:1px solid rgba(255,255,255,.36)!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.30),0 0 0 1px rgba(87,158,225,.08)!important;
+  overflow:hidden!important;
+}
+.v14-jsw-logo img,
+.v16-jsw-logo img{
+  position:relative!important;
+  inset:auto!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  z-index:2!important;
+}
+.v14-jsw-fallback,
+.v16-jsw-fallback{
+  font-size:25px!important;
+  letter-spacing:-.08em!important;
+  background:#fff!important;
+}
+.landing-v10 .v14-brand{min-width:330px!important;gap:15px!important}
+.landing-v10 .v14-brand .story-brand-copy strong{font-size:12px!important}
+.landing-v10 .v14-brand .story-brand-copy small{font-size:7px!important}
+.form-v11 .brand-copy strong,.admin-v11 .brand-copy strong{font-size:15px!important}
+.admin-v11 .admin-brand .v16-jsw-logo{width:92px!important;height:52px!important;flex-basis:92px!important}
+.v16-process-brand .v16-jsw-logo{width:92px!important;height:52px!important;flex-basis:92px!important}
+.login-v11 .v16-jsw-logo{width:112px!important;height:64px!important;flex-basis:112px!important}
+
+/* ----- Admin export ----- */
+.v19-admin-top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.v19-excel-btn{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;
+  background:linear-gradient(135deg,#123f31,#17634c)!important;
+  color:#eafff7!important;border:1px solid rgba(84,220,167,.28)!important;
+  text-decoration:none!important;box-shadow:0 12px 28px rgba(7,42,31,.28)!important;
+}
+.v19-excel-btn:hover{transform:translateY(-1px);border-color:rgba(84,220,167,.52)!important;box-shadow:0 16px 32px rgba(7,42,31,.35)!important}
+
+/* ----- Status page ----- */
+.status-page-v11 .status-v11-card{max-width:900px}
+.status-page-v11 .status-v11-result.server-result{display:block!important;opacity:1!important}
+.status-page-v11 .status-v11-person strong{font-size:28px!important;line-height:1.15!important;margin-bottom:6px}
+.status-page-v11 .status-v11-person span{display:block;font-size:15px!important;line-height:1.6!important}
+.status-page-v11 .status-step span{font-size:13px!important}
+.status-page-v11 .status-v11-form input{font-size:17px!important;min-height:54px!important}
+.status-page-v11 .status-v11-form button{font-size:14px!important;min-height:54px!important}
+
+@media(max-width:900px){
+  .landing-v10 .v14-brand{min-width:auto!important}
+  .v14-jsw-logo,.v16-jsw-logo{width:82px!important;height:47px!important;flex-basis:82px!important}
+  .landing-v10 .v14-brand .story-brand-copy strong{font-size:9px!important}
+  .landing-v10 .v14-brand .story-brand-copy small{font-size:6px!important}
+  .v19-admin-top-actions{justify-content:flex-start}
+}
+
+@media(max-width:620px){
+  .v14-jsw-logo,.v16-jsw-logo{width:72px!important;height:42px!important;flex-basis:72px!important}
+  .v19-admin-top-actions{width:100%}
+  .v19-admin-top-actions .btn{flex:1}
+}
+
+/* Landing tracker result should be obvious after a lookup. */
+.story-status-result{font-size:14px!important;line-height:1.6!important;color:#d8e9f7!important;min-height:26px!important;padding-top:4px}
+.story-status-result a{font-weight:700}

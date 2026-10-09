@@ -1,0 +1,142 @@
+/* V18 — admin readability, editable role salary, dark role picker and processing input fixes */
+
+/* ---------- Candidate registration: reliable dark role picker ---------- */
+.form-v11 .v18-role-field{position:relative}
+.form-v11 .v18-native-role-select{
+  position:absolute!important;
+  width:1px!important;height:1px!important;
+  opacity:0!important;pointer-events:none!important;
+  overflow:hidden!important;clip:rect(0 0 0 0)!important;
+}
+.v18-role-picker{position:relative;width:100%}
+.v18-role-picker-btn{
+  width:100%;min-height:64px;padding:12px 16px;border-radius:14px;
+  border:1px solid rgba(99,179,238,.28);
+  background:linear-gradient(135deg,#0b2035,#071522);
+  color:#f4f9fd;display:flex;align-items:center;justify-content:space-between;gap:18px;
+  text-align:left;cursor:pointer;box-shadow:inset 3px 0 0 rgba(82,174,243,.72),0 12px 30px rgba(0,0,0,.15);
+  transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease;
+}
+.v18-role-picker-btn:hover,.v18-role-picker.open .v18-role-picker-btn{border-color:#58b4f8;box-shadow:0 0 0 4px rgba(82,174,243,.08),inset 3px 0 0 #58b4f8}
+.v18-role-picker-btn span{display:flex;flex-direction:column;gap:5px;min-width:0}
+.v18-role-picker-btn small{font:700 9px/1 'IBM Plex Mono',monospace;letter-spacing:.13em;color:#79a9cd}
+.v18-role-picker-btn strong{font:700 15px/1.35 'IBM Plex Sans',sans-serif;color:#f5f9fd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v18-role-picker-btn i{font-style:normal;font-size:22px;color:#77c2f8;transition:transform .18s ease}
+.v18-role-picker.open .v18-role-picker-btn i{transform:rotate(180deg)}
+.v18-role-picker-menu{
+  position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:80;display:none;
+  max-height:360px;overflow:auto;padding:9px;border-radius:16px;
+  border:1px solid rgba(105,184,241,.22);background:#071522;
+  box-shadow:0 28px 80px rgba(0,0,0,.52),0 0 0 1px rgba(255,255,255,.02) inset;
+}
+.v18-role-picker.open .v18-role-picker-menu{display:block}
+.v18-role-group-label{padding:12px 12px 8px;color:#7ea6c5;font:700 9px/1 'IBM Plex Mono',monospace;letter-spacing:.13em;text-transform:uppercase;border-top:1px solid rgba(255,255,255,.055)}
+.v18-role-group-label:first-child{border-top:0;padding-top:7px}
+.v18-role-option{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 13px;border:0;border-radius:11px;background:transparent;color:#eaf4fb;text-align:left;cursor:pointer;font:600 14px/1.35 'IBM Plex Sans',sans-serif}
+.v18-role-option:hover,.v18-role-option.active{background:linear-gradient(90deg,rgba(58,151,220,.20),rgba(58,151,220,.06));color:#fff}
+.v18-role-option.active:after{content:"✓";color:#66c3ff;font-weight:800}
+.form-v11 select option,.form-v11 select optgroup{background:#071522!important;color:#f2f7fb!important}
+
+/* ---------- Login + Admin dashboard: readability ---------- */
+.login-v11 .login-card{width:min(94vw,520px)!important;padding:36px!important}
+.login-v11 .login-card h1{font-size:38px!important;line-height:1.05!important;margin:12px 0 10px!important}
+.login-v11 .login-card .sub{font-size:12px!important;line-height:1.55!important;letter-spacing:.08em!important}
+.login-v11 .field label{font-size:11px!important;letter-spacing:.10em!important}
+.login-v11 .pin-input{min-height:58px!important;font-size:19px!important;padding:0 16px!important}
+.login-v11 .btn{min-height:52px!important;font-size:13px!important}
+.login-v11 .section-kicker{font-size:10px!important}
+
+.admin-v11 .admin-shell{grid-template-columns:290px 1fr!important}
+.admin-v11 .admin-main{padding:38px 42px 76px!important}
+.admin-v11 .admin-main:before{inset:0 0 0 290px!important}
+.admin-v11 .admin-brand .brand-copy strong{font-size:15px!important}
+.admin-v11 .admin-brand .brand-copy span{font-size:9px!important}
+.admin-v11 .side-nav button{min-height:50px!important;font-size:13px!important;padding-inline:14px!important}
+.admin-v11 .section-kicker{font-size:10px!important;letter-spacing:.12em!important}
+.admin-v11 .admin-top h1{font-size:34px!important}
+.admin-v11 .admin-top p{font-size:13px!important;line-height:1.55!important}
+.admin-v11 .kpi{padding:22px!important}
+.admin-v11 .kpi small{font-size:10px!important}
+.admin-v11 .kpi strong{font-size:34px!important}
+.admin-v11 .panel-head{padding:20px 22px!important}
+.admin-v11 .panel-head h2,.admin-v11 .admin-form-card h3{font-size:18px!important}
+.admin-v11 .panel-head p,.admin-v11 .v18-role-registry-head p{font-size:12px!important;line-height:1.55!important;color:#8fa8bc!important;margin:6px 0 0}
+.admin-v11 .admin-input{height:42px!important;font-size:12px!important;padding:0 13px!important}
+.admin-v11 .admin-table th{padding:14px 16px!important;font-size:10px!important}
+.admin-v11 .admin-table td{padding:15px 16px!important;font-size:13px!important}
+.admin-v11 .name-cell b{font-size:14px!important}
+.admin-v11 .name-cell span{font-size:10px!important;line-height:1.5!important}
+.admin-v11 .v18-table-role{font-size:13px!important;color:#eef7ff}
+.admin-v11 .v18-table-contractor{color:#74bdf2!important;font-size:11px!important;margin-top:5px!important}
+.admin-v11 .status-badge{font-size:10px!important;padding:6px 10px!important}
+.admin-v11 .sm-btn{height:35px!important;padding:0 11px!important;font-size:10px!important}
+.admin-v11 .btn{min-height:44px!important;font-size:12px!important}
+.admin-v11 .admin-form-card{padding:24px!important}
+.admin-v11 .field label{font-size:10px!important;letter-spacing:.09em!important}
+.admin-v11 .field input,.admin-v11 .field select,.admin-v11 .field textarea{font-size:13px!important;min-height:46px!important;padding:12px 13px!important}
+.admin-v11 .field textarea{min-height:120px!important}
+.admin-v11 .role-admin-grid{grid-template-columns:minmax(390px,470px) minmax(0,1fr)!important;gap:18px!important}
+.admin-v11 .role-row b{font-size:14px!important}
+.admin-v11 .role-row span{font-size:11px!important;line-height:1.45!important}
+.admin-v11 .message-card b,.admin-v11 .bulletin-card b{font-size:13px!important}
+.admin-v11 .message-card p,.admin-v11 .bulletin-card p{font-size:12px!important;line-height:1.7!important}
+
+/* ---------- Salary editor ---------- */
+.v18-role-registry-head{display:flex;justify-content:space-between;gap:20px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.065)}
+.admin-v11 .v18-role-list{gap:12px!important}
+.admin-v11 .v18-role-row{display:grid!important;grid-template-columns:minmax(180px,.75fr) minmax(310px,1.3fr) auto!important;gap:16px!important;align-items:center!important;padding:16px!important}
+.v18-role-meta{min-width:0}
+.v18-salary-form{display:grid;gap:7px;min-width:0}
+.v18-salary-form label{font:700 9px/1 'IBM Plex Mono',monospace;color:#789ab5;letter-spacing:.11em;text-transform:uppercase}
+.v18-salary-form>div{display:flex;gap:8px;align-items:center}
+.v18-salary-form input{min-width:0;flex:1;height:39px;border:1px solid rgba(105,178,232,.18);border-radius:10px;background:#061521;color:#f4f8fc;padding:0 12px;font:600 12px/1 'IBM Plex Sans',sans-serif;outline:none}
+.v18-salary-form input:focus{border-color:#55b2f3;box-shadow:0 0 0 3px rgba(85,178,243,.08)}
+.v18-role-actions{justify-content:flex-end!important}
+.v18-empty{color:#879daf;font-size:12px}
+
+/* ---------- Processing screen: keep every filled control dark ---------- */
+.process-v11 #processApplicantForm{font-size:14px!important}
+.process-v11 #processApplicantForm h3{font-size:16px!important}
+.process-v11 #processApplicantForm label{font-size:12px!important;line-height:1.35!important;color:#b7c8d7!important}
+.process-v11 .input-dark{
+  min-height:46px!important;font-size:14px!important;line-height:1.35!important;
+  background:linear-gradient(180deg,#071724,#06121e)!important;color:#f4f8fc!important;
+  border-color:rgba(104,177,232,.19)!important;caret-color:#71c2fb!important;
+}
+.process-v11 .input-dark.is-filled{background:linear-gradient(135deg,#0c2337,#081827)!important;border-color:rgba(86,174,239,.38)!important;box-shadow:inset 3px 0 0 rgba(78,168,235,.72)!important}
+.process-v11 .input-dark::placeholder{color:#658099!important}
+.process-v11 .input-dark option{background:#0a1d2d!important;color:#f4f8fc!important}
+.process-v11 input.input-dark:-webkit-autofill,
+.process-v11 input.input-dark:-webkit-autofill:hover,
+.process-v11 input.input-dark:-webkit-autofill:focus,
+.process-v11 input.input-dark:-webkit-autofill:active{
+  -webkit-text-fill-color:#f4f8fc!important;caret-color:#f4f8fc!important;
+  -webkit-box-shadow:0 0 0 1000px #0c2337 inset,inset 3px 0 0 #4ea8eb!important;
+  box-shadow:0 0 0 1000px #0c2337 inset,inset 3px 0 0 #4ea8eb!important;
+  border-color:rgba(86,174,239,.40)!important;transition:background-color 9999s ease-out 0s!important;
+}
+.process-v11 .v11-status-bar label{font-size:11px!important}
+.process-v11 .v11-status-bar select,.process-v11 .v11-status-save{font-size:12px!important;min-height:40px!important}
+.process-v11 .v11-process-actions button{font-size:12px!important;letter-spacing:.07em!important}
+
+@media(max-width:1100px){
+  .admin-v11 .role-admin-grid{grid-template-columns:1fr!important}
+  .admin-v11 .v18-role-row{grid-template-columns:1fr!important}
+  .v18-role-actions{justify-content:flex-start!important}
+}
+@media(max-width:900px){
+  .admin-v11 .admin-shell{grid-template-columns:1fr!important}.admin-v11 .admin-main:before{display:none!important}.admin-v11 .admin-main{padding:24px 16px 60px!important}
+}
+@media(max-width:700px){
+  .login-v11 .login-card{padding:28px 22px!important}.login-v11 .login-card h1{font-size:32px!important}
+  .v18-role-picker-btn strong{font-size:13px}.v18-role-picker-menu{max-height:310px}
+  .process-v11 #processApplicantForm{font-size:13px!important}
+}
+@media(prefers-reduced-motion:reduce){.v18-role-picker-btn,.v18-role-picker-btn i{transition:none!important}}
+
+/* Ask supporting browser controls (date pickers, select menus) to use dark widgets. */
+.form-v11,.process-v11,.admin-v11,.login-v11{color-scheme:dark}
+.v18-admin-flashes{display:grid;gap:8px;margin:-8px 0 18px}
+.v18-admin-flash{padding:11px 14px;border-radius:11px;border:1px solid rgba(103,181,236,.18);background:rgba(13,42,64,.62);color:#ccecff;font-size:12px;font-weight:700}
+.v18-admin-flash.success{border-color:rgba(80,202,151,.22);background:rgba(37,111,83,.18);color:#9ee7c6}
+.v18-admin-flash.error{border-color:rgba(231,73,87,.28);background:rgba(127,37,48,.18);color:#ffadb5}

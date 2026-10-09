@@ -1,0 +1,104 @@
+/* V11 motion map: public pages expressive, utility/admin pages restrained. */
+:root{
+  --v11-bg:#06111f;--v11-bg2:#091827;--v11-panel:#0d1c2b;--v11-line:rgba(111,171,225,.18);
+  --v11-blue:#4aa8ff;--v11-blue2:#8ecbff;--v11-red:#e73746;--v11-text:#f4f8fc;--v11-muted:#9aacbd;
+  --v11-ease:cubic-bezier(.2,.8,.2,1)
+}
+
+/* GLOBAL ACCESSIBILITY */
+:focus-visible{outline:2px solid var(--v11-blue2);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  [data-v11-reveal],.v11-page-fade,.v11-row-fade,.form-v11 .form-card,.login-v11 .login-card,.process-v11,.faq-v11-item,.admin-v11 .admin-table tbody tr{opacity:1!important;transform:none!important;filter:none!important}
+}
+
+/* ROLES / CAREERS — medium motion */
+.roles-v11 .roles-product-hero{min-height:62vh;display:grid;align-items:end;padding-bottom:72px}
+.roles-v11 .roles-product-hero h1{font-family:'Sora','Space Grotesk',sans-serif;font-size:clamp(3rem,7vw,6.2rem);letter-spacing:-.06em}
+.roles-v11 .roles-product-list{padding-top:44px}
+.roles-v11 .roles-filter-label{font-family:'IBM Plex Mono','JetBrains Mono',monospace;letter-spacing:.12em;font-size:11px;color:var(--v11-muted)}
+.roles-v11 .roles-filter-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;position:relative}
+.roles-v11 .filter-chip{position:relative;overflow:hidden;border:1px solid var(--v11-line);background:rgba(8,20,34,.62);color:#b8c8d6;border-radius:999px;padding:10px 16px;font:600 12px/1 'IBM Plex Mono','JetBrains Mono',monospace;cursor:pointer;transition:border-color .2s,color .2s,transform .2s}
+.roles-v11 .filter-chip::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#174f82,#0d3559);transform:translateX(-104%);transition:transform .26s var(--v11-ease);z-index:-1}
+.roles-v11 .filter-chip.active{color:#fff;border-color:rgba(74,168,255,.65)}
+.roles-v11 .filter-chip.active::before{transform:translateX(0)}
+.roles-v11 .filter-chip:hover{border-color:rgba(74,168,255,.5);transform:translateY(-1px)}
+.roles-v11 .roles-product-grid{perspective:1200px}
+.roles-v11 .roles-product-card{transition:transform .2s var(--v11-ease),border-color .2s,box-shadow .2s;transform-style:preserve-3d}
+@media (hover:hover) and (pointer:fine){
+  .roles-v11 .roles-product-card:hover{transform:translateY(-5px);border-color:rgba(74,168,255,.42);box-shadow:0 20px 60px rgba(0,25,55,.38),0 0 30px rgba(74,168,255,.08)}
+}
+.roles-v11 .roles-product-card.is-filtered-out{display:none!important}
+.roles-v11 .roles-product-card.urgent-hiring{position:relative;border-color:rgba(231,55,70,.45)}
+.roles-v11 .roles-product-card.urgent-hiring::after{content:"URGENT HIRING";position:absolute;top:15px;right:15px;padding:6px 9px;border-radius:999px;background:rgba(231,55,70,.1);border:1px solid rgba(231,55,70,.42);color:#ff8791;font:700 9px/1 'IBM Plex Mono',monospace;letter-spacing:.1em;animation:v11Urgent 2.2s ease-in-out infinite}
+@keyframes v11Urgent{50%{box-shadow:0 0 0 6px rgba(231,55,70,0),0 0 24px rgba(231,55,70,.16);border-color:rgba(231,55,70,.72)}}
+@media(max-width:900px){.roles-v11 .roles-product-hero{min-height:48vh}.roles-v11 .roles-product-card{transform:none!important}}
+
+/* APPLICATION FORM — intentionally minimal */
+.form-v11{min-height:100vh;background:radial-gradient(circle at 80% 10%,rgba(42,119,186,.1),transparent 28%),#06111f}
+.form-v11 .form-card{opacity:0;transform:translateY(14px);animation:v11FormIn .34s var(--v11-ease) forwards}
+@keyframes v11FormIn{to{opacity:1;transform:none}}
+.form-v11 .field input,.form-v11 .field select,.form-v11 .field textarea{transition:border-color .15s,box-shadow .15s}
+.form-v11 .field:focus-within input,.form-v11 .field:focus-within select,.form-v11 .field:focus-within textarea{border-color:#4aa8ff;box-shadow:0 0 0 3px rgba(74,168,255,.08)}
+.form-v11 .field.has-error input,.form-v11 .field.has-error select,.form-v11 .field.has-error textarea{border-color:#e73746;box-shadow:inset 0 -2px 0 #e73746;animation:v11Shake .15s ease-in-out}
+@keyframes v11Shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.v11-field-error{display:block;color:#ff8b94;font-size:11px;margin-top:7px}
+.form-v11 .btn-primary{position:relative;overflow:hidden}
+.form-v11 .btn-primary::after{content:"";position:absolute;inset:-40% auto -40% -55%;width:35%;transform:skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);transition:left .32s ease}
+.form-v11 .btn-primary:active{transform:translateY(1px) scale(.99)}
+.form-v11 .btn-primary:hover::after{left:125%}
+.v11-form-success{display:none;min-height:420px;place-items:center;text-align:center;padding:60px 24px}
+.v11-form-success.show{display:grid;animation:v11CrossIn .28s var(--v11-ease) both}
+.v11-form-success .success-mark{width:62px;height:62px;border:1px solid rgba(74,168,255,.4);border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;color:#86c8ff;font-size:28px}
+@keyframes v11CrossIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* STATUS TRACKER — functional motion only */
+.utility-v11{min-height:100vh;background:#06111f;color:var(--v11-text);font-family:'IBM Plex Sans','Inter',sans-serif}
+.utility-v11 .utility-shell{width:min(980px,calc(100% - 36px));margin:0 auto;padding:130px 0 80px}
+.utility-v11 .utility-kicker{font:700 11px/1 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#6eb8f7}
+.utility-v11 h1{font-family:'Sora','Space Grotesk',sans-serif;font-size:clamp(2.5rem,6vw,5.3rem);letter-spacing:-.055em;line-height:.98;margin:16px 0}
+.utility-v11 .utility-lede{max-width:680px;color:var(--v11-muted);font-size:17px;line-height:1.7}
+.status-v11-card{margin-top:40px;padding:28px;border:1px solid var(--v11-line);border-radius:24px;background:rgba(13,28,43,.72);box-shadow:0 24px 70px rgba(0,0,0,.28)}
+.status-v11-form{display:flex;gap:10px;max-width:650px}
+.status-v11-form input{flex:1;min-width:0;background:#07131f;border:1px solid rgba(122,164,201,.24);border-radius:12px;color:#fff;padding:15px 16px;font-size:15px}
+.status-v11-form button{border:0;border-radius:12px;background:#1768a7;color:#fff;padding:14px 18px;font-weight:700;cursor:pointer;min-width:140px}
+.status-v11-spinner{display:none;width:17px;height:17px;border:2px solid rgba(255,255,255,.28);border-top-color:#fff;border-radius:50%;animation:v11Spin .7s linear infinite;margin:auto}
+.status-v11-form.loading button span{display:none}.status-v11-form.loading .status-v11-spinner{display:block}
+@keyframes v11Spin{to{transform:rotate(360deg)}}
+.status-v11-result{display:none;margin-top:28px;opacity:0}.status-v11-result.show{display:block;animation:v11StatusIn .24s ease forwards}
+@keyframes v11StatusIn{to{opacity:1}}
+.status-v11-person{padding-bottom:20px;border-bottom:1px solid var(--v11-line)}
+.status-v11-person strong{display:block;font-family:'Sora',sans-serif;font-size:24px}.status-v11-person span{color:var(--v11-muted)}
+.status-v11-stepper{--progress:0%;position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:30px}
+.status-v11-stepper::before,.status-v11-stepper::after{content:"";position:absolute;left:8%;right:8%;top:15px;height:2px;background:rgba(110,184,247,.16);z-index:0}.status-v11-stepper::after{right:auto;width:var(--progress);background:#4aa8ff;transition:width .5s var(--v11-ease)}
+.status-step{position:relative;z-index:1;text-align:center;color:#667b8f}.status-step i{display:grid;place-items:center;width:31px;height:31px;border-radius:50%;margin:0 auto 10px;background:#0b1b2a;border:1px solid rgba(110,184,247,.2);font-style:normal;font:700 10px 'IBM Plex Mono',monospace}.status-step span{font-size:12px}.status-step.done,.status-step.current{color:#dceeff}.status-step.done i{background:#154f7a;border-color:#4aa8ff}.status-step.current i{border-color:#78c4ff;box-shadow:0 0 0 5px rgba(74,168,255,.08);animation:v11StatusPulse 1.8s ease-in-out infinite}
+@keyframes v11StatusPulse{50%{box-shadow:0 0 0 10px rgba(74,168,255,0)}}
+@media(max-width:700px){.status-v11-form{display:grid}.status-v11-stepper{grid-template-columns:1fr}.status-v11-stepper::before,.status-v11-stepper::after{display:none}.status-step{text-align:left;display:flex;align-items:center;gap:10px}.status-step i{margin:0}}
+
+/* FAQ dedicated — restrained */
+.faq-v11-tabs{display:flex;flex-wrap:wrap;gap:18px;margin:32px 0;border-bottom:1px solid var(--v11-line)}
+.faq-v11-tabs button{position:relative;border:0;background:none;color:#8195a8;padding:0 0 12px;font:700 12px 'IBM Plex Mono',monospace;cursor:pointer}.faq-v11-tabs button::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#4aa8ff;transform:scaleX(0);transform-origin:left;transition:transform .2s}.faq-v11-tabs button.active{color:#fff}.faq-v11-tabs button.active::after{transform:scaleX(1)}
+.faq-v11-item{border-bottom:1px solid var(--v11-line);opacity:1;transform:none;transition:opacity .28s,transform .28s}.v11-js .faq-v11-item{opacity:0;transform:translateY(12px)}.faq-v11-item.visible{opacity:1;transform:none}.faq-v11-item.hidden{display:none}.faq-v11-item>button{width:100%;display:flex;justify-content:space-between;gap:20px;text-align:left;padding:22px 0;border:0;background:none;color:#eef7ff;font:600 17px 'IBM Plex Sans',sans-serif;cursor:pointer}.faq-v11-item>button b{transition:transform .22s}.faq-v11-item.open>button b{transform:rotate(180deg)}.faq-v11-answer{height:0;overflow:hidden}.faq-v11-answer>div{padding:0 0 22px;color:#9bafc2;line-height:1.7;max-width:760px}
+
+/* LEGAL — static on purpose */
+.legal-v11{min-height:100vh;background:#f6f8fa;color:#17212c;font-family:'IBM Plex Sans','Inter',sans-serif}.legal-v11 *{animation:none!important;transition:none!important}.legal-shell{width:min(820px,calc(100% - 36px));margin:0 auto;padding:70px 0 100px}.legal-back{color:#315d82;font-size:14px}.legal-v11 h1{font-family:'Sora',sans-serif;font-size:clamp(2.5rem,6vw,4.4rem);letter-spacing:-.05em;margin:48px 0 12px}.legal-v11 .legal-meta{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.1em;color:#667481}.legal-v11 h2{font-family:'Sora',sans-serif;margin:38px 0 12px;font-size:22px}.legal-v11 p,.legal-v11 li{line-height:1.75;color:#45515c}.legal-v11 .legal-notice{padding:18px 20px;border-left:3px solid #ba2b39;background:#fff;margin:28px 0}
+
+/* LOGIN — simple fade, error shake */
+.login-v11 .login-card{opacity:0;transform:translateY(12px);animation:v11LoginIn .28s var(--v11-ease) forwards}.login-v11 .login-card.has-login-error,.login-v11 .login-card:has(.error-box){animation:v11LoginIn .28s var(--v11-ease) forwards,v11LoginShake .15s ease .3s}
+@keyframes v11LoginIn{to{opacity:1;transform:none}}@keyframes v11LoginShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.login-v11 .error-box{border-color:rgba(231,55,70,.52)!important;box-shadow:0 0 0 2px rgba(231,55,70,.06)}
+.login-v11.login-leaving .login-card{opacity:0;transform:translateY(-7px);transition:opacity .16s,transform .16s}
+
+/* ADMIN — speed first */
+.admin-v11 .kpi strong[data-admin-count]{font-variant-numeric:tabular-nums}.admin-v11 .admin-table tbody tr{opacity:1}.v11-js .admin-v11 .admin-table tbody tr{opacity:0}.admin-v11 .admin-table tbody tr.v11-row-in{animation:v11RowIn .18s ease forwards}@keyframes v11RowIn{to{opacity:1}}
+.admin-v11 .side-nav button{position:relative}.admin-v11 .v11-notification-badge{display:inline-grid;place-items:center;min-width:18px;height:18px;padding:0 5px;margin-left:auto;border-radius:999px;background:#c92f3e;color:#fff;font:700 9px 'IBM Plex Mono',monospace}.admin-v11 .v11-notification-badge.is-new{animation:v11Notify 1.8s ease-in-out infinite}@keyframes v11Notify{50%{box-shadow:0 0 0 7px rgba(201,47,62,0)}}
+
+/* PROCESSING — functional confirmations only */
+.process-v11{opacity:0;animation:v11ProcessIn .25s ease forwards}@keyframes v11ProcessIn{to{opacity:1}}
+.process-v11 .input-dark:focus{transition:border-color .15s!important}.v11-process-actions{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;margin-top:18px}.v11-process-actions button{min-height:52px}.v11-process-spinner{display:none;width:17px;height:17px;border:2px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:v11Spin .7s linear infinite}.is-busy .v11-process-spinner{display:inline-block}.is-busy .v11-btn-label{display:none}.v11-save-check{display:none;align-items:center;justify-content:center;gap:8px;margin-top:12px;color:#72d6aa;font:700 11px 'IBM Plex Mono',monospace}.v11-save-check.show{display:flex}.v11-save-check svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-dasharray:24;stroke-dashoffset:24;animation:v11Tick .4s ease forwards}@keyframes v11Tick{to{stroke-dashoffset:0}}
+.v11-status-bar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;padding:14px 16px;margin-bottom:18px;border:1px solid #1E293B;border-radius:14px;background:#080C14}.v11-status-bar label{font:700 10px 'JetBrains Mono',monospace;color:#8ba2b8;letter-spacing:.08em}.v11-status-bar select{background:#0f1626;border:1px solid #24344a;color:#fff;border-radius:9px;padding:9px 11px}.v11-status-save{border:0;border-radius:9px;background:#183b5f;color:#fff;padding:9px 13px;cursor:pointer}.v11-confirm{position:fixed;inset:0;z-index:999;display:none;place-items:center;background:rgba(1,6,12,.72);padding:20px}.v11-confirm.open{display:grid;animation:v11StatusIn .18s ease}.v11-confirm-card{width:min(430px,100%);padding:22px;border-radius:18px;background:#0f1626;border:1px solid #263a53;box-shadow:0 24px 80px #000}.v11-confirm-card h3{font-size:17px;margin:0 0 8px}.v11-confirm-card p{color:#9aaabd;font-size:13px;line-height:1.6}.v11-confirm-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:20px}.v11-confirm-actions button{border:1px solid #2b3c50;background:#121e2c;color:#fff;border-radius:9px;padding:9px 13px;cursor:pointer}.v11-confirm-actions .confirm{background:#1f65a1;border-color:#3186c9}
+@media(max-width:700px){.v11-process-actions{grid-template-columns:1fr}}
+.form-v11 .field{position:relative}
+.form-v11 .field.has-error::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#e73746;transform-origin:left;animation:v11ErrorLine .15s ease-out both}
+@keyframes v11ErrorLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.login-v11 .login-card:has(.error-box) .pin-input{border-color:#e73746!important;box-shadow:0 0 0 3px rgba(231,55,70,.07)}

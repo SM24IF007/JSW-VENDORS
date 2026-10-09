@@ -1,0 +1,23 @@
+/* V24 — RAMCO export chooser */
+.v24-export-modal{width:min(760px,calc(100vw - 32px));max-height:min(82vh,760px);overflow:hidden}
+.v24-export-form{display:grid;gap:18px}
+.v24-export-scope{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.v24-export-choice{display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid rgba(104,165,231,.18);border-radius:14px;background:rgba(7,20,34,.72);cursor:pointer}
+.v24-export-choice:has(input:checked){border-color:rgba(92,164,241,.65);background:rgba(20,52,82,.72);box-shadow:inset 0 0 0 1px rgba(92,164,241,.12)}
+.v24-export-choice input{margin-top:3px;accent-color:#5ca4f1}
+.v24-export-choice span{display:grid;gap:5px;min-width:0}
+.v24-export-choice b{font-size:15px;color:#f3f8fd}
+.v24-export-choice small{font-size:12px;line-height:1.5;color:#91a5b8}
+.v24-selected-wrap{border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(4,13,23,.72);overflow:hidden}
+.v24-select-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px 15px;border-bottom:1px solid rgba(255,255,255,.08);color:#dce9f5}
+.v24-select-head label{font-size:12px;color:#9fb0c0}.v24-select-head input{accent-color:#5ca4f1}
+.v24-candidate-list{max-height:320px;overflow:auto;padding:8px}
+.v24-candidate-option{display:flex;gap:11px;align-items:flex-start;padding:11px 10px;border-radius:10px;cursor:pointer}
+.v24-candidate-option:hover{background:rgba(61,123,183,.10)}
+.v24-candidate-option input{margin-top:3px;accent-color:#5ca4f1}
+.v24-candidate-option span{display:grid;gap:3px;min-width:0}
+.v24-candidate-option b{font-size:13px;color:#f0f6fb}.v24-candidate-option small{font-size:11px;line-height:1.4;color:#7f94a8}
+.v24-export-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.v24-export-error{min-height:18px;margin:0;padding:0 14px 10px;color:#ff7b85;font-size:12px}
+@media(max-width:680px){.v24-export-scope{grid-template-columns:1fr}.v24-select-head{align-items:flex-start;flex-direction:column}.v24-candidate-list{max-height:260px}}
+@media(prefers-reduced-motion:reduce){.v24-export-choice,.v24-candidate-option{transition:none!important}}

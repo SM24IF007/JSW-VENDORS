@@ -1,0 +1,71 @@
+/* V28 — premium interaction, parallax, loading and accent motion */
+:root{--v28-ease:cubic-bezier(.2,.75,.2,1);--v28-fast:180ms;--v28-soft:420ms}
+
+/* Loading progress + skeletons */
+.v28-loading-bar{position:fixed;z-index:10020;left:0;top:0;width:100%;height:3px;pointer-events:none;transform-origin:left;background:linear-gradient(90deg,#6bb8ff,#d8efff,#6bb8ff);animation:v28LoadBar 1.15s ease-in-out infinite;box-shadow:0 0 18px rgba(87,169,238,.35)}
+@keyframes v28LoadBar{0%{transform:scaleX(.08);opacity:.35}55%{transform:scaleX(.72);opacity:1}100%{transform:scaleX(1);opacity:.2}}
+.v28-img-loading{position:relative;overflow:hidden;background:rgba(255,255,255,.035)}
+.v28-img-loading::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 28%,rgba(255,255,255,.075) 45%,transparent 62%);translate:-120% 0;animation:v28Skeleton 1.35s ease-in-out infinite}
+.v28-img-ready::after{display:none}
+@keyframes v28Skeleton{to{translate:130% 0}}
+
+/* Hero entrance */
+.landing-v10.v28-ready .v12-hiring-line{animation:v28HeroIn .55s var(--v28-ease) both}
+.landing-v10.v28-ready .v10-hero-label{animation:v28HeroIn .62s .06s var(--v28-ease) both}
+.landing-v10.v28-ready .v10-title-word{display:inline-block;animation:v28TitleIn .72s var(--v28-ease) both}
+.landing-v10.v28-ready .v10-title-word:nth-child(2){animation-delay:.06s}.landing-v10.v28-ready .v10-title-word:nth-child(3){animation-delay:.12s}.landing-v10.v28-ready .v10-title-word:nth-child(4){animation-delay:.18s}
+.landing-v10.v28-ready .v10-hero-sub{animation:v28HeroIn .62s .24s var(--v28-ease) both}
+.landing-v10.v28-ready .v10-hero-actions{animation:v28HeroIn .62s .31s var(--v28-ease) both}
+@keyframes v28HeroIn{from{opacity:0;translate:0 14px}to{opacity:1;translate:0 0}}
+@keyframes v28TitleIn{from{opacity:0;translate:0 24px;filter:blur(5px)}to{opacity:1;translate:0 0;filter:blur(0)}}
+
+/* Accent animations */
+.v12-hiring-line{position:relative;isolation:isolate}
+.v12-live-dot{animation:v28LiveDot 1.55s ease-out infinite}
+@keyframes v28LiveDot{0%,100%{box-shadow:0 0 0 0 rgba(100,205,145,.5)}55%{box-shadow:0 0 0 8px rgba(100,205,145,0)}}
+.v28-accent-pulse{animation:v28Accent 2.4s ease-in-out infinite}
+@keyframes v28Accent{50%{filter:brightness(1.12);transform:translateY(-1px)}}
+
+/* Festival benefit */
+.v28-diwali-card{position:relative;overflow:hidden}
+.v28-diwali-card::before{content:"";position:absolute;inset:-35% -20%;pointer-events:none;background:radial-gradient(circle at 25% 30%,rgba(255,199,92,.13),transparent 30%),radial-gradient(circle at 80% 75%,rgba(255,145,70,.08),transparent 28%);animation:v28FestivalGlow 5s ease-in-out infinite}
+.v28-festival-icon{position:absolute;right:16px;top:13px;font-size:22px;color:#ffd079;animation:v28IconBounce 2.6s ease-in-out infinite}
+.v28-festival-chip{display:inline-flex;margin-top:12px;padding:5px 9px;border:1px solid rgba(255,202,101,.28);border-radius:999px;font-size:10px;letter-spacing:.12em;color:#ffd991;background:rgba(255,184,71,.07)}
+@keyframes v28FestivalGlow{50%{transform:scale(1.08);opacity:.75}}
+@keyframes v28IconBounce{0%,100%{translate:0 0;rotate:0deg}45%{translate:0 -4px;rotate:8deg}65%{translate:0 -1px;rotate:-4deg}}
+
+/* Micro-interactions */
+.v28-interactive{position:relative;overflow:hidden;transition:transform var(--v28-fast) ease,filter var(--v28-fast) ease,background-color var(--v28-fast) ease,border-color var(--v28-fast) ease,box-shadow var(--v28-fast) ease}
+.v28-interactive:active{transform:translateY(1px) scale(.985)}
+.v28-ripple{position:absolute;pointer-events:none;border-radius:999px;background:rgba(255,255,255,.24);transform:translate(-50%,-50%) scale(0);animation:v28Ripple .55s ease-out forwards}
+@keyframes v28Ripple{to{transform:translate(-50%,-50%) scale(8);opacity:0}}
+.v28-icon-bounce{display:inline-block;animation:v28TapBounce .38s var(--v28-ease)}
+@keyframes v28TapBounce{40%{translate:0 -4px;scale:1.12}100%{translate:0 0;scale:1}}
+
+/* Parallax layers — transforms set by JS */
+.v28-parallax{will-change:transform;transform:translate3d(0,var(--v28-parallax-y,0px),0)}
+.vasind-hero-bg.v28-parallax{scale:1.045}
+.story-hero-grid.v28-parallax,.story-hero-vignette.v28-parallax{pointer-events:none}
+
+/* Hover polish on pointer devices only */
+@media(hover:hover) and (pointer:fine){
+  .v28-hover-lift{transition:transform .24s var(--v28-ease),border-color .24s ease,box-shadow .24s ease,filter .24s ease}
+  .v28-hover-lift:hover{transform:translateY(-5px);filter:brightness(1.035);box-shadow:0 18px 50px rgba(0,0,0,.18)}
+  .v28-interactive:hover{filter:brightness(1.08)}
+  .v28-interactive:hover [aria-hidden="true"],.v28-interactive:hover>span:last-child{translate:2px -1px}
+}
+
+/* Utility pages remain subtle */
+.admin-v11 .v28-hover-lift:hover,.process-v11 .v28-hover-lift:hover,.form-v11 .v28-hover-lift:hover{transform:translateY(-2px)}
+
+/* Mobile / low-power: no costly parallax, keep useful micro feedback */
+@media(max-width:760px),(pointer:coarse){
+  .v28-parallax{transform:none!important;will-change:auto}
+  .vasind-hero-bg.v28-parallax{scale:1!important}
+  .v28-hover-lift{transform:none!important}
+  .v28-diwali-card::before{animation-duration:7s}
+}
+@media(prefers-reduced-motion:reduce){
+  .v28-loading-bar,.v28-img-loading::after,.landing-v10.v28-ready .v12-hiring-line,.landing-v10.v28-ready .v10-hero-label,.landing-v10.v28-ready .v10-title-word,.landing-v10.v28-ready .v10-hero-sub,.landing-v10.v28-ready .v10-hero-actions,.v12-live-dot,.v28-accent-pulse,.v28-diwali-card::before,.v28-festival-icon{animation:none!important}
+  .v28-parallax{transform:none!important}.v28-hover-lift,.v28-interactive{transition:none!important}
+}

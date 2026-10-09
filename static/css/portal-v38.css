@@ -1,0 +1,62 @@
+
+/* V38 focused fixes */
+.v38-public-languages{margin-top:4px}
+.v38-lang-public-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 14px;border:1px solid rgba(91,165,218,.18);border-radius:12px;background:#071522}
+.v38-lang-public-row strong{min-width:64px;color:#eef8ff}.v38-lang-public-row label{display:flex;align-items:center;gap:6px;color:#a9bfd0;font-size:12px}
+.v38-lang-public-row input{accent-color:#4fb7f0}.v38-lang-help{margin-top:7px;color:#718ba0;font-size:11px}
+.v38-lang-switch{display:flex;gap:2px;padding:3px;border:1px solid rgba(111,181,229,.14);border-radius:999px}
+.v38-lang-switch button{border:0;background:transparent;color:#8ea7b9;min-width:30px;height:27px;border-radius:999px;font:700 9px/1 "IBM Plex Mono",monospace;cursor:pointer}
+.v38-lang-switch button.active{background:#12324a;color:#fff}
+.roles-product-card-no{display:none!important}
+
+/* Cleaner role scroll: no odd transforms, simple depth + reveal */
+.roles-product-grid{perspective:none!important}
+.roles-product-card{transform:none!important;opacity:1;transition:border-color .28s ease,box-shadow .32s ease,background .32s ease!important;will-change:auto!important}
+.roles-product-card.v38-role-reveal{opacity:0;transform:translateY(26px)!important}
+.roles-product-card.v38-role-visible{opacity:1;transform:translateY(0)!important;transition:opacity .58s ease,transform .68s cubic-bezier(.2,.75,.22,1),border-color .28s ease,box-shadow .32s ease!important}
+@media(hover:hover) and (pointer:fine){.roles-product-card:hover{transform:translateY(-5px)!important;border-color:rgba(101,185,241,.34)!important;box-shadow:0 24px 58px rgba(0,0,0,.24)!important}}
+@media(max-width:760px){.v38-lang-switch{order:3}.roles-product-card.v38-role-reveal{transform:translateY(14px)!important}}
+@media(prefers-reduced-motion:reduce){.roles-product-card,.roles-product-card.v38-role-reveal{opacity:1!important;transform:none!important;transition:none!important}}
+
+/* Processing controls and consistent compact layouts */
+.process-zoom-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:0 0 12px;color:#abc3d5;font:600 12px/1.3 'IBM Plex Sans',sans-serif}
+.process-zoom-toolbar button{min-width:42px;min-height:42px;padding:0 12px;border:1px solid #31516b;border-radius:10px;background:#102b41;color:#f2f9ff;cursor:pointer;font-weight:700}
+.process-zoom-toolbar button:hover,.process-zoom-toolbar button:focus-visible{border-color:#80c9f4;background:#194264;outline:none}
+.process-zoom-toolbar output{min-width:48px;text-align:center;color:#fff}
+#processZoomSurface{transform-origin:top center}
+@media(max-width:680px){
+  .process-v11{padding:12px!important}
+  .process-v11>div.max-w-5xl{width:100%;min-width:0}
+  .process-v11 .panel-surface{padding:18px!important;max-width:100%;border-radius:17px}
+  .process-v11 form>div{padding:16px!important;border-radius:14px}
+  .process-v11 form .grid{min-width:0}
+  .process-v11 form input,.process-v11 form select,.process-v11 form textarea{width:100%;min-width:0;font-size:16px}
+  .process-v11 .v16-process-brand-copy strong{font-size:13px}
+  .process-v11 .v16-process-brand-copy span{font-size:11px}
+  .process-v11 .text-xs.font-mono.text-slate-500{display:none}
+  .process-zoom-toolbar{justify-content:center}
+  .story-hero,.landing-v10 .v10-hero{min-height:0!important}
+  .story-hero .story-hero-stage,.v10-hero-stage{max-width:100%;overflow:hidden}
+  .story-hero h1,.landing-v10 .v10-hero h1{overflow-wrap:anywhere}
+  .story-section,.v12-network,.v37-benefits{overflow-x:clip}
+  .v37-vendor-card{min-height:0}
+  .v37-vendor-grid{gap:12px}
+}
+@media(max-width:380px){
+  .story-main-nav .story-nav-inner{gap:5px!important;padding-left:9px!important;padding-right:9px!important}
+  .story-main-nav .story-brand-copy strong{max-width:76px}
+  .story-main-nav .mobile-admin-link{padding:0 7px;font-size:10px}
+  .story-main-nav .v27-mobile-menu-btn{width:40px;height:40px}
+  .process-v11 .panel-surface{padding:13px!important}
+}
+.v33-jobs-hero .roles-product-count{position:relative!important;right:auto!important;bottom:auto!important;display:flex!important;align-items:baseline!important;justify-content:flex-start!important;gap:12px!important;margin-top:30px!important;clear:both;transform:none!important}
+.v33-jobs-hero .roles-product-count strong{font-size:clamp(36px,5vw,56px)!important;line-height:1!important}
+.v33-jobs-hero .roles-product-count span{font-size:10px!important;line-height:1.35!important}
+.v39-ramco-btn{min-height:52px!important;padding:12px 20px!important;border:1px solid #76caff!important;background:linear-gradient(120deg,#1a67ae,#48a8e8)!important;color:#fff!important;box-shadow:0 10px 24px rgba(22,121,199,.3)!important;font-size:14px!important;font-weight:800!important}
+.v39-ramco-btn:focus-visible{outline:3px solid #bde6ff;outline-offset:3px}
+.process-page-nav{display:flex;flex-wrap:wrap;gap:8px;padding:12px;border:1px solid #25465e;border-radius:14px;background:#0b2133}
+.process-page-nav a{display:inline-flex;align-items:center;min-height:42px;padding:8px 14px;border-radius:9px;color:#e5f4ff;background:#153b57;text-decoration:none;font-size:12px;font-weight:700}
+.process-page-nav a:hover,.process-page-nav a:focus-visible{background:#256491;outline:2px solid #91d8ff}
+.process-page-label{padding:14px 18px;border-left:4px solid #59b5ec;border-radius:8px;background:#102a3f;color:#e9f7ff;font-size:15px;font-weight:800;scroll-margin-top:20px}
+@media(max-width:680px){.v39-ramco-btn{width:100%;justify-content:center}.process-page-nav a{flex:1 1 120px;justify-content:center}}
+.v39-role-search{display:grid;gap:8px;max-width:450px;margin:0 0 26px;color:#cce5f5}.v39-role-search label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.v39-role-search input{width:100%;min-height:48px;padding:12px 16px;border:1px solid #487b9e;border-radius:12px;background:#0d2538;color:#fff;font-size:16px}.v39-role-search input:focus{outline:2px solid #8bcffa;outline-offset:2px}.v39-role-search p{margin:0;color:#b9d8e9;font-size:12px}

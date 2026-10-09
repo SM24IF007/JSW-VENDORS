@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-[#080C14]">
+<head>
+    <meta charset="UTF-8">
+    <title>Candidate Processing Terminal | JSW Vasind</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        html, body {
+            background-color: #080C14 !important;
+            color: #F1F5F9;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+        .panel-surface {
+            background-color: #0F1626;
+            border: 1px solid #1E293B;
+            border-radius: 1.25rem;
+            box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.7);
+        }
+        .input-dark {
+            background-color: #080C14;
+            border: 1px solid #1E293B;
+            border-radius: 0.75rem;
+            color: #F1F5F9;
+            transition: border-color 0.2s ease;
+        }
+        .input-dark:focus {
+            outline: none;
+            border-color: #2563EB;
+        }
+        .btn-action {
+            border-radius: 0.75rem;
+            transition: all 0.2s ease;
+        }
+        .btn-action:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.45);
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/motion-v11.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v16.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v18.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v19.css', v='19') }}"><link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v20.css', v='20') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-v27.css', v='27') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v37.css', v='37') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v38.css', v='40') }}">\n</head>
+<body class="process-v11 bg-[#080C14] text-slate-100 min-h-screen p-6 lg:p-10 font-sans selection:bg-blue-600 selection:text-white relative overflow-x-hidden">
+
+    <!-- Industrial Dark Background Photo -->
+    <div class="fixed inset-0 z-0 pointer-events-none">
+        <div class="absolute inset-0 bg-cover bg-center opacity-25 filter contrast-125" style="background-image: url('/static/ccl.jpg');"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-[#080C14]/90 via-[#080C14]/85 to-[#080C14]"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto space-y-6 relative z-10">
+        
+        <div class="flex items-center justify-between gap-4">
+            <a href="/admin" class="v16-process-brand">
+                <span class="v16-jsw-logo"><img src="{{ url_for('static', filename='vendor-logo.jpg') }}" alt="PRB vendor logo" loading="eager" decoding="async"></span>
+                <span class="v16-process-brand-copy"><strong>Vendor Admin Portal</strong><span>← Back to command center</span></span>
+            </a>
+            <span class="text-xs text-slate-500 font-mono">DOCUMENT PROVISIONING TERMINAL</span>
+        </div>
+
+        <div class="process-zoom-toolbar" role="group" aria-label="Processing form zoom"><span>Form size</span><button type="button" data-process-zoom="out" aria-label="Zoom out">−</button><output id="processZoomValue" aria-live="polite">100%</output><button type="button" data-process-zoom="in" aria-label="Zoom in">+</button><button type="button" data-process-zoom="reset">Reset</button></div>
+        <div class="panel-surface p-8 sm:p-10" id="processZoomSurface">
+            
+            <div class="border-b border-[#1E293B] pb-6 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs font-semibold text-blue-400 uppercase tracking-wider font-mono">Dossier Data Entry</span>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-1 uppercase">
+                        {{ app['full_name'] }}
+                    </h1>
+                    <p class="text-xs text-slate-300 mt-1">
+                        Role: <span class="text-white font-bold">{{ app['requested_role'] }}</span> • Agency: <span class="text-blue-400 font-bold">{{ app['contractor'] }}</span>
+                    </p>
+                </div>
+                <div class="text-xs font-mono text-slate-300 bg-[#080C14] border border-[#1E293B] rounded-xl px-4 py-2 self-start sm:self-auto">
+                    ID: #{{ app['id'] }}
+                </div>
+            </div>
+
+            <div class="v11-status-bar" aria-label="Application status control">
+                <label for="processStatus">APPLICATION STATUS</label>
+                <select id="processStatus" data-app-id="{{ app['id'] }}">
+                    <option value="New Request" {% if app['status']=='New Request' %}selected{% endif %}>New Request</option>
+                    <option value="Form Ready" {% if app['status']=='Form Ready' %}selected{% endif %}>Form Ready</option>
+                    <option value="Processed" {% if app['status']=='Processed' %}selected{% endif %}>Processed</option>
+                    <option value="Approved" {% if app['status']=='Approved' %}selected{% endif %}>Approved</option>
+                    <option value="Joined" {% if app['status']=='Joined' %}selected{% endif %}>Joined</option>
+                </select>
+                <button class="v11-status-save" id="processStatusBtn" type="button">Update status</button>
+            </div>
+
+            <form method="POST" action="{{ url_for('process_applicant', id=app['id']) }}" data-save-url="{{ url_for('process_applicant_save_json', id=app['id']) }}" id="processApplicantForm" class="space-y-6 text-xs">
+                <nav class="process-page-nav" aria-label="Joining form pages"><a href="#processPage1">Page 1 · Assessment</a><a href="#processPage2">Page 2 · Registration</a><a href="#processPage3">Page 3 · Identity</a></nav>
+                <div class="process-page-label" id="processPage1">Page 1 / 3 · Interview assessment</div>
+                
+                <!-- SECTION 01: ASSESSMENT -->
+                <div class="p-6 bg-[#080C14] border border-[#1E293B] rounded-2xl space-y-4">
+                    <h3 class="font-bold text-white text-sm pb-3 border-b border-[#1E293B]">
+                        1. Interview Assessment Data (Page 1)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="sm:col-span-2"><label class="block text-slate-300 font-medium mb-1.5" for="assessmentCompany">Contractor name on first page</label><input id="assessmentCompany" type="text" name="assessment_company" value="{{ app['assessment_company'] if app['assessment_company'] is not none else 'MVS ACMEI TECNOLOGY PVT LTD' }}" class="input-dark w-full p-3 uppercase"></div>
+                        <div class="sm:col-span-2"><label class="block text-slate-300 font-medium mb-1.5" for="assessmentLocation">Location on first page</label><input id="assessmentLocation" type="text" name="assessment_location" value="{{ app['assessment_location'] or '' }}" placeholder="Leave blank until confirmed" class="input-dark w-full p-3 uppercase"></div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Years of Experience</label>
+                            <input type="text" name="experience" value="{{ app['experience'] or '' }}" placeholder="e.g. 5 Years" class="input-dark w-full p-3">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Reference Person</label>
+                            <input type="text" name="reference" value="{{ app['reference'] or '' }}" placeholder="Reference name" class="input-dark w-full p-3">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Relationship</label>
+                            <input type="text" name="relation" value="{{ app['relation'] or '' }}" placeholder="e.g. Uncle / Colleague" class="input-dark w-full p-3">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Replacement For</label>
+                            <input type="text" name="replacement_for" value="{{ app['replacement_for'] or '' }}" placeholder="e.g. New Position" class="input-dark w-full p-3">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="process-page-label" id="processPage2">Page 2 / 3 · Employee registration</div>
+                <!-- SECTION 01B: QUALIFICATION DETAILS -->
+                <div class="p-6 bg-[#080C14] border border-[#1E293B] rounded-2xl space-y-4">
+                    <div class="pb-3 border-b border-[#1E293B]">
+                        <h3 class="font-bold text-white text-sm">1B. Educational / Technical Qualification</h3>
+                        <p class="text-[11px] text-slate-500 mt-1">Detailed fields matching the joining form: qualification/trade, institute, marks, percentage, grade and passing year.</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div><label class="block text-slate-300 font-medium mb-1.5">Qualification</label>
+                            <select name="qualification_level" class="input-dark w-full p-3">
+                                {% set ql = app['qualification_level'] or app['qualification'] or '' %}
+                                <option value="">Select</option>
+                                {% for q in ['5TH PASS','8TH PASS','10TH / SSC','12TH / HSC','ITI','APPRENTICESHIP','DIPLOMA','GRADUATE','POST GRADUATE','OTHER'] %}
+                                <option value="{{ q }}" {% if ql == q %}selected{% endif %}>{{ q }}</option>{% endfor %}
+                            </select>
+                        </div>
+                        <div><label class="block text-slate-300 font-medium mb-1.5">Trade / Course</label><input name="qualification_trade" value="{{ app['qualification_trade'] or '' }}" class="input-dark w-full p-3 uppercase"></div>
+                        <div><label class="block text-slate-300 font-medium mb-1.5">School / Institute / Board</label><input name="qualification_institute" value="{{ app['qualification_institute'] or '' }}" class="input-dark w-full p-3 uppercase"></div>
+                        <div><label class="block text-slate-300 font-medium mb-1.5">Marks Obtained</label><input name="qualification_marks" value="{{ app['qualification_marks'] or '' }}" class="input-dark w-full p-3"></div>
+                        <div><label class="block text-slate-300 font-medium mb-1.5">Percentage</label><input name="qualification_percentage" value="{{ app['qualification_percentage'] or '' }}" inputmode="decimal" class="input-dark w-full p-3"></div>
+                        <div><label class="block text-slate-300 font-medium mb-1.5">Grade</label><input name="qualification_grade" value="{{ app['qualification_grade'] or '' }}" class="input-dark w-full p-3 uppercase"></div>
+                        <div><label class="block text-slate-300 font-medium mb-1.5">Year of Passing</label><input name="qualification_year" value="{{ app['qualification_year'] or '' }}" maxlength="4" inputmode="numeric" class="input-dark w-full p-3"></div>
+                    </div>
+                </div>
+
+                <!-- SECTION 02: KYC -->
+                <div class="p-6 bg-[#080C14] border border-[#1E293B] rounded-2xl space-y-4">
+                    <h3 class="font-bold text-white text-sm pb-3 border-b border-[#1E293B]">
+                        2. Identification & Compliance Numbers
+                    </h3>
+                    <div class="v25-number-row"><span class="text-slate-400">Registered Mobile:</span><strong class="v25-readonly-number">{{ app['mobile'] or '—' }}</strong><span class="v25-validation-badge" data-validation-display="mobile" data-validation-value="{{ app['mobile'] or '' }}"></span></div>
+                    <div class="v25-validation-note"><strong>Validation status:</strong> Mobile = Indian number format only. Aadhaar = Verhoeff checksum only. UAN = 12-digit format only. These checks do <u>not</u> confirm that the number exists in UIDAI/EPFO. Official verification requires an authorised UIDAI/EPFO flow.</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Aadhaar Card Number</label>
+                            <input type="text" name="aadhar" value="{{ app['aadhar'] or '' }}" placeholder="12-digit number" inputmode="numeric" maxlength="12" data-validate-type="aadhaar" data-validate-optional="true" class="input-dark w-full p-3 font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">UAN / PF Number</label>
+                            <input type="text" name="uan" value="{{ app['uan'] or '' }}" placeholder="12-digit UAN" inputmode="numeric" maxlength="12" data-validate-type="uan" data-validate-optional="true" class="input-dark w-full p-3 font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">ESIC Number</label>
+                            <input type="text" name="esic" value="{{ app['esic'] or '' }}" placeholder="ESIC Number" class="input-dark w-full p-3 font-mono">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 03: PERSONAL -->
+                <div class="p-6 bg-[#080C14] border border-[#1E293B] rounded-2xl space-y-4">
+                    <h3 class="font-bold text-white text-sm pb-3 border-b border-[#1E293B]">
+                        3. Personal & Health Information
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Date of Birth</label>
+                            <input type="date" name="dob" value="{{ app['dob'] or '' }}" class="input-dark w-full p-2.5 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Gender</label>
+                            <select name="gender" class="input-dark w-full p-3">
+                                <option value="">Select gender</option>
+                                <option value="MALE" {% if app['gender'] == 'MALE' %}selected{% endif %}>Male</option>
+                                <option value="FEMALE" {% if app['gender'] == 'FEMALE' %}selected{% endif %}>Female</option>
+                                <option value="OTHER" {% if app['gender'] == 'OTHER' %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Blood Group</label>
+                            <input type="text" name="blood_group" value="{{ app['blood_group'] or '' }}" placeholder="e.g. O+ve" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Marital Status</label>
+                            <select name="marital_status" class="input-dark w-full p-3">
+                                <option value="Single" {% if app['marital_status'] == 'Single' %}selected{% endif %}>Single</option>
+                                <option value="Married" {% if app['marital_status'] == 'Married' %}selected{% endif %}>Married</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Religion</label>
+                            <input type="text" name="religion" value="{{ app['religion'] or 'HINDU' }}" placeholder="e.g. Hindu" class="input-dark w-full p-3">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Caste Category</label>
+                            <input type="text" name="caste" value="{{ app['caste'] or '' }}" placeholder="e.g. General / OBC" class="input-dark w-full p-3">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Identification Mark</label>
+                            <input type="text" name="identification_mark" value="{{ app['identification_mark'] or '' }}" placeholder="e.g. Mole on forearm" class="input-dark w-full p-3">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 05: FAMILY & WORK -->
+                <div class="p-6 bg-[#080C14] border border-[#1E293B] rounded-2xl space-y-4">
+                    <h3 class="font-bold text-white text-sm pb-3 border-b border-[#1E293B]">
+                        5. Family & Plant Deployment Assignment
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Father's Legal Name</label>
+                            <input type="text" name="father_name" value="{{ app['father_name'] or '' }}" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Mother's Legal Name</label>
+                            <input type="text" name="mother_name" value="{{ app['mother_name'] or '' }}" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        {% for relation in ['father', 'mother'] %}
+                        <div><label class="block text-slate-300 font-medium mb-1.5">{{ relation|title }} age</label><input name="{{ relation }}_age" value="{{ app[relation ~ '_age'] or '' }}" inputmode="numeric" class="input-dark w-full p-3"></div>
+                        <div><label class="block text-slate-300 font-medium mb-1.5">{{ relation|title }} qualification</label><input name="{{ relation }}_education" value="{{ app[relation ~ '_education'] or '' }}" class="input-dark w-full p-3"></div>
+                        <div><label class="block text-slate-300 font-medium mb-1.5">{{ relation|title }} occupation</label><input name="{{ relation }}_occupation" value="{{ app[relation ~ '_occupation'] or '' }}" class="input-dark w-full p-3"></div>
+                        <div><label class="block text-slate-300 font-medium mb-1.5">{{ relation|title }} annual income</label><input name="{{ relation }}_income" value="{{ app[relation ~ '_income'] or '' }}" class="input-dark w-full p-3"></div>
+                        {% endfor %}
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Spouse Name (If Married)</label>
+                            <input type="text" name="wife_name" value="{{ app['wife_name'] or '' }}" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Emergency Contact Name</label>
+                            <input type="text" name="emergency_contact_name" value="{{ app['emergency_contact_name'] or app['father_name'] or '' }}" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Emergency Contact Relationship</label>
+                            <input type="text" name="emergency_relationship" value="{{ app['emergency_relationship'] or ('FATHER' if app['father_name'] else '') }}" placeholder="e.g. FATHER" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Emergency Mobile Number</label>
+                            <input type="text" name="alt_mobile" value="{{ app['alt_mobile'] or '' }}" inputmode="numeric" maxlength="10" data-validate-type="mobile" data-validate-optional="true" class="input-dark w-full p-3 font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Date of Joining</label>
+                            <input type="date" name="doj" value="{{ app['doj'] or '' }}" class="input-dark w-full p-2.5 text-white">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Assigned Department</label>
+                            <input type="text" name="department" value="{{ app['department'] or 'CCL-3 & CAL FINISHING' }}" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-slate-300 font-medium mb-1.5">Confirmed Designation</label>
+                            <input type="text" name="designation" value="{{ app['requested_role'] }}" class="input-dark w-full p-3 uppercase font-bold text-white">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="process-page-label" id="processPage3">Page 3 / 3 · Identity and supporting details</div>
+                <!-- SECTION 03B: LANGUAGES KNOWN -->
+                <div class="p-6 bg-[#080C14] border border-[#1E293B] rounded-2xl space-y-4 v37-language-panel">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-3 border-b border-[#1E293B]">
+                        <div>
+                            <h3 class="font-bold text-white text-sm">3B. Languages Known</h3>
+                            <p class="text-[11px] text-slate-500 mt-1">Hindi Read / Write / Speak is selected by default. Add up to two more languages if applicable.</p>
+                        </div>
+                    </div>
+                    <div class="v37-language-grid">
+                        <div class="v37-lang-row">
+                            <div><label>Language 1</label><input class="input-dark" name="lang1_name" value="{{ app['lang1_name'] or 'HINDI' }}" readonly></div>
+                            <label class="v37-check"><input type="checkbox" name="lang1_read" value="1" {% if app['lang1_read'] is none or app['lang1_read'] != 'NO' %}checked{% endif %}><span>Read</span></label>
+                            <label class="v37-check"><input type="checkbox" name="lang1_write" value="1" {% if app['lang1_write'] is none or app['lang1_write'] != 'NO' %}checked{% endif %}><span>Write</span></label>
+                            <label class="v37-check"><input type="checkbox" name="lang1_speak" value="1" {% if app['lang1_speak'] is none or app['lang1_speak'] != 'NO' %}checked{% endif %}><span>Speak</span></label>
+                        </div>
+                        <div class="v37-lang-row">
+                            <div><label>Language 2</label><input class="input-dark uppercase" name="lang2_name" value="{{ app['lang2_name'] or '' }}" placeholder="e.g. ENGLISH"></div>
+                            <label class="v37-check"><input type="checkbox" name="lang2_read" value="1" {% if app['lang2_read'] == 'YES' %}checked{% endif %}><span>Read</span></label>
+                            <label class="v37-check"><input type="checkbox" name="lang2_write" value="1" {% if app['lang2_write'] == 'YES' %}checked{% endif %}><span>Write</span></label>
+                            <label class="v37-check"><input type="checkbox" name="lang2_speak" value="1" {% if app['lang2_speak'] == 'YES' %}checked{% endif %}><span>Speak</span></label>
+                        </div>
+                        <div class="v37-lang-row">
+                            <div><label>Language 3</label><input class="input-dark uppercase" name="lang3_name" value="{{ app['lang3_name'] or '' }}" placeholder="e.g. MARATHI"></div>
+                            <label class="v37-check"><input type="checkbox" name="lang3_read" value="1" {% if app['lang3_read'] == 'YES' %}checked{% endif %}><span>Read</span></label>
+                            <label class="v37-check"><input type="checkbox" name="lang3_write" value="1" {% if app['lang3_write'] == 'YES' %}checked{% endif %}><span>Write</span></label>
+                            <label class="v37-check"><input type="checkbox" name="lang3_speak" value="1" {% if app['lang3_speak'] == 'YES' %}checked{% endif %}><span>Speak</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 04: PERMANENT ADDRESS -->
+                <div class="p-6 bg-[#080C14] border border-[#1E293B] rounded-2xl space-y-4">
+                    <h3 class="font-bold text-white text-sm pb-3 border-b border-[#1E293B]">
+                        4. Permanent Address (Maps to Page 3 Grid)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Village / Town</label>
+                            <input type="text" name="perm_village" value="{{ app['perm_village'] or '' }}" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Post Office</label>
+                            <input type="text" name="perm_post" value="{{ app['perm_post'] or '' }}" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Taluka / Tehsil</label>
+                            <input type="text" name="perm_taluka" value="{{ app['perm_taluka'] or '' }}" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">District</label>
+                            <input type="text" name="perm_district" value="{{ app['perm_district'] or '' }}" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">State</label>
+                            <input type="text" name="perm_state" value="{{ app['perm_state'] or '' }}" class="input-dark w-full p-3 uppercase">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">PIN Code</label>
+                            <input type="text" name="perm_pin" value="{{ app['perm_pin'] or '' }}" class="input-dark w-full p-3 font-mono">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RAMCO PRESENT ADDRESS -->
+                <div class="p-6 bg-[#080C14] border border-[#1E293B] rounded-2xl space-y-4">
+                    <h3 class="font-bold text-white text-sm pb-3 border-b border-[#1E293B]">
+                        4B. Present Address for RAMCO
+                    </h3>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div>
+                            <label class="block text-slate-300 font-medium mb-1.5">Present Address Line 1</label>
+                            <input type="text" name="present_address_line1" value="{{ app['present_address_line1'] or 'G1/01, VBHC HILL VIEW SARMAL' }}" placeholder="House / room / building / area" class="input-dark w-full p-3 uppercase">
+                            <p class="text-[11px] text-slate-500 mt-2">RAMCO defaults: Town VASIND · City KALYAN · State MAHARASHTRA · Country INDIA · PIN 421601.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-[#080C14] border border-[#1E293B] rounded-2xl space-y-4">
+                    <h3 class="font-bold text-white text-sm">Appointment letter details</h3>
+                    <p class="text-slate-400">Available after the candidate is marked Joined. Enter the confirmed terms, save, then download the PDF for review and signature.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div><label class="block text-slate-300 mb-1.5">Confirmed monthly salary</label><input name="appointment_salary" value="{{ app['appointment_salary'] or '' }}" placeholder="e.g. INR 18,000 per month" class="input-dark w-full p-3"></div>
+                        <div><label class="block text-slate-300 mb-1.5">Letter date</label><input name="appointment_issue_date" type="date" value="{{ app['appointment_issue_date'] or '' }}" class="input-dark w-full p-3"></div>
+                        <div><label class="block text-slate-300 mb-1.5">Reporting location</label><input name="appointment_location" value="{{ app['appointment_location'] or '' }}" placeholder="e.g. Vasind Works" class="input-dark w-full p-3"></div>
+                    </div>
+                </div>
+                <div class="v11-process-actions">
+                    {% if app['status'] == 'Joined' %}<a class="btn-action py-4 bg-blue-800 text-white font-bold text-xs uppercase tracking-wider text-center" href="{{ url_for('appointment_letter', id=app['id']) }}" target="_blank">Download appointment PDF</a>{% endif %}
+                    <button type="submit" name="action" value="save" data-process-action="save" class="btn-action py-4 bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs uppercase tracking-wider">
+                        <span class="v11-btn-label">Save Record</span><span class="v11-process-spinner" aria-hidden="true"></span>
+                    </button>
+                    <button type="submit" name="action" value="generate" data-process-action="generate" class="btn-action py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-blue-600/30">
+                        <span class="v11-btn-label">Save & Generate 3-Page Form</span><span class="v11-process-spinner" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="v11-save-check" id="processSaveCheck" role="status" aria-live="polite">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4 4L19 7"></path></svg><span>Saved successfully</span>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+<div class="v11-confirm" id="statusConfirm" aria-hidden="true">
+        <div class="v11-confirm-card" role="dialog" aria-modal="true" aria-labelledby="statusConfirmTitle">
+            <h3 id="statusConfirmTitle">Confirm status change</h3>
+            <p>Change this candidate's status to <strong data-confirm-status></strong>? This affects the public status tracker.</p>
+            <div class="v11-confirm-actions"><button type="button" id="cancelStatusChange">Cancel</button><button class="confirm" type="button" id="confirmStatusChange">Confirm</button></div>
+        </div>
+    </div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/portal-v25.css', v='25') }}"><script src="{{ url_for('static', filename='js/motion-v11.js', v='21') }}"></script><script src="{{ url_for('static', filename='js/portal-v18.js', v='21') }}"></script>
+<script src="{{ url_for('static', filename='js/validation-v25.js', v='25') }}"></script>
+<script defer src="{{ url_for('static', filename='js/responsive-v27.js', v='27') }}"></script>
+<script defer src="{{ url_for('static', filename='js/process-zoom.js', v='1') }}"></script>
+</body>
+</html>

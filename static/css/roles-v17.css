@@ -1,0 +1,51 @@
+/* V17 — larger role cards + expected salary visibility */
+.v17-role-salary{
+  margin-top:20px;padding:15px 16px;border-radius:14px;
+  border:1px solid rgba(91,177,255,.18);
+  background:linear-gradient(135deg,rgba(27,78,120,.22),rgba(8,27,45,.48));
+  display:flex;flex-direction:column;gap:6px;
+}
+.v17-role-salary small{font:700 9px/1 'IBM Plex Mono',monospace;letter-spacing:.13em;color:#7faed5}
+.v17-role-salary strong{font:700 19px/1.15 'Sora',sans-serif;color:#f5f9fd;letter-spacing:-.02em}
+.v17-modal-salary{margin:18px 0 4px;padding:18px 20px;border:1px solid rgba(91,177,255,.18);border-radius:15px;background:linear-gradient(135deg,rgba(19,60,97,.24),rgba(8,23,39,.62));display:grid;gap:7px}
+.v17-modal-salary small{font:700 9px/1 'IBM Plex Mono',monospace;letter-spacing:.13em;color:#82b8e6}
+.v17-modal-salary strong{font:700 23px/1.1 'Sora',sans-serif;color:#fff;letter-spacing:-.03em}
+.v17-modal-salary span{font-size:11px;line-height:1.55;color:#91a8bc}
+
+/* Landing role cards: slightly larger and easier to scan */
+.landing-v10 .v10-role-grid{gap:18px}
+.landing-v10 .v10-role-card{min-height:395px;padding:28px;border-radius:22px}
+.landing-v10 .story-role-card-body{margin-top:48px}
+.landing-v10 .story-role-card-body h3{font-size:clamp(27px,2.25vw,35px)!important;line-height:1.04!important}
+.landing-v10 .story-role-card-body>span:not(.sr-only){font-size:10px!important;line-height:1.45!important}
+.landing-v10 .story-role-card-body p{font-size:12px!important;line-height:1.75!important;margin-top:18px!important}
+.landing-v10 .story-role-card-top>span{font-size:9px!important}
+.landing-v10 .story-role-card-top b{font-size:8px!important}
+.landing-v10 .story-role-apply{height:50px;font-size:11px}
+
+/* Dedicated roles page */
+.roles-product-grid{gap:18px!important}
+.roles-product-card{min-height:415px!important;padding:30px!important;border-radius:24px!important}
+.roles-product-card-main{margin-top:38px!important}
+.roles-product-card h2{font-size:clamp(32px,3vw,46px)!important;line-height:1.02!important}
+.roles-product-contractor{font-size:10px!important;line-height:1.45!important}
+.roles-product-card-main p{font-size:13px!important;line-height:1.75!important;margin-top:19px!important}
+.roles-product-skill{font-size:8px!important;padding:7px 11px!important}
+.roles-product-process{padding:19px 0!important;gap:8px!important}
+.roles-product-process span{font-size:8px!important}
+.roles-product-process b{font-size:11px!important}
+.roles-product-card .story-role-apply{height:50px;font-size:11px}
+
+@media (max-width:1080px){
+  .landing-v10 .story-role-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:700px){
+  .landing-v10 .story-role-grid,.roles-product-grid{grid-template-columns:1fr!important}
+  .landing-v10 .v10-role-card,.roles-product-card{min-height:360px!important;padding:22px!important}
+  .landing-v10 .story-role-card-body h3{font-size:28px!important}
+  .roles-product-card h2{font-size:32px!important}
+  .v17-role-salary strong{font-size:18px}
+}
+@media (prefers-reduced-motion: reduce){
+  .v17-role-salary,.v17-modal-salary{transition:none!important}
+}

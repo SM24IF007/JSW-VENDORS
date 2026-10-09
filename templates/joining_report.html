@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Monthly Joining Report · {{ month_label }}</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#e9eef2;color:#111;font-family:Arial,Helvetica,sans-serif}.toolbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;background:#071522;color:#fff;border-bottom:1px solid #28435a}.toolbar strong{font-size:14px}.toolbar span{font-size:12px;color:#a8bac9}.toolbar button{border:0;border-radius:8px;background:#0c6fb8;color:#fff;font-weight:700;padding:10px 15px;cursor:pointer}.page{width:210mm;min-height:297mm;margin:18px auto;background:#fff;padding:12mm 11mm;box-shadow:0 14px 40px rgba(0,0,0,.15)}.head{display:grid;grid-template-columns:58px 1fr auto;gap:12px;align-items:center;padding-bottom:10px;border-bottom:2px solid #111}.logo{width:54px;height:46px;object-fit:contain}.head h1{font-size:18px;margin:0}.head p{margin:4px 0 0;font-size:10px;color:#555}.report-meta{text-align:right;font-size:10px;line-height:1.6}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.summary article{border:1px solid #222;padding:8px}.summary small{display:block;font-size:8px;text-transform:uppercase;color:#555}.summary strong{display:block;font-size:13px;margin:4px 0}.summary span{font-size:9px}.report-total{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:8px 10px;background:#f2f5f7;border:1px solid #bcc7cf;margin-bottom:10px;font-size:10px}.report-total b{font-size:13px}table{width:100%;border-collapse:collapse;font-size:9px}th,td{border:1px solid #222;padding:6px 5px;text-align:left;vertical-align:top}th{background:#edf2f5;font-size:8px;text-transform:uppercase;letter-spacing:.03em}.sr{width:8%;text-align:center}.date{width:14%;white-space:nowrap}.designation{width:24%}.contractor{width:25%}.empty{text-align:center;padding:28px;color:#666}.foot{margin-top:14px;padding-top:8px;border-top:1px solid #999;display:flex;justify-content:space-between;gap:20px;font-size:8px;color:#666}.signatures{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:40px}.signatures div{padding-top:26px;border-top:1px solid #444;text-align:center;font-size:9px}.project-note{font-size:8px;color:#666;margin-top:10px}@page{size:A4 portrait;margin:8mm}@media print{body{background:#fff}.toolbar{display:none}.page{width:auto;min-height:auto;margin:0;padding:2mm;box-shadow:none}.summary article{break-inside:avoid}tr{break-inside:avoid}.foot{position:relative}}@media(max-width:760px){.page{width:100%;min-height:auto;margin:0;padding:16px;box-shadow:none}.toolbar{position:relative;align-items:flex-start;flex-direction:column}.summary{grid-template-columns:1fr}.table-scroll{overflow-x:auto}table{min-width:720px}.head{grid-template-columns:48px 1fr}.report-meta{grid-column:1/-1;text-align:left}.logo{width:44px;height:40px}}
+  </style>
+</head>
+<body>
+  <div class="toolbar"><div><strong>Monthly Joining Report</strong><br><span>{{ month_label }} · {{ selected_contractor }}</span></div><button type="button" onclick="window.print()">Print / Save as PDF</button></div>
+  <main class="page">
+    <header class="head">
+      <img class="logo" src="{{ url_for('static', filename='vendor-logo.jpg') }}" alt="PRB vendor logo">
+      <div><h1>Contractor Workforce · Monthly Joining Report</h1><p>Vasind Works · Joining records based on Date of Joining (DOJ)</p></div>
+      <div class="report-meta"><b>Month:</b> {{ month_label }}<br><b>Enterprise:</b> {{ selected_contractor }}<br><b>Report records:</b> {{ report_total }}</div>
+    </header>
+
+    <section class="summary" aria-label="Enterprise joining totals">
+      <article><small>Deva Enterprises</small><strong>{{ month_counts['Deva Enterprises'] }} this month</strong><span>{{ all_time_counts['Deva Enterprises'] }} total records till date</span></article>
+      <article><small>Shubham Services</small><strong>{{ month_counts['Shubham Services'] }} this month</strong><span>{{ all_time_counts['Shubham Services'] }} total records till date</span></article>
+      <article><small>Prabhuram &amp; Bichare</small><strong>{{ month_counts['Prabhuram & Bichare'] }} this month</strong><span>{{ all_time_counts['Prabhuram & Bichare'] }} total records till date</span></article>
+    </section>
+
+    <div class="report-total"><span>Selected report: <b>{{ selected_contractor }}</b></span><span>Total joining records in {{ month_label }}: <b>{{ report_total }}</b></span></div>
+
+    <div class="table-scroll"><table>
+      <thead><tr><th class="sr">Sr. No.</th><th>Name</th><th class="designation">Designation</th><th class="date">Date of Joining</th><th class="contractor">Contractor / Enterprise</th></tr></thead>
+      <tbody>
+        {% for row in rows %}
+        <tr><td class="sr">{{ loop.index }}</td><td><b>{{ row.full_name }}</b></td><td>{{ row.designation or '—' }}</td><td class="date">{{ row.doj or '—' }}</td><td>{{ row.contractor }}</td></tr>
+        {% else %}
+        <tr><td colspan="5" class="empty">No joining records with DOJ found for this month / enterprise.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+
+    {% if missing_doj_rows %}
+    <section class="missing-doj" style="margin-top:16px;break-inside:avoid"><h2 style="font-size:12px;margin:0 0 5px">Joined records awaiting Date of Joining ({{ missing_doj_rows|length }})</h2><p style="font-size:9px;margin:0 0 7px">These names are shown for follow-up. They are excluded from the selected month's joining count until a DOJ is entered.</p>
+      <table><thead><tr><th class="sr">Sr. No.</th><th>Name</th><th class="designation">Designation</th><th class="date">DOJ</th><th class="contractor">Contractor / Enterprise</th></tr></thead><tbody>
+      {% for row in missing_doj_rows %}<tr><td class="sr">{{ loop.index }}</td><td><b>{{ row.full_name }}</b></td><td>{{ row.designation or '—' }}</td><td>Not entered</td><td>{{ row.contractor }}</td></tr>{% endfor %}
+      </tbody></table>
+    </section>
+    {% endif %}
+
+    <div class="signatures"><div>Prepared / Checked By</div><div>Contractor Authorised Signatory</div></div>
+    <div class="foot"><span>Generated from Vendor Workforce Portal</span><span>{{ month_label }}</span></div>
+    <p class="project-note">Counts are based on records stored in this portal and the DOJ entered for each candidate.</p>
+  </main>
+</body>
+</html>

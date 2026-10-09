@@ -1,0 +1,81 @@
+/* V34 — sticky-story/layout repair. Loaded last on public pages. */
+:root{--v34-nav-h:76px;--v34-edge:max(20px,calc((100vw - 1400px)/2));--v34-ease:cubic-bezier(.2,.78,.2,1)}
+
+/* HEADER / LOGO REPAIR
+   Do not apply 3D transforms to fixed navigation: some browsers/compositors can clip it. */
+body.v33-global-depth{perspective:none!important;perspective-origin:initial!important}
+body.v33-global-depth .story-main-nav,
+.story-main-nav{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:20000!important;transform:none!important;backface-visibility:visible!important;opacity:1!important;visibility:visible!important;background:rgba(4,15,26,.94)!important;border-bottom:1px solid rgba(137,196,238,.16)!important;backdrop-filter:blur(18px) saturate(130%)!important;-webkit-backdrop-filter:blur(18px) saturate(130%)!important;box-shadow:0 10px 34px rgba(0,0,0,.18)!important}
+.story-nav-inner{min-height:var(--v34-nav-h)!important}
+.story-main-nav .story-brand,.story-main-nav .story-brand-copy,.story-main-nav .story-main-links,.story-main-nav .story-main-actions{opacity:1!important;visibility:visible!important;filter:none!important}
+.story-main-nav .story-brand-copy strong{color:#f1f8fd!important}.story-main-nav .story-brand-copy small{color:#7895aa!important}
+.v14-jsw-logo,.v34-nav-logo{position:relative;display:grid!important;place-items:center!important;width:72px!important;height:58px!important;flex:0 0 72px!important;padding:3px!important;border-radius:11px!important;background:#fff!important;overflow:hidden!important;box-shadow:0 8px 26px rgba(0,0,0,.22)!important}
+.v14-jsw-logo img,.v34-nav-logo img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;opacity:1!important;visibility:visible!important;filter:none!important;transform:none!important;mix-blend-mode:normal!important}
+.v34-jobs-brand{display:flex!important;align-items:center!important;gap:12px!important}
+
+/* ===== ONE CANDIDATE — FULL-LENGTH PINNED STORY =====
+   Critical repair: overflow:clip/hidden on the section was breaking sticky positioning. */
+.v29-story{overflow:visible!important;padding:clamp(110px,12vw,180px) var(--v34-edge) clamp(160px,18vw,260px)!important}
+.v29-story::before{pointer-events:none}
+.v29-story-intro{max-width:1400px!important;min-height:92vh!important;display:flex!important;flex-direction:column!important;justify-content:center!important;margin:0 0 clamp(80px,11vw,150px)!important}
+.v29-story-intro .v29-kinetic-heading{max-width:1380px!important;font-size:clamp(88px,12.2vw,196px)!important;line-height:.80!important;letter-spacing:-.075em!important;margin:18px 0 34px!important}
+.v29-story-intro>p{max-width:900px!important;font-size:clamp(17px,1.55vw,23px)!important;line-height:1.68!important}
+.v29-story-shell{display:grid!important;grid-template-columns:minmax(0,.66fr) minmax(620px,1.34fr)!important;gap:clamp(48px,7vw,120px)!important;align-items:start!important;overflow:visible!important}
+.v29-story-steps{overflow:visible!important}
+.v29-story-step{min-height:112vh!important;padding:clamp(80px,9vw,130px) 0!important;display:flex!important;flex-direction:column!important;justify-content:center!important}
+.v29-story-step h3{font-size:clamp(44px,5.2vw,76px)!important;line-height:.96!important;max-width:700px!important}.v29-story-step p{font-size:clamp(15px,1.3vw,19px)!important;max-width:650px!important}
+.v29-story-visual{position:sticky!important;top:calc(var(--v34-nav-h) + 18px)!important;height:calc(100vh - var(--v34-nav-h) - 36px)!important;max-height:none!important;min-height:680px!important;width:100%!important;border-radius:32px!important;overflow:hidden!important;z-index:20!important;align-self:start!important;box-shadow:0 46px 150px rgba(0,0,0,.45),0 0 0 1px rgba(105,193,250,.06)!important}
+.v29-flow-svg{inset:4% 2% 10%!important;width:96%!important;height:86%!important}.v29-orbit-label strong{font-size:clamp(32px,3.6vw,52px)!important}.v29-story-meter{right:20px!important;top:20px!important;bottom:20px!important}
+
+/* ===== THREE-PAGE CORE — PINNED DOCUMENT STAYS VISIBLE ===== */
+.v33-pages{overflow:visible!important;padding:clamp(120px,13vw,190px) var(--v34-edge) clamp(180px,19vw,280px)!important}
+.v33-pages-intro{max-width:1400px!important;min-height:88vh!important;display:flex!important;flex-direction:column!important;justify-content:center!important;margin:0 0 clamp(84px,11vw,150px)!important}
+.v33-pages-intro h2{font-size:clamp(88px,11.8vw,184px)!important;line-height:.80!important;letter-spacing:-.075em!important;max-width:1380px!important;margin:16px 0 34px!important}
+.v33-pages-intro>p{font-size:clamp(16px,1.45vw,22px)!important;max-width:900px!important}.v33-page-tabs{margin-top:42px!important}
+.v33-pages-body{grid-template-columns:minmax(0,.64fr) minmax(640px,1.36fr)!important;gap:clamp(50px,7vw,125px)!important;align-items:start!important;overflow:visible!important}
+.v33-page-steps{gap:16vh!important;overflow:visible!important}.v33-page-step{min-height:112vh!important;padding:clamp(70px,8vw,110px) 0!important}.v33-page-step h3{font-size:clamp(44px,5vw,74px)!important;max-width:700px!important}.v33-page-step p{font-size:clamp(15px,1.25vw,19px)!important;max-width:660px!important}
+.v33-page-stage{position:sticky!important;top:calc(var(--v34-nav-h) + 18px)!important;height:calc(100vh - var(--v34-nav-h) - 36px)!important;min-height:690px!important;border-radius:32px!important;overflow:hidden!important;z-index:20!important;align-self:start!important}
+.v33-doc-stack{width:520px!important;height:650px!important;top:52%!important}.v33-doc{width:450px!important;height:590px!important;margin:-295px 0 0 -225px!important;padding:34px!important}.v33-doc-top b{font-size:34px!important}.v33-doc-top span{font-size:11px!important}.v33-stage-meta{left:28px!important;top:24px!important}.v33-stage-meta strong{font-size:16px!important}
+
+/* ===== JOBS JOINING STORY — SAME LARGE PINNED MODEL ===== */
+.v33-joining-journey{overflow:visible!important;padding:clamp(120px,13vw,190px) var(--v34-edge) clamp(180px,19vw,280px)!important}
+.v33-journey-head{max-width:1380px!important;min-height:86vh!important;display:flex!important;flex-direction:column!important;justify-content:center!important;margin-bottom:clamp(70px,9vw,125px)!important}
+.v33-journey-head h2{font-size:clamp(82px,10.8vw,168px)!important;line-height:.82!important;letter-spacing:-.07em!important;max-width:1300px!important}.v33-journey-head p{font-size:clamp(16px,1.45vw,22px)!important;max-width:900px!important}
+.v33-journey-body{grid-template-columns:minmax(0,.62fr) minmax(650px,1.38fr)!important;gap:clamp(50px,7vw,120px)!important;align-items:start!important;overflow:visible!important}
+.v33-journey-steps{gap:14vh!important;overflow:visible!important}.v33-journey-step{min-height:108vh!important;padding:clamp(70px,8vw,115px) 0!important}.v33-journey-step h3{font-size:clamp(44px,5.1vw,74px)!important;line-height:.96!important;max-width:720px!important}.v33-journey-step p{font-size:clamp(15px,1.25vw,19px)!important;max-width:680px!important}
+.v33-journey-stage{position:sticky!important;top:calc(var(--v34-nav-h) + 18px)!important;height:calc(100vh - var(--v34-nav-h) - 36px)!important;min-height:690px!important;border-radius:32px!important;overflow:hidden!important;z-index:20!important;align-self:start!important}.v33-journey-core{width:245px!important;height:245px!important;margin:-122px!important}.v33-journey-core strong{font-size:clamp(26px,3.1vw,44px)!important}.v33-journey-ring.ring-1{width:420px!important;height:420px!important;margin:-210px!important}.v33-journey-ring.ring-2{width:570px!important;height:570px!important;margin:-285px!important}.v33-journey-ring.ring-3{width:330px!important;height:330px!important;margin:-165px!important}
+
+/* Add a viewport-safe fade at the bottom of pinned stages instead of clipping the section. */
+.v29-story-visual::after,.v33-page-stage::after,.v33-journey-stage::after{content:"";position:absolute;inset:auto 0 0;height:44px;background:linear-gradient(transparent,rgba(3,13,23,.42));pointer-events:none;z-index:30}
+
+/* Keep hero/header content below fixed nav and visible. */
+.story-hero,.roles-product-hero{scroll-margin-top:calc(var(--v34-nav-h) + 16px)}
+
+/* TABLET: keep animation pinned but allocate ~55% viewport so text remains readable below it. */
+@media(max-width:1100px){
+  :root{--v34-nav-h:72px}
+  .v29-story-shell,.v33-pages-body,.v33-journey-body{grid-template-columns:1fr!important;gap:42px!important}
+  .v29-story-visual,.v33-page-stage,.v33-journey-stage{position:sticky!important;top:calc(var(--v34-nav-h) + 10px)!important;height:54vh!important;min-height:390px!important;max-height:590px!important;order:0!important}
+  .v29-story-steps,.v33-page-steps,.v33-journey-steps{order:1!important;position:relative!important;z-index:25!important}
+  .v29-story-step,.v33-page-step,.v33-journey-step{min-height:78vh!important;padding-top:34vh!important;justify-content:flex-end!important;padding-bottom:9vh!important}
+  .v29-story-intro,.v33-pages-intro,.v33-journey-head{min-height:72vh!important}
+  .v29-story-intro .v29-kinetic-heading,.v33-pages-intro h2,.v33-journey-head h2{font-size:clamp(64px,11vw,116px)!important}
+  .v33-doc-stack{transform:translate(-50%,-50%) scale(.80)!important}
+}
+
+/* PHONES: stage stays visible in upper half while the current step scrolls beneath it. */
+@media(max-width:700px){
+  :root{--v34-nav-h:66px}
+  .story-main-nav .story-nav-inner{min-height:66px!important;padding-left:max(12px,env(safe-area-inset-left))!important;padding-right:max(12px,env(safe-area-inset-right))!important}
+  .v14-jsw-logo,.v34-nav-logo{width:56px!important;height:48px!important;flex-basis:56px!important}.story-brand-copy strong{font-size:10px!important}.story-brand-copy small{display:none!important}
+  .v29-story,.v33-pages,.v33-joining-journey{padding-left:14px!important;padding-right:14px!important}
+  .v29-story-intro,.v33-pages-intro,.v33-journey-head{min-height:64vh!important}
+  .v29-story-intro .v29-kinetic-heading,.v33-pages-intro h2,.v33-journey-head h2{font-size:clamp(54px,15.5vw,86px)!important;line-height:.84!important}
+  .v29-story-visual,.v33-page-stage,.v33-journey-stage{top:calc(var(--v34-nav-h) + 8px)!important;height:46vh!important;min-height:330px!important;max-height:430px!important;border-radius:22px!important}
+  .v29-story-step,.v33-page-step,.v33-journey-step{min-height:74vh!important;padding-top:31vh!important;padding-bottom:7vh!important;justify-content:flex-end!important}
+  .v29-story-step h3,.v33-page-step h3,.v33-journey-step h3{font-size:clamp(32px,9.6vw,48px)!important}.v29-story-step p,.v33-page-step p,.v33-journey-step p{font-size:14px!important;line-height:1.55!important}
+  .v33-doc-stack{transform:translate(-50%,-50%) scale(.56)!important}.v33-journey-core{transform:scale(.72)!important;transform-origin:center}.v33-journey-ring{transform:scale(.78)!important}
+}
+
+@media(prefers-reduced-motion:reduce){.v29-story-visual,.v33-page-stage,.v33-journey-stage{position:relative!important;top:auto!important;height:auto!important;min-height:420px!important}.v29-story-step,.v33-page-step,.v33-journey-step{min-height:auto!important;padding:42px 0!important}.v29-story-intro,.v33-pages-intro,.v33-journey-head{min-height:auto!important;padding:70px 0!important}}
+@media print{.v34-nav-logo{display:none!important}}
