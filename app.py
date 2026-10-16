@@ -1,4 +1,6 @@
 import os
+from functools import lru_cache
+import gzip
 import re
 import sqlite3
 import time
@@ -26,6 +28,11 @@ app.config.update(
 
 
 
+@lru_cache(maxsize=32)
+def compressed_asset(content):
+    return gzip.compress(content,compresslevel=5,mtime=0)
+
+
 @app.after_request
 def security_headers(response):
     """Lightweight app-level headers. A production reverse proxy/WAF should add stricter policy."""
@@ -37,6 +44,15 @@ def security_headers(response):
         response.headers.setdefault('Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400')
     else:
         response.headers.setdefault('Cache-Control', 'no-store' if request.path.startswith('/admin') or request.path == '/login' else 'private, max-age=0')
+    if request.path.startswith('/static/') and response.status_code==200 and not request.headers.get('Range') and response.mimetype in ('text/css','application/javascript','text/javascript') and request.accept_encodings['gzip']>0:
+        import gzip
+        response.direct_passthrough=False
+        content=response.get_data()
+        if len(content)>1024:
+            response.set_data(compressed_asset(content))
+            response.headers['Content-Encoding']='gzip'
+            response.vary.add('Accept-Encoding')
+            if response.get_etag()[0]:response.set_etag(response.get_etag()[0],weak=True)
     return response
 
 # Demo-friendly fallback. Set ADMIN_PASSWORD in the environment before real deployment.
@@ -125,6 +141,7 @@ def ensure_applicant_schema(conn):
         'qualification_marks': 'TEXT', 'qualification_percentage': 'TEXT', 'qualification_grade': 'TEXT', 'qualification_year': 'TEXT',
         'assessment_company': 'TEXT', 'assessment_location': 'TEXT',
         'appointment_salary': 'TEXT', 'appointment_issue_date': 'TEXT', 'appointment_location': 'TEXT',
+        'appointment_breakup': 'TEXT',
         'father_age': 'TEXT', 'father_education': 'TEXT', 'father_occupation': 'TEXT', 'father_income': 'TEXT',
         'mother_age': 'TEXT', 'mother_education': 'TEXT', 'mother_occupation': 'TEXT', 'mother_income': 'TEXT'
     }
@@ -312,6 +329,8 @@ def require_admin():
 
 def init_db():
     conn = get_db()
+    # WAL lets readers continue while a short write transaction commits.
+    conn.execute('PRAGMA journal_mode=WAL')
     conn.execute('''CREATE TABLE IF NOT EXISTS applicants (
         id INTEGER PRIMARY KEY AUTOINCREMENT, full_name TEXT, mobile TEXT, qualification TEXT,
         contractor TEXT, requested_role TEXT, skill_level TEXT, dob TEXT, aadhar TEXT, doj TEXT,
@@ -629,30 +648,8 @@ def contact():
 @app.route('/api/motion-room/stream')
 def motion_room_stream():
     """Server-Sent Events stream for anonymous shared animation pulses."""
-    q = Queue(maxsize=24)
-    with MOTION_CLIENTS_LOCK:
-        MOTION_CLIENTS.add(q)
-    motion_room_broadcast('presence', {'count': motion_room_count()})
-
-    @stream_with_context
-    def generate():
-        try:
-            yield 'retry: 3000\n\n'
-            while True:
-                try:
-                    packet = q.get(timeout=15)
-                    yield f"event: {packet['event']}\ndata: {json.dumps(packet['payload'], separators=(',', ':'))}\n\n"
-                except Empty:
-                    yield ': keep-alive\n\n'
-        finally:
-            with MOTION_CLIENTS_LOCK:
-                MOTION_CLIENTS.discard(q)
-            motion_room_broadcast('presence', {'count': motion_room_count()})
-
-    response = Response(generate(), mimetype='text/event-stream')
-    response.headers['Cache-Control'] = 'no-cache, no-transform'
-    response.headers['X-Accel-Buffering'] = 'no'
-    return response
+    # Decorative live streams must not occupy a request thread per visitor.
+    return Response(status=204)
 
 
 @app.route('/api/motion-room/pulse', methods=['POST'])
@@ -750,8 +747,10 @@ def admin_dashboard():
         sql += ' AND (full_name LIKE ? OR mobile LIKE ? OR aadhar LIKE ? OR requested_role LIKE ? OR designation LIKE ?)'
         wildcard = f'%{search_query}%'
         params.extend([wildcard] * 5)
-    sql += ' ORDER BY id DESC'
-    applicants = conn.execute(sql, params).fetchall()
+    matching_count=conn.execute(sql.replace('SELECT *','SELECT COUNT(*)'),params).fetchone()[0]
+    pages=max(1,(matching_count+24)//25);page=max(1,min(request.args.get('page',1,type=int),pages))
+    sql += ' ORDER BY id DESC LIMIT 25 OFFSET ?'
+    applicants = conn.execute(sql, params+[(page-1)*25]).fetchall()
 
     rows = conn.execute('SELECT status FROM applicants').fetchall()
     total = len(rows)
@@ -766,7 +765,7 @@ def admin_dashboard():
     return render_template('admin.html', applicants=applicants, total=total, pending=pending,
                            form_ready=form_ready, approved=approved, selected_contractor=selected_contractor,
                            search_query=search_query, roles=roles, news=news, messages=messages,
-                           messages_count=len(messages))
+                           messages_count=len(messages),matching_count=matching_count,page=page,pages=pages)
 
 
 @app.route('/admin/applicant/create', methods=['POST'])
@@ -1149,6 +1148,7 @@ def process_applicant_save_json(id):
             'ok': True,
             'message': 'Candidate record saved.',
             'print_url': url_for('print_form', id=id),
+            'appointment_url': url_for('appointment_letter', id=id),
             'process_url': url_for('process_applicant', id=id)
         })
     except ValueError as exc:
@@ -1196,6 +1196,11 @@ def process_applicant(id):
             })
         if action == 'generate':
             return redirect(url_for('print_form', id=id))
+        if action == 'appointment':
+            conn = get_db()
+            row = conn.execute('SELECT contractor FROM applicants WHERE id=?', (id,)).fetchone()
+            conn.close()
+            return redirect(url_for('appointment_workspace', contractor=row['contractor'] if row else '', candidate_id=id))
         flash('Candidate record saved.', 'success')
         return redirect(url_for('process_applicant', id=id))
 
@@ -1230,15 +1235,78 @@ def appointment_letter(id):
     conn.close()
     if candidate is None:
         abort(404)
-    required = ('full_name', 'contractor', 'doj', 'appointment_salary',
-                'appointment_issue_date', 'appointment_location')
-    if candidate['status'] != 'Joined' or any(not candidate[key] for key in required):
-        flash('Mark the candidate Joined and save the joining date, salary, letter date and reporting location first.', 'error')
-        return redirect(url_for('process_applicant', id=id))
-    from appointment_pdf import make_appointment_pdf
-    return send_file(make_appointment_pdf(candidate), mimetype='application/pdf',
-                     as_attachment=True, download_name=f'appointment_{id}.pdf')
+    return redirect(url_for('appointment_workspace', contractor=candidate['contractor'], candidate_id=id))
+
+
+@app.route('/admin/appointments', methods=['GET', 'POST'])
+def appointment_workspace():
+    auth = require_admin()
+    if auth:
+        return auth
+    contractor = (request.values.get('contractor') or '').strip()
+    if contractor and contractor not in CONTRACTORS:
+        abort(400)
+    conn = get_db()
+    ensure_applicant_schema(conn)
+    if request.method == 'POST':
+        try:
+            candidate_id = int(request.form.get('candidate_id', ''))
+        except ValueError:
+            candidate_id = -1
+        candidate = conn.execute('SELECT * FROM applicants WHERE id=? AND contractor=? AND status=?',
+                                 (candidate_id, contractor, 'Joined')).fetchone()
+        if candidate is None:
+            conn.close()
+            flash('Choose a Joined candidate from the selected contractor.', 'error')
+            return redirect(url_for('appointment_workspace', contractor=contractor))
+        salary = clean_text(request.form.get('appointment_salary'), max_len=100)
+        from appointment_pdf import PAY_FIELDS, compensation_totals
+        breakup = {key: clean_text(request.form.get(key), max_len=30) for key, _ in PAY_FIELDS}
+        if request.form.get('auto_totals')=='yes':
+            try:salary,breakup['total_deduction'],breakup['take_home']=compensation_totals(breakup)
+            except ValueError as e:
+                conn.close();flash(str(e),'error')
+                return redirect(url_for('appointment_workspace',contractor=contractor,candidate_id=candidate_id))
+        person_name = clean_text(request.form.get('full_name'), max_len=180)
+        designation = clean_text(request.form.get('designation'), max_len=120)
+        birth_date = clean_text(request.form.get('dob'), max_len=20)
+        location = clean_text(request.form.get('appointment_location'), max_len=180)
+        issue_date = clean_text(request.form.get('appointment_issue_date'), max_len=20)
+        joining_date = clean_text(request.form.get('doj'), max_len=20)
+        if not all((person_name, designation, birth_date, salary, location, issue_date, joining_date)):
+            conn.close()
+            flash('Enter name, designation, date of birth, CTC, letter date, joining date and reporting location.', 'error')
+            return redirect(url_for('appointment_workspace', contractor=contractor, candidate_id=candidate_id))
+        try:
+            datetime.strptime(issue_date, '%Y-%m-%d')
+            datetime.strptime(joining_date, '%Y-%m-%d')
+            datetime.strptime(birth_date, '%Y-%m-%d')
+        except ValueError:
+            conn.close()
+            flash('Enter valid letter and joining dates.', 'error')
+            return redirect(url_for('appointment_workspace', contractor=contractor, candidate_id=candidate_id))
+        conn.execute('''UPDATE applicants SET full_name=?, designation=?, dob=?, appointment_salary=?,
+                        appointment_issue_date=?, appointment_location=?, doj=?, appointment_breakup=? WHERE id=?''',
+                     (person_name, designation, birth_date, salary, issue_date, location,
+                      joining_date, json.dumps(breakup), candidate_id))
+        conn.commit()
+        candidate = conn.execute('SELECT * FROM applicants WHERE id=?', (candidate_id,)).fetchone()
+        conn.close()
+        from appointment_pdf import make_appointment_pdf
+        return send_file(make_appointment_pdf(candidate), mimetype='application/pdf',
+                         as_attachment=True, download_name=f'appointment_{candidate_id}.pdf')
+
+    candidates = (conn.execute('''SELECT * FROM applicants WHERE contractor=? AND status='Joined'
+                                 ORDER BY full_name, id''', (contractor,)).fetchall() if contractor else [])
+    conn.close()
+    return render_template('admin_appointments.html', contractors=CONTRACTORS,
+                           contractor=contractor, candidates=candidates,
+                           selected_id=request.args.get('candidate_id', type=int))
+
+
+# Billing & Payroll module intentionally disabled in this admin portal build.
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=os.environ.get('FLASK_DEBUG', '0') == '1')
+    from portal_server import run_portal
+    run_portal(app)

@@ -1,0 +1,12 @@
+1. Put this folder inside your FULL animated project folder (same project where app.py exists).
+2. Double-click RUN_GUIDE_3PAGE_FIX.bat.
+3. Restart Flask and refresh the homepage.
+
+This fix does NOT remove any existing animation.
+It only adds:
+- Real 4-step Animated Workforce Guide
+- Fixed Previous / Next buttons
+- Direct page 1 / 2 / 3 buttons
+- Full details for each joining page
+
+Billing, Admin, database, RAMCO, Print, Appointment Letters and candidate records are untouched.
