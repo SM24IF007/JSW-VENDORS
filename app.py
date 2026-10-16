@@ -56,7 +56,7 @@ def security_headers(response):
     return response
 
 # Demo-friendly fallback. Set ADMIN_PASSWORD in the environment before real deployment.
-ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'devaenterprises@123')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', '982288')
 ALLOWED_STATUSES = {'New Request', 'Form Ready', 'Processed', 'Approved', 'Joined'}
 CONTRACTORS = ('Deva Enterprises', 'Shubham Services', 'Prabhuram & Bichare')
 TOTAL_MANPOWER = 400  # Project-provided combined current manpower figure.
